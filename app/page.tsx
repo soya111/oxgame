@@ -100,6 +100,7 @@ export default function Home() {
   const [phase, setPhase] = useState<Phase>("playing");
   const [flagMode, setFlagMode] = useState(false);
   const [misses, setMisses] = useState(0);
+  const [clicks, setClicks] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState<string[]>([]);
   const [answer, setAnswer] = useState("");
 
@@ -112,6 +113,7 @@ export default function Home() {
     setPhase("playing");
     setFlagMode(false);
     setMisses(0);
+    setClicks(0);
     setWrongAnswers([]);
     setAnswer("");
   };
@@ -123,9 +125,6 @@ export default function Home() {
   const countAround = (r: number, c: number) =>
     neighbors(r, c).filter(([nr, nc]) => isMine(nr, nc)).length;
 
-  const openedCount = Object.entries(cells).filter(
-    ([k, s]) => s === "open" && !mines.has(GRID[Math.floor(+k / COLS)][+k % COLS]!),
-  ).length;
   const flagged = GRID.flatMap((row, r) =>
     row.flatMap((ch, c) => (ch && cells[key(r, c)] === "flag" ? [ch] : [])),
   );
@@ -133,10 +132,28 @@ export default function Home() {
     row.flatMap((ch, c) => (ch && cells[key(r, c)] === "open" && isMine(r, c) ? [ch] : [])),
   );
 
-  // 開けたマス数がスコアになるので、連鎖して開けずに1マスずつ開ける
   const open = (r: number, c: number) => {
-    if (isMine(r, c)) setMisses((m) => m + 1);
-    setCells({ ...cells, [key(r, c)]: "open" });
+    setClicks((n) => n + 1);
+    const next = { ...cells };
+    if (isMine(r, c)) {
+      next[key(r, c)] = "open";
+      setMisses((m) => m + 1);
+    } else {
+      // 周囲に爆弾がないマスは連鎖的に開ける
+      const stack: [number, number][] = [[r, c]];
+      while (stack.length) {
+        const [cr, cc] = stack.pop()!;
+        const k = key(cr, cc);
+        if (next[k] === "open") continue;
+        next[k] = "open";
+        if (countAround(cr, cc) === 0) {
+          for (const [nr, nc] of neighbors(cr, cc)) {
+            if (next[key(nr, nc)] !== "open" && next[key(nr, nc)] !== "flag") stack.push([nr, nc]);
+          }
+        }
+      }
+    }
+    setCells(next);
   };
 
   const handleCell = (r: number, c: number, toggleFlag: boolean) => {
@@ -172,7 +189,7 @@ export default function Home() {
         <h1 className="text-2xl sm:text-3xl font-bold">五十音表マインスイーパ</h1>
         <p className="mt-2 text-sm opacity-70 max-w-md">
           五十音表のどこかに爆弾が隠れています。爆弾の文字を並べ替えると言葉になります。
-          開けたマスの数字（周囲8マスの爆弾の数）を手がかりに、なるべく少ないマスで言葉を当てよう！
+          開けたマスの数字（周囲8マスの爆弾の数）を手がかりに、なるべく少ない手数で言葉を当てよう！
         </p>
       </header>
 
@@ -185,7 +202,7 @@ export default function Home() {
             文字数：<b>{puzzle.word.length}</b>（爆弾 {puzzle.word.length} 個）
           </span>
           <span>
-            開けたマス：<b>{openedCount}</b>
+            手数：<b>{clicks}</b>
           </span>
           <span className={misses ? "text-red-500" : ""}>
             爆発：<b>{misses}</b>
@@ -291,7 +308,7 @@ export default function Home() {
             </p>
             {phase === "clear" && (
               <p className="text-sm mt-1 opacity-80">
-                開けたマス {openedCount} ／ 爆発 {misses} ／ 誤答 {wrongAnswers.length}
+                手数 {clicks} ／ 爆発 {misses} ／ 誤答 {wrongAnswers.length}
               </p>
             )}
           </div>
