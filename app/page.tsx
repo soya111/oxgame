@@ -1,163 +1,329 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-type Player = "O" | "X";
-type Board = (Player | null)[];
-type Mode = "vanish" | "classic";
+// 五十音表。列は右から あ行→ん の順に並べ、各列は上から あ段→お段。
+// null は表の空欄（マスが存在しない）。
+const COLUMNS: (string | null)[][] = [
+  ["あ", "い", "う", "え", "お"],
+  ["か", "き", "く", "け", "こ"],
+  ["さ", "し", "す", "せ", "そ"],
+  ["た", "ち", "つ", "て", "と"],
+  ["な", "に", "ぬ", "ね", "の"],
+  ["は", "ひ", "ふ", "へ", "ほ"],
+  ["ま", "み", "む", "め", "も"],
+  ["や", null, "ゆ", null, "よ"],
+  ["ら", "り", "る", "れ", "ろ"],
+  ["わ", null, null, null, "を"],
+  ["ん", null, null, null, null],
+];
+const ROWS = 5;
+const COLS = COLUMNS.length;
 
-// 消える○×ゲームで各プレイヤーが盤面に置ける最大数
-const MAX_MARKS = 3;
+// 画面上の (row, col) で引く。col 0 が左端なので右から並ぶよう反転する。
+const GRID: (string | null)[][] = Array.from({ length: ROWS }, (_, r) =>
+  Array.from({ length: COLS }, (_, c) => COLUMNS[COLS - 1 - c][r]),
+);
 
-const LINES = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
+// 爆弾になる文字＝答えの言葉。清音のみ・同じ文字を含まない言葉に限る。
+const WORDS: { word: string; hint: string }[] = [
+  { word: "さくら", hint: "花" },
+  { word: "すみれ", hint: "花" },
+  { word: "ひまわり", hint: "花" },
+  { word: "すいか", hint: "果物" },
+  { word: "みかん", hint: "果物" },
+  { word: "めろん", hint: "果物" },
+  { word: "かえる", hint: "生き物" },
+  { word: "きつね", hint: "生き物" },
+  { word: "たぬき", hint: "生き物" },
+  { word: "らいおん", hint: "生き物" },
+  { word: "ふくろう", hint: "鳥" },
+  { word: "からす", hint: "鳥" },
+  { word: "かもめ", hint: "鳥" },
+  { word: "にわとり", hint: "鳥" },
+  { word: "つくえ", hint: "身の回りの物" },
+  { word: "とけい", hint: "身の回りの物" },
+  { word: "はさみ", hint: "身の回りの物" },
+  { word: "まくら", hint: "身の回りの物" },
+  { word: "そうめん", hint: "食べ物" },
+  { word: "たこやき", hint: "食べ物" },
+  { word: "さしみ", hint: "食べ物" },
+  { word: "おきなわ", hint: "都道府県" },
+  { word: "あおもり", hint: "都道府県" },
+  { word: "いわて", hint: "都道府県" },
+  { word: "とやま", hint: "都道府県" },
+  { word: "ふくい", hint: "都道府県" },
+  { word: "くまもと", hint: "都道府県" },
+  { word: "しまね", hint: "都道府県" },
+  { word: "ひろしま", hint: "都道府県" },
+  { word: "やまなし", hint: "都道府県" },
+  { word: "あきた", hint: "都道府県" },
+  { word: "たいふう", hint: "天気" },
+  { word: "かみなり", hint: "天気" },
+  { word: "ひこうき", hint: "乗り物" },
+  { word: "くるま", hint: "乗り物" },
+  { word: "ちかてつ", hint: "乗り物" },
+  { word: "すもう", hint: "スポーツ" },
+  { word: "てにす", hint: "スポーツ" },
 ];
 
+type CellState = "hidden" | "open" | "flag";
+type Phase = "playing" | "clear" | "giveup";
+
+const key = (r: number, c: number) => r * COLS + c;
+
+function neighbors(r: number, c: number): [number, number][] {
+  const result: [number, number][] = [];
+  for (let dr = -1; dr <= 1; dr++) {
+    for (let dc = -1; dc <= 1; dc++) {
+      if (!dr && !dc) continue;
+      const nr = r + dr;
+      const nc = c + dc;
+      if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && GRID[nr][nc]) {
+        result.push([nr, nc]);
+      }
+    }
+  }
+  return result;
+}
+
+// カタカナをひらがなに揃え、空白を除く
+function normalize(s: string): string {
+  return s
+    .replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60))
+    .replace(/\s/g, "");
+}
+
 export default function Home() {
-  const [mode, setMode] = useState<Mode>("vanish");
-  // 各プレイヤーが置いたマスのインデックスを古い順に保持する
-  const [moves, setMoves] = useState<Record<Player, number[]>>({ O: [], X: [] });
-  const [current, setCurrent] = useState<Player>("O");
-  const [score, setScore] = useState({ O: 0, X: 0, draw: 0 });
+  // 乱数による水和ずれを避けるため、出題はマウント後に決める
+  const [puzzle, setPuzzle] = useState<(typeof WORDS)[number] | null>(null);
+  const [cells, setCells] = useState<Record<number, CellState>>({});
+  const [phase, setPhase] = useState<Phase>("playing");
+  const [flagMode, setFlagMode] = useState(false);
+  const [misses, setMisses] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState<string[]>([]);
+  const [answer, setAnswer] = useState("");
 
-  const board = buildBoard(moves);
-  const result = calculateWinner(board);
-  const isDraw = !result && mode === "classic" && board.every(Boolean);
-  const isOver = Boolean(result) || isDraw;
+  const newGame = () => {
+    setPuzzle((prev) => {
+      const pool = WORDS.filter((w) => w.word !== prev?.word);
+      return pool[Math.floor(Math.random() * pool.length)];
+    });
+    setCells({});
+    setPhase("playing");
+    setFlagMode(false);
+    setMisses(0);
+    setWrongAnswers([]);
+    setAnswer("");
+  };
 
-  // 次に置くと消えるマス（次の手番のプレイヤーの一番古いマーク）
-  const vanishing =
-    mode === "vanish" && !isOver && moves[current].length >= MAX_MARKS
-      ? moves[current][0]
-      : null;
+  useEffect(newGame, []);
 
-  const handleClick = (index: number) => {
-    if (board[index] || isOver) return;
-    let mine = [...moves[current], index];
-    if (mode === "vanish" && mine.length > MAX_MARKS) mine = mine.slice(1);
-    const next = { ...moves, [current]: mine };
-    setMoves(next);
+  const mines = useMemo(() => new Set(puzzle ? Array.from(puzzle.word) : []), [puzzle]);
+  const isMine = (r: number, c: number) => mines.has(GRID[r][c]!);
+  const countAround = (r: number, c: number) =>
+    neighbors(r, c).filter(([nr, nc]) => isMine(nr, nc)).length;
 
-    const nextBoard = buildBoard(next);
-    const winner = calculateWinner(nextBoard);
-    if (winner) {
-      setScore((s) => ({ ...s, [winner.player]: s[winner.player] + 1 }));
-    } else if (mode === "classic" && nextBoard.every(Boolean)) {
-      setScore((s) => ({ ...s, draw: s.draw + 1 }));
-    } else {
-      setCurrent(current === "O" ? "X" : "O");
+  const openedCount = Object.entries(cells).filter(
+    ([k, s]) => s === "open" && !mines.has(GRID[Math.floor(+k / COLS)][+k % COLS]!),
+  ).length;
+  const flagged = GRID.flatMap((row, r) =>
+    row.flatMap((ch, c) => (ch && cells[key(r, c)] === "flag" ? [ch] : [])),
+  );
+  const exploded = GRID.flatMap((row, r) =>
+    row.flatMap((ch, c) => (ch && cells[key(r, c)] === "open" && isMine(r, c) ? [ch] : [])),
+  );
+
+  // 開けたマス数がスコアになるので、連鎖して開けずに1マスずつ開ける
+  const open = (r: number, c: number) => {
+    if (isMine(r, c)) setMisses((m) => m + 1);
+    setCells({ ...cells, [key(r, c)]: "open" });
+  };
+
+  const handleCell = (r: number, c: number, toggleFlag: boolean) => {
+    if (phase !== "playing") return;
+    const k = key(r, c);
+    const state = cells[k] ?? "hidden";
+    if (state === "open") return;
+    if (toggleFlag) {
+      setCells({ ...cells, [k]: state === "flag" ? "hidden" : "flag" });
+    } else if (state === "hidden") {
+      open(r, c);
     }
   };
 
-  const reset = () => {
-    setMoves({ O: [], X: [] });
-    setCurrent("O");
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!puzzle || phase !== "playing") return;
+    const guess = normalize(answer);
+    if (!guess) return;
+    if (guess === puzzle.word) {
+      setPhase("clear");
+    } else {
+      setWrongAnswers((w) => [...w, guess]);
+    }
+    setAnswer("");
   };
 
-  const changeMode = (m: Mode) => {
-    setMode(m);
-    setMoves({ O: [], X: [] });
-    setCurrent("O");
-    setScore({ O: 0, X: 0, draw: 0 });
-  };
-
-  const status = result
-    ? `${result.player} の勝ち！`
-    : isDraw
-      ? "引き分け"
-      : `${current} の番です`;
+  const finished = phase !== "playing";
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-4">
-      <h1 className="text-3xl font-bold">
-        {mode === "vanish" ? "消える○×ゲーム" : "○×ゲーム"}
-      </h1>
-
-      <div className="flex rounded-full bg-black/10 dark:bg-white/10 p-1 text-sm">
-        {(["vanish", "classic"] as Mode[]).map((m) => (
-          <button
-            key={m}
-            onClick={() => changeMode(m)}
-            className={`px-4 py-1.5 rounded-full transition ${
-              mode === m ? "bg-white text-black shadow" : "opacity-70"
-            }`}
-          >
-            {m === "vanish" ? "消えるモード" : "通常モード"}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex gap-6 text-lg">
-        <span className="text-rose-500 font-semibold">O: {score.O}</span>
-        <span className="text-sky-500 font-semibold">X: {score.X}</span>
-        {mode === "classic" && <span className="opacity-70">引分: {score.draw}</span>}
-      </div>
-
-      <div
-        className={`text-xl font-semibold ${
-          result ? (result.player === "O" ? "text-rose-500" : "text-sky-500") : ""
-        }`}
-      >
-        {status}
-      </div>
-
-      <div className="grid grid-cols-3 gap-2 w-[min(90vw,360px)] aspect-square">
-        {board.map((cell, i) => {
-          const winning = result?.line.includes(i);
-          const fading = vanishing === i;
-          return (
-            <button
-              key={i}
-              onClick={() => handleClick(i)}
-              aria-label={`マス ${i + 1}`}
-              className={`rounded-xl text-6xl font-bold flex items-center justify-center transition
-                bg-white/70 dark:bg-white/10 shadow-sm
-                ${!cell && !isOver ? "hover:bg-white dark:hover:bg-white/20" : ""}
-                ${winning ? "ring-4 ring-yellow-400" : ""}
-                ${cell === "O" ? "text-rose-500" : "text-sky-500"}
-                ${fading ? "opacity-30 animate-pulse" : ""}`}
-            >
-              {cell === "O" ? "○" : cell === "X" ? "×" : ""}
-            </button>
-          );
-        })}
-      </div>
-
-      {mode === "vanish" && (
-        <p className="text-sm opacity-70 text-center max-w-xs">
-          置けるのは1人{MAX_MARKS}つまで。4つ目を置くと一番古いマークが消えます（薄く点滅しているマーク）。
+    <main className="min-h-screen flex flex-col items-center gap-5 px-4 py-8">
+      <header className="text-center">
+        <h1 className="text-2xl sm:text-3xl font-bold">五十音表マインスイーパ</h1>
+        <p className="mt-2 text-sm opacity-70 max-w-md">
+          五十音表のどこかに爆弾が隠れています。爆弾の文字を並べ替えると言葉になります。
+          開けたマスの数字（周囲8マスの爆弾の数）を手がかりに、なるべく少ないマスで言葉を当てよう！
         </p>
+      </header>
+
+      {puzzle && (
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm">
+          <span>
+            ヒント：<b>{puzzle.hint}</b>
+          </span>
+          <span>
+            文字数：<b>{puzzle.word.length}</b>（爆弾 {puzzle.word.length} 個）
+          </span>
+          <span>
+            開けたマス：<b>{openedCount}</b>
+          </span>
+          <span className={misses ? "text-red-500" : ""}>
+            爆発：<b>{misses}</b>
+          </span>
+        </div>
       )}
 
-      <button
-        onClick={reset}
-        className="px-6 py-2 rounded-full bg-black text-white dark:bg-white dark:text-black font-semibold"
-      >
-        {isOver ? "もう一度" : "リセット"}
-      </button>
+      <div className="w-full max-w-2xl overflow-x-auto">
+        <div
+          className="grid gap-1 mx-auto"
+          style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`, minWidth: 330 }}
+        >
+          {GRID.map((row, r) =>
+            row.map((ch, c) => {
+              if (!ch) return <div key={key(r, c)} />;
+              const state = cells[key(r, c)] ?? "hidden";
+              const mine = isMine(r, c);
+              const showMine = (state === "open" && mine) || (finished && mine);
+              const n = state === "open" && !mine ? countAround(r, c) : 0;
+              return (
+                <button
+                  key={key(r, c)}
+                  onClick={() => handleCell(r, c, flagMode)}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    handleCell(r, c, true);
+                  }}
+                  aria-label={ch}
+                  className={`relative aspect-square rounded-md select-none flex flex-col items-center justify-center leading-none transition
+                    ${
+                      showMine
+                        ? state === "open" && !finished
+                          ? "bg-red-500 text-white"
+                          : "bg-amber-400 text-black"
+                        : state === "open"
+                          ? "bg-white/60 dark:bg-white/5"
+                          : "bg-slate-600 text-white hover:bg-slate-500 dark:bg-slate-700 dark:hover:bg-slate-600"
+                    }`}
+                >
+                  <span
+                    className={`text-[11px] sm:text-sm ${
+                      state === "open" && !mine ? "opacity-50" : ""
+                    }`}
+                  >
+                    {ch}
+                  </span>
+                  <span className="text-sm sm:text-lg font-bold h-5 sm:h-6 flex items-center">
+                    {showMine ? "💣" : state === "flag" ? "🚩" : n > 0 ? <Num n={n} /> : ""}
+                  </span>
+                </button>
+              );
+            }),
+          )}
+        </div>
+      </div>
+
+      {!finished && (
+        <button
+          onClick={() => setFlagMode((f) => !f)}
+          className={`px-4 py-1.5 rounded-full text-sm border transition ${
+            flagMode ? "bg-red-500 text-white border-red-500" : "border-current opacity-80"
+          }`}
+        >
+          {flagMode ? "🚩 旗モード（タップで旗）" : "⛏ 開けるモード（右クリックで旗）"}
+        </button>
+      )}
+
+      {(flagged.length > 0 || exploded.length > 0) && !finished && (
+        <div className="text-sm flex flex-wrap gap-2 justify-center items-center">
+          <span className="opacity-70">爆弾候補：</span>
+          {[...exploded, ...flagged].map((ch) => (
+            <span
+              key={ch}
+              className="px-2 py-0.5 rounded bg-amber-400/80 text-black font-semibold"
+            >
+              {ch}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {phase === "playing" ? (
+        <form onSubmit={submit} className="flex gap-2 w-full max-w-sm">
+          <input
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="答えをひらがなで入力"
+            className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-slate-300 bg-white text-black"
+          />
+          <button className="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black font-semibold">
+            解答
+          </button>
+        </form>
+      ) : (
+        puzzle && (
+          <div className="text-center">
+            <p
+              className={`text-2xl font-bold ${
+                phase === "clear" ? "text-emerald-500" : "text-red-500"
+              }`}
+            >
+              {phase === "clear" ? "正解！" : "答え"}：{puzzle.word}
+            </p>
+            {phase === "clear" && (
+              <p className="text-sm mt-1 opacity-80">
+                開けたマス {openedCount} ／ 爆発 {misses} ／ 誤答 {wrongAnswers.length}
+              </p>
+            )}
+          </div>
+        )
+      )}
+
+      {wrongAnswers.length > 0 && phase === "playing" && (
+        <p className="text-sm text-red-500">不正解：{wrongAnswers.join("、")}</p>
+      )}
+
+      <div className="flex gap-3">
+        {phase === "playing" && (
+          <button
+            onClick={() => setPhase("giveup")}
+            className="px-4 py-2 rounded-full text-sm border border-current opacity-70"
+          >
+            あきらめる
+          </button>
+        )}
+        <button
+          onClick={newGame}
+          className="px-5 py-2 rounded-full text-sm bg-black text-white dark:bg-white dark:text-black font-semibold"
+        >
+          次の問題
+        </button>
+      </div>
     </main>
   );
 }
 
-function buildBoard(moves: Record<Player, number[]>): Board {
-  const board: Board = Array(9).fill(null);
-  moves.O.forEach((i) => (board[i] = "O"));
-  moves.X.forEach((i) => (board[i] = "X"));
-  return board;
-}
+const NUM_COLORS = ["", "text-blue-600", "text-green-600", "text-red-600", "text-purple-700"];
 
-function calculateWinner(board: Board): { player: Player; line: number[] } | null {
-  for (const line of LINES) {
-    const [a, b, c] = line;
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      return { player: board[a] as Player, line };
-    }
-  }
-  return null;
+function Num({ n }: { n: number }) {
+  return <span className={NUM_COLORS[n] ?? "text-rose-800"}>{n}</span>;
 }

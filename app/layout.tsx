@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "消える○×ゲーム",
-  description: "3つまでしか置けない○×ゲーム",
+  title: "五十音表マインスイーパ",
+  description: "爆弾の文字から言葉を当てる五十音表のマインスイーパ",
 };
 
 export default function RootLayout({
