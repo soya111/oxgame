@@ -162,7 +162,7 @@ class Energy {
         const Piece& B = pc_[j];
         double dx = B.cx - A.cx, dy = B.cy - A.cy;
         if (dx * dx + dy * dy >= reach2) continue;
-        Sat sat = SatGap(A, B);
+        Sat sat = SatGap(A, B, need);
         if (sat.gap >= need) continue;
         double* gA = gq + 3 * i;
         double* gB = gq + 3 * j;
@@ -177,6 +177,46 @@ class Energy {
     }
     *gS = gs;
     return E;
+  }
+
+  struct Sat {
+    double gap;
+    int owner, axis, upper, vu, vl;  // axis = owner's edge normal; upper/lower piece vertices
+  };
+
+  // Largest separation over the six edge normals (negative = penetration depth).
+  // Returns early, with some separation >= stop, once the pieces are known to
+  // be at least `stop` apart.
+  static Sat SatGap(const Piece& A, const Piece& B, double stop = 1e300) {
+    Sat s{-1e300, 0, 0, 0, 0, 0};
+    for (int o = 0; o < 2; o++) {
+      const Piece& O = o ? B : A;  // axis owner
+      const Piece& X = o ? A : B;
+      for (int k = 0; k < 3; k++) {
+        double ux = O.ex[k], uy = O.ey[k];
+        int k1 = k == 2 ? 0 : k + 1;
+        double oMax = O.vx[k] * ux + O.vy[k] * uy;    // the owner's vertex k leads along its own axis
+        double oMin = O.vx[k1] * ux + O.vy[k1] * uy;  // the opposite edge trails
+        double px[3];
+        for (int t = 0; t < 3; t++) px[t] = X.vx[t] * ux + X.vy[t] * uy;
+        int xMin = 0, xMax = 0;
+        for (int t = 1; t < 3; t++) {
+          if (px[t] < px[xMin]) xMin = t;
+          if (px[t] > px[xMax]) xMax = t;
+        }
+        double s1 = px[xMin] - oMax;  // X beyond O along u
+        if (s1 > s.gap) {
+          s = {s1, o, k, o == 0 ? 1 : 0, xMin, k};
+          if (s1 >= stop) return s;
+        }
+        double s2 = oMin - px[xMax];  // O beyond X along u
+        if (s2 > s.gap) {
+          s = {s2, o, k, o == 0 ? 0 : 1, k1, xMax};
+          if (s2 >= stop) return s;
+        }
+      }
+    }
+    return s;
   }
 
   // Smallest separating-axis gap between pieces and smallest vertex-to-wall distance.
@@ -195,38 +235,6 @@ class Energy {
   }
 
  private:
-  struct Sat {
-    double gap;
-    int owner, axis, upper, vu, vl;  // axis = owner's edge normal; upper/lower piece vertices
-  };
-
-  static Sat SatGap(const Piece& A, const Piece& B) {
-    Sat s{-1e300, 0, 0, 0, 0, 0};
-    for (int o = 0; o < 2; o++) {
-      const Piece& O = o ? B : A;
-      for (int k = 0; k < 3; k++) {
-        double ux = O.ex[k], uy = O.ey[k];
-        double pa[3], pb[3];
-        for (int t = 0; t < 3; t++) {
-          pa[t] = A.vx[t] * ux + A.vy[t] * uy;
-          pb[t] = B.vx[t] * ux + B.vy[t] * uy;
-        }
-        int aMin = 0, aMax = 0, bMin = 0, bMax = 0;
-        for (int t = 1; t < 3; t++) {
-          if (pa[t] < pa[aMin]) aMin = t;
-          if (pa[t] > pa[aMax]) aMax = t;
-          if (pb[t] < pb[bMin]) bMin = t;
-          if (pb[t] > pb[bMax]) bMax = t;
-        }
-        double s1 = pb[bMin] - pa[aMax];  // B beyond A along u
-        if (s1 > s.gap) s = {s1, o, k, 1, bMin, aMax};
-        double s2 = pa[aMin] - pb[bMax];  // A beyond B along u
-        if (s2 > s.gap) s = {s2, o, k, 0, aMin, bMax};
-      }
-    }
-    return s;
-  }
-
   // Adds c * d(gap)/d(q) for the separating-axis gap recorded in `s`.
   static void AddSatGradient(const Piece& A, const Piece& B, double R, const Sat& s, double c, double* gA,
                              double* gB) {
@@ -411,8 +419,9 @@ void Rescale(Packing& p, double newS) {
   p.S = newS;
 }
 
-enum Move { kJitter, kLocal, kFlip, kRelocate, kRotateCluster, kShear, kSwap, kBlob, kNumMoves };
-const char* kMoveNames[kNumMoves] = {"jitter", "local", "flip", "relocate", "rotate", "shear", "swap", "blob"};
+enum Move { kJitter, kLocal, kFlip, kRelocate, kRotateCluster, kShear, kSwap, kBlob, kRegion, kNumMoves };
+const char* kMoveNames[kNumMoves] = {"jitter", "local", "flip",  "relocate", "rotate",
+                                     "shear",  "swap",  "blob", "region"};
 
 class Searcher {
  public:
@@ -524,6 +533,42 @@ class Searcher {
       p.q.push_back(sites[i][1] + G(0.01));
       p.q.push_back(sites[i][2] + G(0.03));
     }
+    return p;
+  }
+
+  // Full lattice of side k with a disordered disk: sites near a random center
+  // are dropped and the remaining budget of pieces is scattered inside the disk.
+  Packing DefectStart() {
+    int k = static_cast<int>(std::ceil(std::sqrt(static_cast<double>(n_)) - 1e-9));
+    vector<std::array<double, 3>> sites;
+    for (int row = 0; row < k; row++) {
+      for (int j = 0; j < k - row; j++) sites.push_back({row * 0.5 + 0.5 + j, row * kH + kInr, 0});
+      for (int j = 0; j < k - 1 - row; j++) sites.push_back({row * 0.5 + 1 + j, row * kH + 2 * kInr, kPi / 3});
+    }
+    int holes = static_cast<int>(sites.size()) - n_;
+    double cx, cy;
+    RandomPoint(k, &cx, &cy);
+    std::sort(sites.begin(), sites.end(), [&](const std::array<double, 3>& a, const std::array<double, 3>& b) {
+      return std::hypot(a[0] - cx, a[1] - cy) < std::hypot(b[0] - cx, b[1] - cy);
+    });
+    // Drop the `holes + extra` sites nearest the center, then put `extra` pieces back at random.
+    int extra = I(std::max(1, 2 * holes + 4));
+    int drop = std::min(static_cast<int>(sites.size()), holes + extra);
+    double rad = std::hypot(sites[drop - 1][0] - cx, sites[drop - 1][1] - cy) + 0.3;
+    Packing p;
+    p.n = n_;
+    p.S = k;
+    for (int i = drop; i < static_cast<int>(sites.size()); i++) {
+      p.q.push_back(sites[i][0] + G(0.005));
+      p.q.push_back(sites[i][1] + G(0.005));
+      p.q.push_back(sites[i][2] + G(0.01));
+    }
+    while (static_cast<int>(p.q.size()) < 3 * n_) {
+      p.q.push_back(cx);
+      p.q.push_back(cy);
+      p.q.push_back(0);
+    }
+    Scramble(p, cx, cy, rad);
     return p;
   }
 
@@ -652,8 +697,42 @@ class Searcher {
         }
         break;
       }
+      case kRegion: {
+        double cx, cy;
+        RandomPoint(p.S, &cx, &cy);
+        Scramble(p, cx, cy, U(0.9, 2.0));
+        break;
+      }
     }
     return move;
+  }
+
+  // Uniform random point in the container of side S.
+  void RandomPoint(double S, double* x, double* y) {
+    double a = U(), b = U();
+    if (a + b > 1) {
+      a = 1 - a;
+      b = 1 - b;
+    }
+    *x = S * (a + 0.5 * b);
+    *y = S * kH * b;
+  }
+
+  // Re-places every piece whose centroid lies within `rad` of (cx, cy) at a
+  // uniformly random spot of that disk (inside the container), random angle.
+  void Scramble(Packing& p, double cx, double cy, double rad) {
+    for (int i = 0; i < n_; i++) {
+      if (std::hypot(p.q[3 * i] - cx, p.q[3 * i + 1] - cy) > rad) continue;
+      for (int tries = 0; tries < 100; tries++) {
+        double r = rad * std::sqrt(U()), a = U(0, 2 * kPi);
+        double x = cx + r * std::cos(a), y = cy + r * std::sin(a);
+        if (std::min({y, kH * x - 0.5 * y, kH * (p.S - x) - 0.5 * y}) < kInr) continue;
+        p.q[3 * i] = x;
+        p.q[3 * i + 1] = y;
+        break;
+      }
+      p.q[3 * i + 2] = U(0, 2 * kPi);
+    }
   }
 
   // Free room around (x, y): walls and every piece except `skip`.
@@ -677,7 +756,7 @@ class Searcher {
   Packing Trial(const Packing& cur, double abortAbove, int* moveOut) {
     Packing t = cur;
     Rescale(t, cur.S * (1 + std::exp(U(std::log(0.002), std::log(0.03)))));
-    static const double kWeights[kNumMoves] = {2, 3, 2, 2, 3, 2, 2, 1};
+    static const double kWeights[kNumMoves] = {2, 3, 2, 2, 3, 2, 2, 1, 2};
     double tot = 0;
     for (double w : kWeights) tot += w;
     double u = U(0, tot);
@@ -685,11 +764,105 @@ class Searcher {
     while (mv < kNumMoves - 1 && u > kWeights[mv]) u -= kWeights[mv++];
     Perturb(t, mv);
     double mus[] = {1e1, 1e2, 1e3};
-    bool done = mv == kBlob ? Compress(t, 1e3, U(0.02, 0.15), 8, abortAbove)
-                            : Compress(t, mus[I(3)], 0, 0, abortAbove);
+    bool done = mv == kBlob     ? Compress(t, 1e3, U(0.02, 0.15), 8, abortAbove)
+                : mv == kRegion ? Compress(t, 1e1, 0, 0, abortAbove)
+                                : Compress(t, mus[I(3)], 0, 0, abortAbove);
     if (!done) t.S = 1e300;
     *moveOut = mv;
     return t;
+  }
+
+  // Applies one of the six symmetries of the container (0 = identity).
+  void Symmetry(Packing& p, int which) {
+    double gx = p.S / 2, gy = p.S / (2 * kSqrt3);
+    for (int i = 0; i < n_; i++) {
+      double& x = p.q[3 * i];
+      double& y = p.q[3 * i + 1];
+      double& t = p.q[3 * i + 2];
+      if (which >= 3) {  // mirror in the vertical axis
+        x = p.S - x;
+        t = -t;
+      }
+      for (int r = 0; r < which % 3; r++) {  // rotate 120 degrees about the center
+        double dx = x - gx, dy = y - gy;
+        x = gx + kC120 * dx - kS120 * dy;
+        y = gy + kS120 * dx + kC120 * dy;
+      }
+    }
+  }
+
+  // Child = pieces of A on one side of a random line + pieces of a randomly
+  // transformed B on the other; the count is repaired by dropping the most
+  // overlapped pieces or adding pieces at the roomiest spots.
+  Packing Crossover(const Packing& A, Packing B) {
+    Rescale(B, A.S);
+    Symmetry(B, I(6));
+    double cx, cy;
+    RandomPoint(A.S, &cx, &cy);
+    double ang = U(0, kPi), ux = std::cos(ang), uy = std::sin(ang);
+    Packing c;
+    c.n = 0;
+    c.S = A.S;
+    for (int src = 0; src < 2; src++) {
+      const Packing& P = src ? B : A;
+      for (int i = 0; i < n_; i++) {
+        bool side = (P.q[3 * i] - cx) * -uy + (P.q[3 * i + 1] - cy) * ux >= 0;
+        if (side != (src == 0)) continue;
+        c.q.insert(c.q.end(), P.q.begin() + 3 * i, P.q.begin() + 3 * i + 3);
+        c.n++;
+      }
+    }
+    while (c.n > n_) {
+      vector<Piece> pc(c.n);
+      for (int i = 0; i < c.n; i++) MakePiece(c.q[3 * i], c.q[3 * i + 1], c.q[3 * i + 2], kCirc, pc[i]);
+      vector<double> score(c.n, 0);
+      for (int i = 0; i < c.n; i++)
+        for (int j = i + 1; j < c.n; j++) {
+          double g = Energy::SatGap(pc[i], pc[j], 0).gap;
+          if (g < 0) {
+            score[i] -= g;
+            score[j] -= g;
+          }
+        }
+      int worst = static_cast<int>(std::max_element(score.begin(), score.end()) - score.begin());
+      c.q.erase(c.q.begin() + 3 * worst, c.q.begin() + 3 * worst + 3);
+      c.n--;
+    }
+    while (c.n < n_) {
+      c.q.insert(c.q.end(), {0.0, 0.0, 0.0});
+      c.n++;
+      double bx = 0, by = 0, bc = -1e300;
+      for (int t = 0; t < 300; t++) {
+        double x, y;
+        RandomPoint(c.S, &x, &y);
+        double cl = ClearanceN(c, x, y, c.n - 1);
+        if (cl > bc) {
+          bc = cl;
+          bx = x;
+          by = y;
+        }
+      }
+      c.q[3 * (c.n - 1)] = bx;
+      c.q[3 * (c.n - 1) + 1] = by;
+      c.q[3 * (c.n - 1) + 2] = U(0, 2 * kPi);
+    }
+    return c;
+  }
+
+  // Like Clearance, but for a packing whose piece count may differ from n_.
+  double ClearanceN(const Packing& p, double x, double y, int skip) {
+    double c = std::min({y, kH * x - 0.5 * y, kH * (p.S - x) - 0.5 * y});
+    for (int i = 0; i < p.n; i++) {
+      if (i == skip) continue;
+      double dx = x - p.q[3 * i], dy = y - p.q[3 * i + 1];
+      if (dx * dx + dy * dy > 4) continue;
+      Piece pc;
+      MakePiece(p.q[3 * i], p.q[3 * i + 1], p.q[3 * i + 2], kCirc, pc);
+      double sd = -1e300;
+      for (int k = 0; k < 3; k++) sd = std::max(sd, -(dx * pc.ex[k] + dy * pc.ey[k]) - kInr);
+      c = std::min(c, sd);
+    }
+    return c;
   }
 
   Energy& energy() { return en_; }
@@ -769,6 +942,23 @@ int CmdGradCheck(const std::map<string, string>& a) {
   }
   printf("E=%.6e  worst relative gradient error=%.3e\n", E, worst);
   return worst < 1e-5 ? 0 : 1;
+}
+
+int CmdBench(const std::map<string, string>& a) {
+  Packing p;
+  if (!ReadPacking(ArgS(a, "in", ""), p)) {
+    fprintf(stderr, "cannot read --in\n");
+    return 1;
+  }
+  Energy en(p.n);
+  vector<double> g(3 * p.n);
+  double gS, sum = 0;
+  Rescale(p, p.S * 0.999);  // a few small overlaps, as during compression
+  const int reps = static_cast<int>(Arg(a, "reps", 200000));
+  double t0 = Now();
+  for (int r = 0; r < reps; r++) sum += en.Eval(p.q.data(), p.S, Arg(a, "r", 0), 0, g.data(), &gS);
+  printf("%.3f us per Eval (checksum %.6e)\n", 1e6 * (Now() - t0) / reps, sum);
+  return 0;
 }
 
 int CmdCheck(const std::map<string, string>& a) {
@@ -880,9 +1070,11 @@ int CmdSearch(const std::map<string, string>& a) {
   int starts = 0;
   while (Now() - t0 < timeLimit) {
     starts++;
-    Packing p = init == "random" ? s.RandomStart() : s.LatticeStart();
+    Packing p = init == "random" ? s.RandomStart() : init == "defect" ? s.DefectStart() : s.LatticeStart();
     if (init == "random") {
       s.Compress(p, 1e2, 0.26, 30);
+    } else if (init == "defect" && s.U() < 0.5) {
+      s.Compress(p, 1e2, s.U(0.03, 0.15), 10);
     } else {
       s.Compress(p, 1e1, 0, 0);
     }
@@ -900,6 +1092,93 @@ int CmdSearch(const std::map<string, string>& a) {
   return 0;
 }
 
+// Memetic search: a pool of locally optimized packings evolved by crossover
+// followed by short basin hopping.
+int CmdPool(const std::map<string, string>& a) {
+  int n = static_cast<int>(Arg(a, "n", 0));
+  if (n <= 0) {
+    fprintf(stderr, "--n required\n");
+    return 1;
+  }
+  Searcher s(n, static_cast<uint64_t>(Arg(a, "seed", 1)));
+  string out = ArgS(a, "out", ""), init = ArgS(a, "init", "mix");
+  double timeLimit = Arg(a, "time", 600), t0 = Now(), temp = Arg(a, "temp", 2e-4);
+  int K = static_cast<int>(Arg(a, "pool", 10));
+  int bhInit = static_cast<int>(Arg(a, "bh-init", 600)), bhChild = static_cast<int>(Arg(a, "bh-child", 200));
+  double gb = 1e300, minDiff = Arg(a, "min-diff", 1e-5);
+  vector<Packing> pool;
+  auto distinct = [&](const Packing& p) {  // crude diversity guard: pool members differ in S
+    for (const Packing& q : pool)
+      if (std::abs(q.S - p.S) < minDiff) return false;
+    return true;
+  };
+  auto fresh = [&]() {
+    bool defect = init == "defect" || (init == "mix" && s.U() < 0.5);
+    Packing p = defect ? s.DefectStart() : s.LatticeStart();
+    s.Compress(p, 1e1, 0, 0);
+    s.Polish(p, 1e-10);
+    return BasinHop(s, p, timeLimit, temp, 100, bhInit, out, &gb, defect ? "pool/defect" : "pool/lattice");
+  };
+  string seeds = ArgS(a, "seeds", "");
+  for (size_t pos = 0; !seeds.empty() && pos != string::npos;) {
+    size_t comma = seeds.find(',', pos);
+    string f = seeds.substr(pos, comma == string::npos ? string::npos : comma - pos);
+    pos = comma == string::npos ? string::npos : comma + 1;
+    Packing p;
+    if (!ReadPacking(f, p) || p.n != n) {
+      fprintf(stderr, "skipping seed %s\n", f.c_str());
+      continue;
+    }
+    s.Polish(p, 1e-10);
+    gb = std::min(gb, p.S);
+    pool.push_back(p);
+  }
+  while (static_cast<int>(pool.size()) < K && Now() - t0 < timeLimit) {
+    Packing p = fresh();
+    if (distinct(p)) pool.push_back(p);
+    printf("pool init %zu/%d: %.8f\n", pool.size(), K, p.S);
+    fflush(stdout);
+  }
+  long gen = 0;
+  while (Now() - t0 < timeLimit) {
+    gen++;
+    auto pick = [&]() {
+      int i = s.I(static_cast<int>(pool.size())), j = s.I(static_cast<int>(pool.size()));
+      return pool[i].S < pool[j].S ? i : j;
+    };
+    Packing child;
+    const char* how;
+    if (s.U() < 0.1) {
+      child = fresh();
+      how = "immigrant";
+    } else {
+      int ia = pick(), ib = pick();
+      for (int t = 0; t < 5 && ib == ia; t++) ib = pick();
+      child = s.Crossover(pool[ia], pool[ib]);
+      Rescale(child, child.S * 1.01);
+      s.Compress(child, 1e1, 0, 0);
+      if (!s.Polish(child, 1e-10)) continue;
+      child = BasinHop(s, child, timeLimit - (Now() - t0), temp, 100, bhChild, out, &gb, "pool/child");
+      how = "child";
+    }
+    // A child close to a member replaces that member if better; otherwise it replaces the worst.
+    int worst = 0, near = -1;
+    for (int i = 0; i < static_cast<int>(pool.size()); i++) {
+      if (pool[i].S > pool[worst].S) worst = i;
+      if (std::abs(pool[i].S - child.S) < minDiff) near = i;
+    }
+    int slot = near >= 0 ? near : worst;
+    bool in = child.S < pool[slot].S;
+    if (in) pool[slot] = child;
+    double bestS = 1e300;
+    for (const Packing& q : pool) bestS = std::min(bestS, q.S);
+    printf("gen %5ld %-9s S=%.8f %s  pool best=%.8f worst=%.8f\n", gen, how, child.S, in ? "in " : "out", bestS,
+           pool[worst].S);
+    fflush(stdout);
+  }
+  return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -909,16 +1188,20 @@ int main(int argc, char** argv) {
             "  check     --in FILE\n"
             "  polish    --in FILE [--out FILE] [--margin 1e-10]\n"
             "  bh        --in FILE --out FILE [--time SEC] [--seed N] [--temp T] [--reset K]\n"
-            "  search    --n N --out FILE [--init lattice|random] [--time SEC] [--seed N] [--bh-iters K]\n"
+            "  search    --n N --out FILE [--init lattice|defect|random] [--time SEC] [--seed N] [--bh-iters K]\n"
+            "  pool      --n N --out FILE [--pool K] [--init lattice|defect|mix] [--seeds F1,F2]\n"
+            "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
             "  gradcheck [--n N] [--r R] [--margin M] [--seed N]\n");
     return 2;
   }
   string cmd = argv[1];
   auto a = ParseArgs(argc, argv, 2);
   if (cmd == "check") return CmdCheck(a);
+  if (cmd == "bench") return CmdBench(a);
   if (cmd == "polish") return CmdPolish(a);
   if (cmd == "bh") return CmdBh(a);
   if (cmd == "search") return CmdSearch(a);
+  if (cmd == "pool") return CmdPool(a);
   if (cmd == "gradcheck") return CmdGradCheck(a);
   fprintf(stderr, "unknown command %s\n", cmd.c_str());
   return 2;
