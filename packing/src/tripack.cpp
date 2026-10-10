@@ -841,13 +841,13 @@ class Searcher {
     return move;
   }
 
-  // Records where a layout carries load: after relaxing it in a slightly
-  // smaller container, overlaps remain only along the chains that fix S.
+  // Records where a layout carries load (the force network that fixes S).
   // Points are stored relative to the incenter, in units of S.
   void ComputeStress(const Packing& p) {
+    // Under the pressure objective S + mu * P the walls push with unit force;
+    // at equilibrium the remaining overlaps are proportional to contact forces.
     Packing t = p;
-    Rescale(t, p.S * (1 - 2e-5));
-    Relax(t, 0, 600, 0);
+    Pressure(t, 1e6, 0, 1500);
     stress_.clear();
     vector<Piece> pc(n_);
     for (int i = 0; i < n_; i++) MakePiece(t.q[3 * i], t.q[3 * i + 1], t.q[3 * i + 2], kCirc, pc[i]);
@@ -1361,9 +1361,19 @@ int CmdPool(const std::map<string, string>& a) {
   };
   auto fresh = [&]() {
     string kind = init;
-    if (kind == "mix") kind = s.U() < 0.5 ? "defect" : "tilt";
-    Packing p = kind == "defect" ? s.DefectStart() : kind == "tilt" ? s.TiltStart() : s.LatticeStart();
-    s.Compress(p, 1e1, 0, 0);
+    if (kind == "mix") {
+      const char* kinds[] = {"defect", "tilt", "random"};
+      kind = kinds[s.I(3)];
+    }
+    Packing p = kind == "defect" ? s.DefectStart()
+                : kind == "tilt" ? s.TiltStart()
+                : kind == "random" ? s.RandomStart()
+                                   : s.LatticeStart();
+    if (kind == "random") {
+      s.Compress(p, 1e2, 0.26, 30, 1e300, 0.01);
+    } else {
+      s.Compress(p, 1e1, 0, 0);
+    }
     s.Polish(p, 1e-10);
     return BasinHop(s, p, timeLimit, temp, 100, bhInit, out, &gb, "pool/" + kind);
   };
@@ -1446,7 +1456,7 @@ int main(int argc, char** argv) {
             "            (bh/search/pool also take --expand-min/--expand-max, default 0.002/0.03)\n"
             "            (search --init random also takes --blob-stages K and --anneal SIGMA)\n"
             "  search    --n N --out FILE [--init lattice|defect|tilt|mix|random] [--time SEC] [--seed N] [--bh-iters K]\n"
-            "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|mix] [--seeds F1,F2]\n"
+            "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|random|mix] [--seeds F1,F2]\n"
             "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
             "  gradcheck [--n N] [--r R] [--margin M] [--seed N]\n");
     return 2;
