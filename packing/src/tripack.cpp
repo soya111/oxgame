@@ -582,19 +582,60 @@ class Searcher {
       for (int j = 0; j < k - row; j++) sites.push_back({row * 0.5 + 0.5 + j, row * kH + kInr, 0});
       for (int j = 0; j < k - 1 - row; j++) sites.push_back({row * 0.5 + 1 + j, row * kH + 2 * kInr, kPi / 3});
     }
-    double cx, cy;
-    RandomPoint(k, &cx, &cy);
-    double rad = U(1.0, 2.6), phi = (U() < 0.5 ? -1 : 1) * U(0.03, 0.17);
+    double phi = (U() < 0.5 ? -1 : 1) * U(0.03, 0.17);
     double cs = std::cos(phi), sn = std::sin(phi);
-    vector<int> rim;
-    for (int i = 0; i < static_cast<int>(sites.size()); i++) {
-      double dx = sites[i][0] - cx, dy = sites[i][1] - cy, d = std::hypot(dx, dy);
-      if (d <= rad) {
-        sites[i][0] = cx + cs * dx - sn * dy;
-        sites[i][1] = cy + sn * dx + cs * dy;
-        sites[i][2] += phi;
+    // The patch is a disk, or a band of rows parallel to one side of the container.
+    bool band = U() < 0.5;
+    double cx, cy, rad = U(1.0, 2.6);
+    RandomPoint(k, &cx, &cy);
+    double nang = kPi / 2 + I(3) * 2 * kPi / 3, nx = std::cos(nang), ny = std::sin(nang);
+    double lo = 0, hi = 0;
+    if (band) {  // offsets along the band normal, measured from the container incenter
+      double ext = k / (2 * kSqrt3);
+      lo = U(-ext, 1.6 * ext);
+      hi = lo + kH * U(1.0, 3.0);
+      cx = k / 2.0;
+      cy = k / (2 * kSqrt3);
+    }
+    auto inPatch = [&](double x, double y, double* rimDist) {
+      if (!band) {
+        double d = std::hypot(x - cx, y - cy);
+        *rimDist = std::abs(d - rad);
+        return d <= rad;
       }
-      if (std::abs(d - rad) < 0.9) rim.push_back(i);
+      double t = (x - k / 2.0) * nx + (y - k / (2 * kSqrt3)) * ny;
+      *rimDist = std::min(std::abs(t - lo), std::abs(t - hi));
+      return t >= lo && t <= hi;
+    };
+    if (band) {  // turn the band about the mean of its sites
+      double sx = 0, sy = 0;
+      int m = 0;
+      for (const auto& st : sites) {
+        double rd;
+        if (inPatch(st[0], st[1], &rd)) {
+          sx += st[0];
+          sy += st[1];
+          m++;
+        }
+      }
+      if (m > 0) {
+        cx = sx / m;
+        cy = sy / m;
+      }
+    }
+    vector<int> rim;
+    vector<char> inside(sites.size(), 0);
+    for (int i = 0; i < static_cast<int>(sites.size()); i++) {
+      double rd;
+      inside[i] = inPatch(sites[i][0], sites[i][1], &rd);
+      if (rd < 0.9) rim.push_back(i);
+    }
+    for (int i = 0; i < static_cast<int>(sites.size()); i++) {
+      if (!inside[i]) continue;
+      double dx = sites[i][0] - cx, dy = sites[i][1] - cy;
+      sites[i][0] = cx + cs * dx - sn * dy;
+      sites[i][1] = cy + sn * dx + cs * dy;
+      sites[i][2] += phi;
     }
     std::shuffle(rim.begin(), rim.end(), rng_);
     int holes = static_cast<int>(sites.size()) - n_;
@@ -1100,6 +1141,12 @@ int CmdPolish(const std::map<string, string>& a) {
   return 0;
 }
 
+// Side length already stored in `out` (so a run never overwrites a better file).
+double ExistingBest(const string& out, int n) {
+  Packing p;
+  return !out.empty() && ReadPacking(out, p) && p.n == n ? p.S : 1e300;
+}
+
 // Basin hopping from a starting packing; returns the best packing found.
 Packing BasinHop(Searcher& s, Packing cur, double timeLimit, double temp, int reset, int maxIters,
                  const string& out, double* globalBest, const string& tag) {
@@ -1161,8 +1208,8 @@ int CmdBh(const std::map<string, string>& a) {
   Searcher s(p.n, static_cast<uint64_t>(Arg(a, "seed", 1)));
   s.Polish(p, 1e-10);
   Report(s.energy(), p, "start ");
-  double gb = p.S;
   string out = ArgS(a, "out", "");
+  double gb = std::min(p.S, ExistingBest(out, p.n));
   Packing best = BasinHop(s, p, Arg(a, "time", 600), Arg(a, "temp", 2e-4), static_cast<int>(Arg(a, "reset", 300)), 0,
                           out, &gb, "bh");
   Report(s.energy(), best, "best  ");
@@ -1179,7 +1226,7 @@ int CmdSearch(const std::map<string, string>& a) {
   string init = ArgS(a, "init", "lattice"), out = ArgS(a, "out", "");
   double timeLimit = Arg(a, "time", 600), t0 = Now();
   int bhIters = static_cast<int>(Arg(a, "bh-iters", 300));
-  double gb = 1e300;
+  double gb = ExistingBest(out, n);
   Packing best;
   int starts = 0;
   while (Now() - t0 < timeLimit) {
@@ -1188,6 +1235,11 @@ int CmdSearch(const std::map<string, string>& a) {
                 : init == "defect" ? s.DefectStart()
                 : init == "tilt"   ? s.TiltStart()
                                    : s.LatticeStart();
+    string dump = ArgS(a, "dump-start", "");
+    if (!dump.empty()) {  // write the raw starting layout and stop (for inspecting initializers)
+      WritePacking(dump, p, "raw start (" + init + ")");
+      return 0;
+    }
     if (init == "random") {
       s.Compress(p, 1e2, 0.26, 30);
     } else if (init == "defect" && s.U() < 0.5) {
@@ -1222,7 +1274,7 @@ int CmdPool(const std::map<string, string>& a) {
   double timeLimit = Arg(a, "time", 600), t0 = Now(), temp = Arg(a, "temp", 2e-4);
   int K = static_cast<int>(Arg(a, "pool", 10));
   int bhInit = static_cast<int>(Arg(a, "bh-init", 600)), bhChild = static_cast<int>(Arg(a, "bh-child", 200));
-  double gb = 1e300, minDiff = Arg(a, "min-diff", 1e-5);
+  double gb = ExistingBest(out, n), minDiff = Arg(a, "min-diff", 1e-5);
   vector<Packing> pool;
   auto distinct = [&](const Packing& p) {  // crude diversity guard: pool members differ in S
     for (const Packing& q : pool)
@@ -1293,6 +1345,13 @@ int CmdPool(const std::map<string, string>& a) {
     printf("gen %5ld %-9s S=%.8f %s  pool best=%.8f worst=%.8f\n", gen, how, child.S, in ? "in " : "out", bestS,
            pool[worst].S);
     fflush(stdout);
+    if (in && !out.empty()) {  // keep the whole pool on disk for inspection and reseeding
+      for (int i = 0; i < static_cast<int>(pool.size()); i++) {
+        char buf[64];
+        snprintf(buf, sizeof buf, ".pool%02d", i);
+        WritePacking(out + buf, pool[i], "pool member");
+      }
+    }
   }
   return 0;
 }
