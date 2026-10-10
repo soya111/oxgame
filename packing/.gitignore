@@ -2,3 +2,4 @@ build/
 *.tmp
 __pycache__/
 results/*.pool[0-9]*
+results/*.top[0-9]*

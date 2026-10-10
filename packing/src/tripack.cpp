@@ -1270,20 +1270,26 @@ int CmdSearch(const std::map<string, string>& a) {
   double gb = ExistingBest(out, n);
   Packing best;
   int starts = 0;
+  vector<Packing> top;  // best distinct results of this run, written next to --out
   while (Now() - t0 < timeLimit) {
     starts++;
-    Packing p = init == "random"   ? s.RandomStart()
-                : init == "defect" ? s.DefectStart()
-                : init == "tilt"   ? s.TiltStart()
+    string kind = init;
+    if (kind == "mix") {
+      const char* kinds[] = {"defect", "tilt", "lattice"};
+      kind = kinds[s.I(3)];
+    }
+    Packing p = kind == "random"   ? s.RandomStart()
+                : kind == "defect" ? s.DefectStart()
+                : kind == "tilt"   ? s.TiltStart()
                                    : s.LatticeStart();
     string dump = ArgS(a, "dump-start", "");
     if (!dump.empty()) {  // write the raw starting layout and stop (for inspecting initializers)
       WritePacking(dump, p, "raw start (" + init + ")");
       return 0;
     }
-    if (init == "random") {
+    if (kind == "random") {
       s.Compress(p, 1e2, 0.26, 30);
-    } else if (init == "defect" && s.U() < 0.5) {
+    } else if (kind == "defect" && s.U() < 0.5) {
       s.Compress(p, 1e2, s.U(0.03, 0.15), 10);
     } else {
       s.Compress(p, 1e1, 0, 0);
@@ -1291,12 +1297,30 @@ int CmdSearch(const std::map<string, string>& a) {
     if (!s.Polish(p, 1e-10)) continue;
     double s0 = p.S;
     char tag[64];
-    snprintf(tag, sizeof tag, "%s start %d", init.c_str(), starts);
+    snprintf(tag, sizeof tag, "%s start %d", kind.c_str(), starts);
     Packing b = BasinHop(s, p, timeLimit - (Now() - t0), Arg(a, "temp", 2e-4), 100, bhIters, out, &gb, tag);
-    printf("start %4d: compressed %.6f -> after %d BH trials %.6f   (best so far %.8f)\n", starts, s0, bhIters, b.S,
-           gb);
+    printf("start %4d: %-7s compressed %.6f -> after %d BH trials %.6f   (best so far %.8f)\n", starts,
+           kind.c_str(), s0, bhIters, b.S, gb);
     fflush(stdout);
     if (best.n == 0 || b.S < best.S) best = b;
+    // Maintain the 10 best results that differ in S by at least 1e-5.
+    bool dup = false;
+    for (Packing& t : top) {
+      if (std::abs(t.S - b.S) < 1e-5) {
+        if (b.S < t.S) t = b;
+        dup = true;
+      }
+    }
+    if (!dup) top.push_back(b);
+    std::sort(top.begin(), top.end(), [](const Packing& x, const Packing& y) { return x.S < y.S; });
+    if (top.size() > 10) top.resize(10);
+    if (!out.empty()) {
+      for (size_t i = 0; i < top.size(); i++) {
+        char buf[64];
+        snprintf(buf, sizeof buf, ".top%02zu", i);
+        WritePacking(out + buf, top[i], "top result of a search run");
+      }
+    }
   }
   if (best.n) Report(s.energy(), best, "best  ");
   return 0;
@@ -1408,7 +1432,7 @@ int main(int argc, char** argv) {
             "  polish    --in FILE [--out FILE] [--margin 1e-10]\n"
             "  bh        --in FILE --out FILE [--time SEC] [--seed N] [--temp T] [--reset K]\n"
             "            (bh/search/pool also take --expand-min/--expand-max, default 0.002/0.03)\n"
-            "  search    --n N --out FILE [--init lattice|defect|tilt|random] [--time SEC] [--seed N] [--bh-iters K]\n"
+            "  search    --n N --out FILE [--init lattice|defect|tilt|mix|random] [--time SEC] [--seed N] [--bh-iters K]\n"
             "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|mix] [--seeds F1,F2]\n"
             "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
             "  gradcheck [--n N] [--r R] [--margin M] [--seed N]\n");
