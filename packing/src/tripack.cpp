@@ -572,6 +572,52 @@ class Searcher {
     return p;
   }
 
+  // Full lattice in which a random patch is turned by a few degrees about its
+  // center; the k^2 - n holes go at random among the sites near the patch rim,
+  // where the turned patch collides with the rest.
+  Packing TiltStart() {
+    int k = static_cast<int>(std::ceil(std::sqrt(static_cast<double>(n_)) - 1e-9));
+    vector<std::array<double, 3>> sites;
+    for (int row = 0; row < k; row++) {
+      for (int j = 0; j < k - row; j++) sites.push_back({row * 0.5 + 0.5 + j, row * kH + kInr, 0});
+      for (int j = 0; j < k - 1 - row; j++) sites.push_back({row * 0.5 + 1 + j, row * kH + 2 * kInr, kPi / 3});
+    }
+    double cx, cy;
+    RandomPoint(k, &cx, &cy);
+    double rad = U(1.0, 2.6), phi = (U() < 0.5 ? -1 : 1) * U(0.03, 0.17);
+    double cs = std::cos(phi), sn = std::sin(phi);
+    vector<int> rim;
+    for (int i = 0; i < static_cast<int>(sites.size()); i++) {
+      double dx = sites[i][0] - cx, dy = sites[i][1] - cy, d = std::hypot(dx, dy);
+      if (d <= rad) {
+        sites[i][0] = cx + cs * dx - sn * dy;
+        sites[i][1] = cy + sn * dx + cs * dy;
+        sites[i][2] += phi;
+      }
+      if (std::abs(d - rad) < 0.9) rim.push_back(i);
+    }
+    std::shuffle(rim.begin(), rim.end(), rng_);
+    int holes = static_cast<int>(sites.size()) - n_;
+    vector<char> drop(sites.size(), 0);
+    for (int h = 0; h < holes && h < static_cast<int>(rim.size()); h++) drop[rim[h]] = 1;
+    for (int h = static_cast<int>(rim.size()); h < holes; h++) {  // tiny patch: drop extra sites at random
+      int i;
+      do i = I(static_cast<int>(sites.size()));
+      while (drop[i]);
+      drop[i] = 1;
+    }
+    Packing p;
+    p.n = n_;
+    p.S = k;
+    for (int i = 0; i < static_cast<int>(sites.size()); i++) {
+      if (drop[i]) continue;
+      p.q.push_back(sites[i][0] + G(0.005));
+      p.q.push_back(sites[i][1] + G(0.005));
+      p.q.push_back(sites[i][2] + G(0.01));
+    }
+    return p;
+  }
+
   // Uniformly random positions and angles in a roomy container.
   Packing RandomStart() {
     Packing p;
@@ -605,6 +651,7 @@ class Searcher {
       case kLocal: {
         int c = I(n);
         double cx = p.q[3 * c], cy = p.q[3 * c + 1], rad = U(0.7, 2.0);
+        if (U() < 0.5) StressPoint(p, &cx, &cy);
         double sp = U(0.05, 0.25), sa = U(0.1, 0.8);
         for (int i = 0; i < n; i++) {
           if (std::hypot(p.q[3 * i] - cx, p.q[3 * i + 1] - cy) > rad) continue;
@@ -653,6 +700,7 @@ class Searcher {
       case kRotateCluster: {
         int c = I(n);
         double cx = p.q[3 * c] + G(0.3), cy = p.q[3 * c + 1] + G(0.3), rad = U(0.8, 3.0), phi = G(0.06);
+        if (U() < 0.5) StressPoint(p, &cx, &cy);
         double cs = std::cos(phi), sn = std::sin(phi);
         for (int i = 0; i < n; i++) {
           double dx = p.q[3 * i] - cx, dy = p.q[3 * i + 1] - cy;
@@ -700,11 +748,52 @@ class Searcher {
       case kRegion: {
         double cx, cy;
         RandomPoint(p.S, &cx, &cy);
+        if (U() < 0.5) StressPoint(p, &cx, &cy);
         Scramble(p, cx, cy, U(0.9, 2.0));
         break;
       }
     }
     return move;
+  }
+
+  // Records where a layout carries load: after relaxing it in a slightly
+  // smaller container, overlaps remain only along the chains that fix S.
+  // Points are stored relative to the incenter, in units of S.
+  void ComputeStress(const Packing& p) {
+    Packing t = p;
+    Rescale(t, p.S * (1 - 2e-5));
+    Relax(t, 0, 600, 0);
+    stress_.clear();
+    vector<Piece> pc(n_);
+    for (int i = 0; i < n_; i++) MakePiece(t.q[3 * i], t.q[3 * i + 1], t.q[3 * i + 2], kCirc, pc[i]);
+    double ix = t.S / 2, iy = t.S / (2 * kSqrt3), total = 0;
+    auto add = [&](double x, double y, double w) {
+      total += w;
+      stress_.push_back({(x - ix) / t.S, (y - iy) / t.S, total});
+    };
+    for (int i = 0; i < n_; i++) {
+      for (int k = 0; k < 3; k++) {
+        double vx = pc[i].vx[k], vy = pc[i].vy[k];
+        double d = std::min({vy, kH * vx - 0.5 * vy, kH * (t.S - vx) - 0.5 * vy});
+        if (d < 0) add(vx, vy, -d);
+      }
+      for (int j = i + 1; j < n_; j++) {
+        if (std::hypot(pc[i].cx - pc[j].cx, pc[i].cy - pc[j].cy) >= 2 * kCirc) continue;
+        double g = Energy::SatGap(pc[i], pc[j], 0).gap;
+        if (g < 0) add((pc[i].cx + pc[j].cx) / 2, (pc[i].cy + pc[j].cy) / 2, -g);
+      }
+    }
+  }
+
+  // Samples a load-bearing point (weighted by overlap), mapped into p's container.
+  bool StressPoint(const Packing& p, double* x, double* y) {
+    if (stress_.empty()) return false;
+    double u = U(0, stress_.back()[2]);
+    size_t i = 0;
+    while (i + 1 < stress_.size() && stress_[i][2] < u) i++;
+    *x = p.S / 2 + stress_[i][0] * p.S;
+    *y = p.S / (2 * kSqrt3) + stress_[i][1] * p.S;
+    return true;
   }
 
   // Uniform random point in the container of side S.
@@ -866,6 +955,7 @@ class Searcher {
   }
 
   Energy& energy() { return en_; }
+  const vector<std::array<double, 3>>& stress() const { return stress_; }
 
   void PrintStageStats(long trials) const {
     for (int k = 0; k < 16; k++) {
@@ -881,6 +971,7 @@ class Searcher {
   std::mt19937_64 rng_;
   long stageIters_[16] = {};
   double stageTime_[16] = {};
+  vector<std::array<double, 3>> stress_;  // x, y relative to the incenter (units of S), cumulative weight
 };
 
 // ---------------------------------------------------------------- commands
@@ -961,6 +1052,24 @@ int CmdBench(const std::map<string, string>& a) {
   return 0;
 }
 
+// Prints the load-bearing contact points of a packing (see ComputeStress).
+int CmdStress(const std::map<string, string>& a) {
+  Packing p;
+  if (!ReadPacking(ArgS(a, "in", ""), p)) {
+    fprintf(stderr, "cannot read --in\n");
+    return 1;
+  }
+  Searcher s(p.n, 1);
+  s.Polish(p, 0);
+  s.ComputeStress(p);
+  double prev = 0;
+  for (const auto& e : s.stress()) {
+    printf("%.4f %.4f %.3e\n", p.S / 2 + e[0] * p.S, p.S / (2 * kSqrt3) + e[1] * p.S, e[2] - prev);
+    prev = e[2];
+  }
+  return 0;
+}
+
 int CmdCheck(const std::map<string, string>& a) {
   Packing p;
   if (!ReadPacking(ArgS(a, "in", ""), p)) {
@@ -999,6 +1108,7 @@ Packing BasinHop(Searcher& s, Packing cur, double timeLimit, double temp, int re
   int since = 0;
   long iters = 0;
   vector<int> tries(kNumMoves), wins(kNumMoves);
+  s.ComputeStress(cur);
   while (Now() - t0 < timeLimit && (maxIters <= 0 || iters < maxIters)) {
     iters++;
     int mv;
@@ -1024,10 +1134,14 @@ Packing BasinHop(Searcher& s, Packing cur, double timeLimit, double temp, int re
         }
       }
     }
-    if (t.S < cur.S || s.U() < std::exp(-(t.S - cur.S) / temp)) cur = t;
+    if (t.S < cur.S || s.U() < std::exp(-(t.S - cur.S) / temp)) {
+      cur = t;
+      s.ComputeStress(cur);
+    }
     if (++since > reset) {
       cur = best;
       since = 0;
+      s.ComputeStress(cur);
     }
   }
   if (maxIters <= 0) {
@@ -1070,7 +1184,10 @@ int CmdSearch(const std::map<string, string>& a) {
   int starts = 0;
   while (Now() - t0 < timeLimit) {
     starts++;
-    Packing p = init == "random" ? s.RandomStart() : init == "defect" ? s.DefectStart() : s.LatticeStart();
+    Packing p = init == "random"   ? s.RandomStart()
+                : init == "defect" ? s.DefectStart()
+                : init == "tilt"   ? s.TiltStart()
+                                   : s.LatticeStart();
     if (init == "random") {
       s.Compress(p, 1e2, 0.26, 30);
     } else if (init == "defect" && s.U() < 0.5) {
@@ -1113,11 +1230,12 @@ int CmdPool(const std::map<string, string>& a) {
     return true;
   };
   auto fresh = [&]() {
-    bool defect = init == "defect" || (init == "mix" && s.U() < 0.5);
-    Packing p = defect ? s.DefectStart() : s.LatticeStart();
+    string kind = init;
+    if (kind == "mix") kind = s.U() < 0.5 ? "defect" : "tilt";
+    Packing p = kind == "defect" ? s.DefectStart() : kind == "tilt" ? s.TiltStart() : s.LatticeStart();
     s.Compress(p, 1e1, 0, 0);
     s.Polish(p, 1e-10);
-    return BasinHop(s, p, timeLimit, temp, 100, bhInit, out, &gb, defect ? "pool/defect" : "pool/lattice");
+    return BasinHop(s, p, timeLimit, temp, 100, bhInit, out, &gb, "pool/" + kind);
   };
   string seeds = ArgS(a, "seeds", "");
   for (size_t pos = 0; !seeds.empty() && pos != string::npos;) {
@@ -1188,8 +1306,8 @@ int main(int argc, char** argv) {
             "  check     --in FILE\n"
             "  polish    --in FILE [--out FILE] [--margin 1e-10]\n"
             "  bh        --in FILE --out FILE [--time SEC] [--seed N] [--temp T] [--reset K]\n"
-            "  search    --n N --out FILE [--init lattice|defect|random] [--time SEC] [--seed N] [--bh-iters K]\n"
-            "  pool      --n N --out FILE [--pool K] [--init lattice|defect|mix] [--seeds F1,F2]\n"
+            "  search    --n N --out FILE [--init lattice|defect|tilt|random] [--time SEC] [--seed N] [--bh-iters K]\n"
+            "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|mix] [--seeds F1,F2]\n"
             "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
             "  gradcheck [--n N] [--r R] [--margin M] [--seed N]\n");
     return 2;
@@ -1198,6 +1316,7 @@ int main(int argc, char** argv) {
   auto a = ParseArgs(argc, argv, 2);
   if (cmd == "check") return CmdCheck(a);
   if (cmd == "bench") return CmdBench(a);
+  if (cmd == "stress") return CmdStress(a);
   if (cmd == "polish") return CmdPolish(a);
   if (cmd == "bh") return CmdBh(a);
   if (cmd == "search") return CmdSearch(a);
