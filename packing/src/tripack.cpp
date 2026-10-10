@@ -419,9 +419,9 @@ void Rescale(Packing& p, double newS) {
   p.S = newS;
 }
 
-enum Move { kJitter, kLocal, kFlip, kRelocate, kRotateCluster, kShear, kSwap, kBlob, kRegion, kNumMoves };
+enum Move { kJitter, kLocal, kFlip, kRelocate, kRotateCluster, kShear, kSwap, kBlob, kRegion, kBand, kNumMoves };
 const char* kMoveNames[kNumMoves] = {"jitter", "local", "flip",  "relocate", "rotate",
-                                     "shear",  "swap",  "blob", "region"};
+                                     "shear",  "swap",  "blob", "region",   "band"};
 
 class Searcher {
  public:
@@ -793,6 +793,38 @@ class Searcher {
         Scramble(p, cx, cy, U(0.9, 2.0));
         break;
       }
+      case kBand: {  // turn or slide a band of rows parallel to one side of the container
+        double nang = kPi / 2 + I(3) * 2 * kPi / 3, nx = std::cos(nang), ny = std::sin(nang);
+        double ix = p.S / 2, iy = p.S / (2 * kSqrt3), ext = p.S / (2 * kSqrt3);
+        double lo = U(-ext, 1.7 * ext), hi = lo + kH * U(0.8, 3.0);
+        vector<int> in;
+        double sx = 0, sy = 0;
+        for (int i = 0; i < n; i++) {
+          double t = (p.q[3 * i] - ix) * nx + (p.q[3 * i + 1] - iy) * ny;
+          if (t < lo || t > hi) continue;
+          in.push_back(i);
+          sx += p.q[3 * i];
+          sy += p.q[3 * i + 1];
+        }
+        if (in.empty()) break;
+        double cx = sx / in.size(), cy = sy / in.size();
+        if (U() < 0.5) {
+          double phi = G(0.03), cs = std::cos(phi), sn = std::sin(phi);
+          for (int i : in) {
+            double dx = p.q[3 * i] - cx, dy = p.q[3 * i + 1] - cy;
+            p.q[3 * i] = cx + cs * dx - sn * dy;
+            p.q[3 * i + 1] = cy + sn * dx + cs * dy;
+            p.q[3 * i + 2] += phi;
+          }
+        } else {
+          double shift = G(0.2);  // along the band
+          for (int i : in) {
+            p.q[3 * i] += shift * -ny;
+            p.q[3 * i + 1] += shift * nx;
+          }
+        }
+        break;
+      }
     }
     return move;
   }
@@ -885,8 +917,8 @@ class Searcher {
   // packing with S = +inf when the trial was abandoned early.
   Packing Trial(const Packing& cur, double abortAbove, int* moveOut) {
     Packing t = cur;
-    Rescale(t, cur.S * (1 + std::exp(U(std::log(0.002), std::log(0.03)))));
-    static const double kWeights[kNumMoves] = {2, 3, 2, 2, 3, 2, 2, 1, 2};
+    Rescale(t, cur.S * (1 + std::exp(U(std::log(expandMin_), std::log(expandMax_)))));
+    static const double kWeights[kNumMoves] = {2, 3, 2, 2, 3, 2, 2, 1, 2, 2};
     double tot = 0;
     for (double w : kWeights) tot += w;
     double u = U(0, tot);
@@ -995,6 +1027,12 @@ class Searcher {
     return c;
   }
 
+  // Range of the random container expansion applied before each trial's perturbation.
+  void SetExpand(double lo, double hi) {
+    expandMin_ = lo;
+    expandMax_ = hi;
+  }
+
   Energy& energy() { return en_; }
   const vector<std::array<double, 3>>& stress() const { return stress_; }
 
@@ -1013,6 +1051,7 @@ class Searcher {
   long stageIters_[16] = {};
   double stageTime_[16] = {};
   vector<std::array<double, 3>> stress_;  // x, y relative to the incenter (units of S), cumulative weight
+  double expandMin_ = 0.002, expandMax_ = 0.03;
 };
 
 // ---------------------------------------------------------------- commands
@@ -1206,6 +1245,7 @@ int CmdBh(const std::map<string, string>& a) {
     return 1;
   }
   Searcher s(p.n, static_cast<uint64_t>(Arg(a, "seed", 1)));
+  s.SetExpand(Arg(a, "expand-min", 0.002), Arg(a, "expand-max", 0.03));
   s.Polish(p, 1e-10);
   Report(s.energy(), p, "start ");
   string out = ArgS(a, "out", "");
@@ -1223,6 +1263,7 @@ int CmdSearch(const std::map<string, string>& a) {
     return 1;
   }
   Searcher s(n, static_cast<uint64_t>(Arg(a, "seed", 1)));
+  s.SetExpand(Arg(a, "expand-min", 0.002), Arg(a, "expand-max", 0.03));
   string init = ArgS(a, "init", "lattice"), out = ArgS(a, "out", "");
   double timeLimit = Arg(a, "time", 600), t0 = Now();
   int bhIters = static_cast<int>(Arg(a, "bh-iters", 300));
@@ -1270,6 +1311,7 @@ int CmdPool(const std::map<string, string>& a) {
     return 1;
   }
   Searcher s(n, static_cast<uint64_t>(Arg(a, "seed", 1)));
+  s.SetExpand(Arg(a, "expand-min", 0.002), Arg(a, "expand-max", 0.03));
   string out = ArgS(a, "out", ""), init = ArgS(a, "init", "mix");
   double timeLimit = Arg(a, "time", 600), t0 = Now(), temp = Arg(a, "temp", 2e-4);
   int K = static_cast<int>(Arg(a, "pool", 10));
@@ -1365,6 +1407,7 @@ int main(int argc, char** argv) {
             "  check     --in FILE\n"
             "  polish    --in FILE [--out FILE] [--margin 1e-10]\n"
             "  bh        --in FILE --out FILE [--time SEC] [--seed N] [--temp T] [--reset K]\n"
+            "            (bh/search/pool also take --expand-min/--expand-max, default 0.002/0.03)\n"
             "  search    --n N --out FILE [--init lattice|defect|tilt|random] [--time SEC] [--seed N] [--bh-iters K]\n"
             "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|mix] [--seeds F1,F2]\n"
             "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
