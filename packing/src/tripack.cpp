@@ -507,8 +507,20 @@ class Searcher {
   // Pressure schedule: optional rounded ("blob") phase, then hardening in mu.
   // Soft stages leave small overlaps, so S only grows afterwards: a layout whose
   // S after mu = 1e4 already exceeds abortAbove is abandoned (returns false).
-  bool Compress(Packing& p, double mu0, double r0, int blobStages, double abortAbove = 1e300) {
-    for (int k = 0; k < blobStages; k++) Pressure(p, 1e3, r0 * (1.0 - static_cast<double>(k) / blobStages), 300);
+  // With noise > 0 the blob phase is annealed: after each stage every piece is
+  // shaken by a random displacement that shrinks linearly to zero.
+  bool Compress(Packing& p, double mu0, double r0, int blobStages, double abortAbove = 1e300, double noise = 0) {
+    for (int k = 0; k < blobStages; k++) {
+      double f = 1.0 - static_cast<double>(k) / blobStages;
+      Pressure(p, 1e3, r0 * f, 300);
+      if (noise > 0) {
+        for (int i = 0; i < n_; i++) {
+          p.q[3 * i] += G(noise * f);
+          p.q[3 * i + 1] += G(noise * f);
+          p.q[3 * i + 2] += G(2 * noise * f);
+        }
+      }
+    }
     double mu = mu0;
     for (; mu <= 1.01e4; mu *= 10) Pressure(p, mu, 0, 300);
     if (p.S > abortAbove) return false;
@@ -1288,7 +1300,7 @@ int CmdSearch(const std::map<string, string>& a) {
       return 0;
     }
     if (kind == "random") {
-      s.Compress(p, 1e2, 0.26, 30);
+      s.Compress(p, 1e2, 0.26, static_cast<int>(Arg(a, "blob-stages", 30)), 1e300, Arg(a, "anneal", 0.0));
     } else if (kind == "defect" && s.U() < 0.5) {
       s.Compress(p, 1e2, s.U(0.03, 0.15), 10);
     } else {
@@ -1432,6 +1444,7 @@ int main(int argc, char** argv) {
             "  polish    --in FILE [--out FILE] [--margin 1e-10]\n"
             "  bh        --in FILE --out FILE [--time SEC] [--seed N] [--temp T] [--reset K]\n"
             "            (bh/search/pool also take --expand-min/--expand-max, default 0.002/0.03)\n"
+            "            (search --init random also takes --blob-stages K and --anneal SIGMA)\n"
             "  search    --n N --out FILE [--init lattice|defect|tilt|mix|random] [--time SEC] [--seed N] [--bh-iters K]\n"
             "  pool      --n N --out FILE [--pool K] [--init lattice|defect|tilt|mix] [--seeds F1,F2]\n"
             "            [--time SEC] [--seed N] [--bh-init K] [--bh-child K] [--min-diff D]\n"
