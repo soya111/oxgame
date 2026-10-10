@@ -44,3 +44,39 @@ python3 tools/render.py results/n44_bh.txt n44.svg --png n44.png
 ```
 
 `gradcheck` で解析勾配を差分と照合できる（`./build/tripack gradcheck --n 20 --r 0.1`）。
+
+## これまでの結果（2026-10-10）
+
+### n=44（目標 6.9303828 未満）
+
+| 系統 | 特徴 | 最良 S | ファイル |
+|---|---|---|---|
+| F3 | 中ほどを横断する約 5.5° 傾いた帯 + 下段の縦向き菱形 | 6.9303828（@ootamato） | `seeds/n44_ootamato.txt` |
+| F4 | 同じ角度の帯、菱形が上部 | 6.9304097 | `seeds/n44_f4_6.930410.txt` |
+| F3 | 種なしの pool が独力で発見 | 6.9304173 | `seeds/n44_f3_pool_6.930417.txt` |
+| F1 | 上 4 段が格子（Gomes 解と同系統） | 6.9305411 | `seeds/n44_f1_6.930541.txt` |
+| F2 | 中央の小さな乱れ領域 | 6.9307257 | `results/n44_f2_pool_6.930726.txt` |
+
+約 10 コア時間の探索では 6.9303828 は更新できていない。@ootamato 解からの basin hopping
+（2 時間・約 75 万試行）でも改善なし。帯を持つ配置は 6.93038〜6.93045 に多数あり、その中で最良。
+
+### n=31（サイト記録 5.90751, Yanis Gomes）
+
+pool 探索で 5.9075226（`seeds/n31_5.9075226.txt`、記録まで 1.3e-5）。
+
+### n=45（サイト記録 6.95922, Maurizio Morandi）
+
+20 分の試行で 6.961842。
+
+## 続け方
+
+```bash
+# 帯構造の解を種にした交叉探索（数時間単位で回す）
+./build/tripack pool --n 44 --pool 12 --init mix --time 14400 --seed 1 --out results/n44_pool.txt \
+  --seeds seeds/n44_ootamato.txt,seeds/n44_f3_pool_6.930417.txt,seeds/n44_f4_6.930410.txt
+
+# 種なしの交叉探索（F3 系統はこれで独力で見つかった）
+./build/tripack pool --n 44 --pool 10 --init mix --time 14400 --seed 2 --out results/n44_pool2.txt
+```
+
+`--seed` を変えたプロセスをコア数だけ並べると効率がよい。
