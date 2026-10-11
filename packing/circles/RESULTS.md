@@ -1,11 +1,11 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 13:41 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
+Updated 2026-10-11 14:11 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (227)
+## Better than the published record (229)
 
 | polygon | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -28,6 +28,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 131 | 0.069106524024 | 0.069105802355 | 7.217e-07 |
 | 5-gon (`cpt`) | 132 | 0.068848221974 | 0.068829497993 | 1.872e-05 |
 | 5-gon (`cpt`) | 133 | 0.068588886331 | 0.068582227196 | 6.659e-06 |
+| 5-gon (`cpt`) | 134 | 0.068263165332 | 0.068261352367 | 1.813e-06 |
 | 5-gon (`cpt`) | 135 | 0.068044308697 | 0.068040648959 | 3.660e-06 |
 | 5-gon (`cpt`) | 137 | 0.067546665987 | 0.067545701581 | 9.644e-07 |
 | 5-gon (`cpt`) | 140 | 0.066866739962 | 0.066864948010 | 1.792e-06 |
@@ -161,6 +162,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 85 | 0.096802911864 | 0.096800013134 | 2.899e-06 |
 | 16-gon (`cxd`) | 89 | 0.094138765578 | 0.094136751728 | 2.014e-06 |
 | 16-gon (`cxd`) | 90 | 0.093633617330 | 0.093630994308 | 2.623e-06 |
+| 16-gon (`cxd`) | 92 | 0.092645057861 | 0.092636810667 | 8.247e-06 |
 | 16-gon (`cxd`) | 94 | 0.091749124050 | 0.091745732828 | 3.391e-06 |
 | 16-gon (`cxd`) | 95 | 0.091292149219 | 0.091292035235 | 1.140e-07 |
 | 16-gon (`cxd`) | 97 | 0.090387400715 | 0.090384196570 | 3.204e-06 |
@@ -231,7 +233,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 188 | 0.065660371733 | 0.065627506828 | 3.286e-05 |
 | 16-gon (`cxd`) | 189 | 0.065560024399 | 0.065542183360 | 1.784e-05 |
 | 16-gon (`cxd`) | 190 | 0.065411836698 | 0.065405175062 | 6.662e-06 |
-| 16-gon (`cxd`) | 191 | 0.065275004949 | 0.065274502055 | 5.029e-07 |
+| 16-gon (`cxd`) | 191 | 0.065275594024 | 0.065274502055 | 1.092e-06 |
 | 16-gon (`cxd`) | 196 | 0.064416170982 | 0.064403713427 | 1.246e-05 |
 | 16-gon (`cxd`) | 197 | 0.064269326905 | 0.064261143761 | 8.183e-06 |
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
@@ -243,7 +245,7 @@ no floating point; see the README). Gains below
 |---|---|---|
 | 7-gon (`chp`) | 49-100 | 52 |
 | 9-gon (`cno`) | 49-100 | 52 |
-| 10-gon (`cdc`) | 49-100 | 46 |
+| 10-gon (`cdc`) | 49-100 | 47 |
 | 11-gon (`chd`) | 49-100 | 52 |
 | 12-gon (`cdd`) | 49-100 | 52 |
 | 13-gon (`ctd`) | 49-100 | 47 |
