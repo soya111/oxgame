@@ -1,11 +1,11 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 12:41 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
+Updated 2026-10-11 13:11 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (224)
+## Better than the published record (225)
 
 | polygon | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -60,7 +60,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 188 | 0.058015591385 | 0.058011965909 | 3.625e-06 |
 | 5-gon (`cpt`) | 189 | 0.057893138897 | 0.057887757934 | 5.381e-06 |
 | 5-gon (`cpt`) | 190 | 0.057743599982 | 0.057732101738 | 1.150e-05 |
-| 5-gon (`cpt`) | 191 | 0.057587317856 | 0.057580382406 | 6.935e-06 |
+| 5-gon (`cpt`) | 191 | 0.057589399860 | 0.057580382406 | 9.017e-06 |
 | 5-gon (`cpt`) | 192 | 0.057464049491 | 0.057450429294 | 1.362e-05 |
 | 5-gon (`cpt`) | 194 | 0.057136626760 | 0.057135549328 | 1.077e-06 |
 | 5-gon (`cpt`) | 195 | 0.056985129312 | 0.056983864053 | 1.265e-06 |
@@ -173,6 +173,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 109 | 0.085332524398 | 0.085328022973 | 4.501e-06 |
 | 16-gon (`cxd`) | 110 | 0.085056442658 | 0.085050962448 | 5.480e-06 |
 | 16-gon (`cxd`) | 112 | 0.084440172947 | 0.084435175294 | 4.998e-06 |
+| 16-gon (`cxd`) | 114 | 0.083720834553 | 0.083719221135 | 1.613e-06 |
 | 16-gon (`cxd`) | 115 | 0.083390623478 | 0.083388430929 | 2.193e-06 |
 | 16-gon (`cxd`) | 118 | 0.082454271606 | 0.082450799752 | 3.472e-06 |
 | 16-gon (`cxd`) | 119 | 0.082133380546 | 0.082131453570 | 1.927e-06 |
