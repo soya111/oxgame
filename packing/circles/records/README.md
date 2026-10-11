@@ -9,6 +9,7 @@ The published N=1 entries of the nonagon and decagon tables are computed for cir
 | code | sides | last update | N up to |
 |---|---|---|---|
 | cpt | 5 | 06-Mar-2023 | 200 |
+| chx | 6 | 18-Dec-2020 | 120 (then selected N up to 1261) |
 | chp | 7 | 05-Dec-2020 | 48 |
 | cno | 9 | 05-Dec-2020 | 48 |
 | cdc | 10 | 05-Dec-2020 | 48 |
