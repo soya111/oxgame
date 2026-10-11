@@ -1,6 +1,6 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 14:42 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
+Updated 2026-10-11 15:42 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
@@ -249,6 +249,6 @@ no floating point; see the README). Gains below
 | 10-gon (`cdc`) | 49-100 | 52 |
 | 11-gon (`chd`) | 49-100 | 52 |
 | 12-gon (`cdd`) | 49-100 | 52 |
-| 13-gon (`ctd`) | 49-100 | 47 |
-| 14-gon (`crd`) | 49-100 | 48 |
-| 17-gon (`ced`) | 49-100 | 50 |
+| 13-gon (`ctd`) | 49-100 | 52 |
+| 14-gon (`crd`) | 49-100 | 52 |
+| 17-gon (`ced`) | 49-100 | 52 |
