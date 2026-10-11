@@ -599,6 +599,12 @@ int CmdSweep(const std::map<string, string>& a) {
       }
     }
     if (best[n].R < before * (1 - 1e-12)) {
+      // Another process may have stored something better meanwhile: never overwrite it.
+      Packing disk;
+      if (ReadPacking(BestPath(dir, n), k, disk) && disk.n == n && disk.R <= best[n].R) {
+        best[n] = disk;
+        continue;
+      }
       char buf[160];
       snprintf(buf, sizeof buf, "k=%d n=%d r=%.15f found by %s", k, n, rc / best[n].R, tag.c_str());
       WritePacking(BestPath(dir, n), k, best[n], buf);

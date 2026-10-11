@@ -54,7 +54,7 @@ def main():
     jobs = []  # [code, nmin, nmax, weight, seconds_used]
     for code in SIDES:
         top = max(records(code))
-        jobs.append([code, 1, top, 1.0, 0.0])
+        jobs.append([code, 1, top, top / 48.0, 0.0])  # time in proportion to the number of sizes
         if args.ext > top:
             jobs.append([code, top + 1, args.ext, 0.5, 0.0])
     state = os.path.join(args.root, "jobs.json")  # time used per job survives restarts
