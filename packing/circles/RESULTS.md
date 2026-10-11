@@ -1,9 +1,9 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 04:07 UTC. Records are the Packomania tables in `records/` (last changed in 2020).
+Updated 2026-10-11 04:22 UTC. Records are the Packomania tables in `records/` (last changed in 2020).
 Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic).
 
-## Better than the published record (20)
+## Better than the published record (28)
 
 | polygon | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -14,7 +14,12 @@ Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic).
 | 9-gon (`cno`) | 33 | 0.147454099839 | 0.147453006374 | 1.093e-06 |
 | 9-gon (`cno`) | 34 | 0.145734640991 | 0.145733308872 | 1.332e-06 |
 | 9-gon (`cno`) | 43 | 0.129510500589 | 0.129501438595 | 9.062e-06 |
-| 10-gon (`cdc`) | 43 | 0.131069135363 | 0.131069130656 | 4.707e-09 |
+| 10-gon (`cdc`) | 35 | 0.144665798603 | 0.144665247316 | 5.513e-07 |
+| 10-gon (`cdc`) | 40 | 0.135577297629 | 0.135576893097 | 4.045e-07 |
+| 10-gon (`cdc`) | 41 | 0.134260505672 | 0.134256277432 | 4.228e-06 |
+| 10-gon (`cdc`) | 43 | 0.131069135369 | 0.131069130656 | 4.713e-09 |
+| 10-gon (`cdc`) | 45 | 0.128459831465 | 0.128450718174 | 9.113e-06 |
+| 10-gon (`cdc`) | 46 | 0.126800914679 | 0.126797839627 | 3.075e-06 |
 | 10-gon (`cdc`) | 47 | 0.125324078422 | 0.125313743564 | 1.033e-05 |
 | 11-gon (`chd`) | 19 | 0.198862662291 | 0.198862635374 | 2.692e-08 |
 | 11-gon (`chd`) | 31 | 0.153396213052 | 0.153391023890 | 5.189e-06 |
@@ -27,6 +32,9 @@ Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic).
 | 12-gon (`cdd`) | 46 | 0.128140807626 | 0.128119564827 | 2.124e-05 |
 | 14-gon (`crd`) | 19 | 0.201215647901 | 0.201215442455 | 2.054e-07 |
 | 14-gon (`crd`) | 42 | 0.134005919664 | 0.134000115596 | 5.804e-06 |
+| 15-gon (`cpd`) | 113 | 0.083797735312 | 0.083797734968 | 3.441e-10 |
+| 17-gon (`ced`) | 29 | 0.161452875484 | 0.161452859535 | 1.595e-08 |
+| 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
 ## Sizes beyond the published tables
 
@@ -37,5 +45,5 @@ Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic).
 | 10-gon (`cdc`) | 49-100 | 30 |
 | 11-gon (`chd`) | 51-99 | 28 |
 | 12-gon (`cdd`) | 50-100 | 43 |
-| 14-gon (`crd`) | 50-92 | 8 |
+| 14-gon (`crd`) | 49-99 | 36 |
 | 17-gon (`ced`) | 50-100 | 32 |
