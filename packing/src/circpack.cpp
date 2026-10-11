@@ -567,27 +567,43 @@ int CmdSweep(const std::map<string, string>& a) {
     visits++;
     Searcher s(n, poly, rng());
     vector<Packing> starts;
-    if (best.count(n)) starts.push_back(best[n]);
-    if (best.count(n - 1)) starts.push_back(s.FromSmaller(best[n - 1]));
-    if (best.count(n + 1)) starts.push_back(s.FromLarger(best[n + 1]));
-    starts.push_back(s.U() < 0.5 ? s.LatticeStart() : s.RandomStart());
+    vector<string> kinds;  // how each start was made, reported with improvements
+    if (best.count(n)) {
+      starts.push_back(best[n]);
+      kinds.push_back("bh");
+    }
+    if (best.count(n - 1)) {
+      starts.push_back(s.FromSmaller(best[n - 1]));
+      kinds.push_back("grow");
+    }
+    if (best.count(n + 1)) {
+      starts.push_back(s.FromLarger(best[n + 1]));
+      kinds.push_back("shrink");
+    }
+    bool lattice = s.U() < 0.5;
+    starts.push_back(lattice ? s.LatticeStart() : s.RandomStart());
+    kinds.push_back(lattice ? "lattice" : "random");
     double before = best.count(n) ? best[n].R : 1e300;
+    string via;
     for (size_t i = 0; i < starts.size(); i++) {
       Packing p = starts[i];
-      if (!(best.count(n) && i == 0)) {  // fresh seeds are compressed and polished first
+      if (kinds[i] != "bh") {  // fresh seeds are compressed and polished first
         s.Compress(p, 1e1);
         if (!s.Polish(p, 1e-11)) continue;
       }
       long tried = 0;
       Packing b = s.BasinHop(p, i == 0 ? trials : trials / 2, temp, &tried);
-      if (!best.count(n) || b.R < best[n].R * (1 - 1e-12)) best[n] = b;
+      if (!best.count(n) || b.R < best[n].R * (1 - 1e-12)) {
+        best[n] = b;
+        via = kinds[i];
+      }
     }
     if (best[n].R < before * (1 - 1e-12)) {
       char buf[160];
       snprintf(buf, sizeof buf, "k=%d n=%d r=%.15f found by %s", k, n, rc / best[n].R, tag.c_str());
       WritePacking(BestPath(dir, n), k, best[n], buf);
-      printf("[%7.0fs] n=%3d r=%.12f  %s%s\n", Now() - t0, n, rc / best[n].R, status(n).c_str(),
-             before == 1e300 ? "  (first)" : "");
+      printf("[%7.0fs] n=%3d r=%.12f  %s  via=%s%s\n", Now() - t0, n, rc / best[n].R, status(n).c_str(),
+             via.c_str(), before == 1e300 ? "  (first)" : "");
       fflush(stdout);
       for (int m : {n - 1, n + 1})
         if (m >= nmin && m <= nmax && std::find(queue.begin(), queue.end(), m) == queue.end()) queue.push_back(m);

@@ -8,8 +8,7 @@
 
 circpack files: '#' comments, then "k n R", then n lines "x y" -- unit circles in the
 regular k-gon of circumradius R centered at the origin with a horizontal bottom side.
-Packomania fixes the container at circumradius rc (1; 1/2 for the nonagon and the
-decagon) and reports the radius r = rc / R.
+Packomania fixes the container at circumradius 1 and reports the radius r = 1 / R.
 """
 import glob
 import math
@@ -20,7 +19,7 @@ from decimal import Decimal as D, getcontext
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-RC = {7: 1, 9: 0.5, 10: 0.5, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 17: 1}
+RC = {7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 17: 1}
 CODE = {7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd", 15: "cpd", 17: "ced"}
 
 

@@ -10,6 +10,7 @@ ROOT/summary.log.
   python3 campaign.py --root DIR [--workers 4] [--slice 900] [--hours 8] [--ext 100]
 """
 import argparse
+import json
 import os
 import random
 import re
@@ -20,7 +21,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.dirname(HERE)
 SIDES = {"chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13, "crd": 14, "cpd": 15, "ced": 17}
-RC = {"cno": 0.5, "cdc": 0.5}
+RC = {}  # every container has circumradius 1
 
 
 def records(code):
@@ -56,10 +57,15 @@ def main():
         jobs.append([code, 1, top, 1.0, 0.0])
         if args.ext > top:
             jobs.append([code, top + 1, args.ext, 0.5, 0.0])
+    state = os.path.join(args.root, "jobs.json")  # time used per job survives restarts
+    if os.path.exists(state):
+        used = json.load(open(state))
+        for j in jobs:
+            j[4] = used.get("%s %d-%d" % (j[0], j[1], j[2]), 0.0)
     summary = open(os.path.join(args.root, "summary.log"), "a")
     running = {}  # Popen -> (job, log path, start)
     deadline = time.time() + args.hours * 3600
-    rng = random.Random(12345)
+    rng = random.Random()
 
     def log(msg):
         line = time.strftime("%Y-%m-%d %H:%M:%S ") + msg
@@ -74,6 +80,7 @@ def main():
                 continue
             job, path, start = running.pop(p)
             job[4] += time.time() - start
+            json.dump({"%s %d-%d" % (j[0], j[1], j[2]): j[4] for j in jobs}, open(state, "w"), indent=1)
             code, n1, n2 = job[0], job[1], job[2]
             rec = records(code)
             improved = [l.strip() for l in open(path) if l.startswith("[")]
