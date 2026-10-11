@@ -375,6 +375,62 @@ class Searcher {
     return p;
   }
 
+  // A symmetry of the container applied to a packing: rotation by m * 2pi/k,
+  // optionally preceded by the mirror in the vertical axis.
+  void Symmetry(Packing& p, int m, bool mirror) {
+    double a = 2 * kPi * m / poly_.k, c = std::cos(a), s = std::sin(a);
+    for (int i = 0; i < p.n; i++) {
+      double x = p.q[2 * i], y = p.q[2 * i + 1];
+      if (mirror) x = -x;
+      p.q[2 * i] = c * x - s * y;
+      p.q[2 * i + 1] = s * x + c * y;
+    }
+  }
+
+  // Child of A and B: A's circles on one side of a random line through the
+  // container, B's on the other; the count is repaired by dropping the most
+  // overlapped circles or adding circles at the roomiest spots.
+  Packing Crossover(const Packing& A, Packing B) {
+    Rescale(B, A.R);
+    double ang = U(0, kPi), ux = std::cos(ang), uy = std::sin(ang), off = U(-0.3, 0.3) * A.R;
+    Packing c;
+    c.n = 0;
+    c.R = A.R;
+    for (int src = 0; src < 2; src++) {
+      const Packing& P = src ? B : A;
+      for (int i = 0; i < P.n; i++) {
+        bool side = P.q[2 * i] * -uy + P.q[2 * i + 1] * ux >= off;
+        if (side != (src == 0)) continue;
+        c.q.push_back(P.q[2 * i]);
+        c.q.push_back(P.q[2 * i + 1]);
+        c.n++;
+      }
+    }
+    while (c.n > n_) {  // drop the circle with the largest total overlap
+      int worst = 0;
+      double wv = -1;
+      for (int i = 0; i < c.n; i++) {
+        double v = 0;
+        for (int j = 0; j < c.n; j++)
+          if (j != i) v += std::max(0.0, 2 - std::hypot(c.q[2 * i] - c.q[2 * j], c.q[2 * i + 1] - c.q[2 * j + 1]));
+        if (v > wv) {
+          wv = v;
+          worst = i;
+        }
+      }
+      c.q.erase(c.q.begin() + 2 * worst, c.q.begin() + 2 * worst + 2);
+      c.n--;
+    }
+    while (c.n < n_) {
+      double x = 0, y = 0;
+      Hole(c, c.n, -1, &x, &y);
+      c.q.push_back(x);
+      c.q.push_back(y);
+      c.n++;
+    }
+    return c;
+  }
+
   enum Move { kShake, kLocal, kRelocate, kRotate, kNumMoves };
 
   void Perturb(Packing& p, int mv) {
@@ -579,6 +635,14 @@ int CmdSweep(const std::map<string, string>& a) {
     if (best.count(n + 1)) {
       starts.push_back(s.FromLarger(best[n + 1]));
       kinds.push_back("shrink");
+    }
+    if (best.count(n) && n > 20 && s.U() < 0.5) {  // recombine the best with a neighbour seed or itself
+      Packing other = s.U() < 0.5 && best.count(n - 1)   ? s.FromSmaller(best[n - 1])
+                      : s.U() < 0.5 && best.count(n + 1) ? s.FromLarger(best[n + 1])
+                                                         : best[n];
+      s.Symmetry(other, s.I(poly.k), s.U() < 0.5);
+      starts.push_back(s.Crossover(best[n], other));
+      kinds.push_back("cross");
     }
     // Fresh lattice/random starts pay off for small n only (campaign statistics:
     // above n ~ 60 nearly every record improvement came from the other starts).
