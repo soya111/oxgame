@@ -19,8 +19,9 @@ from decimal import Decimal as D, getcontext
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-RC = {7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 17: 1}
-CODE = {7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd", 15: "cpd", 17: "ced"}
+RC = {5: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1}
+CODE = {5: "cpt", 7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd", 15: "cpd", 16: "cxd",
+        17: "ced"}
 
 
 def read(path):

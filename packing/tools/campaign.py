@@ -20,7 +20,8 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.dirname(HERE)
-SIDES = {"chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13, "crd": 14, "cpd": 15, "ced": 17}
+SIDES = {"cpt": 5, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13, "crd": 14, "cpd": 15,
+         "cxd": 16, "ced": 17}
 RC = {}  # every container has circumradius 1
 
 
