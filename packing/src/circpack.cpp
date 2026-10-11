@@ -580,9 +580,13 @@ int CmdSweep(const std::map<string, string>& a) {
       starts.push_back(s.FromLarger(best[n + 1]));
       kinds.push_back("shrink");
     }
-    bool lattice = s.U() < 0.5;
-    starts.push_back(lattice ? s.LatticeStart() : s.RandomStart());
-    kinds.push_back(lattice ? "lattice" : "random");
+    // Fresh lattice/random starts pay off for small n only (campaign statistics:
+    // above n ~ 60 nearly every record improvement came from the other starts).
+    if (n <= 60 || !best.count(n) || s.U() < 0.2) {
+      bool lattice = s.U() < 0.5;
+      starts.push_back(lattice ? s.LatticeStart() : s.RandomStart());
+      kinds.push_back(lattice ? "lattice" : "random");
+    }
     double before = best.count(n) ? best[n].R : 1e300;
     string via;
     for (size_t i = 0; i < starts.size(); i++) {
@@ -592,7 +596,8 @@ int CmdSweep(const std::map<string, string>& a) {
         if (!s.Polish(p, 1e-11)) continue;
       }
       long tried = 0;
-      Packing b = s.BasinHop(p, i == 0 ? trials : trials / 2, temp, &tried);
+      int budget = kinds[i] == "bh" ? (n > 60 ? trials * 3 / 2 : trials) : trials / 2;
+      Packing b = s.BasinHop(p, budget, temp, &tried);
       if (!best.count(n) || b.R < best[n].R * (1 - 1e-12)) {
         best[n] = b;
         via = kinds[i];
