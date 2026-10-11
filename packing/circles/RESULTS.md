@@ -1,11 +1,11 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 18:43 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
+Updated 2026-10-11 18:52 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (234)
+## Better than the published record (235)
 
 | polygon | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -71,6 +71,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 197 | 0.056677892380 | 0.056676656007 | 1.236e-06 |
 | 5-gon (`cpt`) | 198 | 0.056548874561 | 0.056537340893 | 1.153e-05 |
 | 5-gon (`cpt`) | 199 | 0.056410787267 | 0.056408547824 | 2.239e-06 |
+| 5-gon (`cpt`) | 200 | 0.056271678889 | 0.056271364514 | 3.144e-07 |
 | 6-gon (`chx`) | 32 | 0.142908787193 | 0.142897923362 | 1.086e-05 |
 | 6-gon (`chx`) | 64 | 0.102997162728 | 0.102994077927 | 3.085e-06 |
 | 6-gon (`chx`) | 66 | 0.100980848018 | 0.100973952318 | 6.896e-06 |
@@ -115,7 +116,7 @@ no floating point; see the README). Gains below
 | 15-gon (`cpd`) | 72 | 0.104187444675 | 0.104148216880 | 3.923e-05 |
 | 15-gon (`cpd`) | 73 | 0.103390170664 | 0.103385200284 | 4.970e-06 |
 | 15-gon (`cpd`) | 74 | 0.102663729342 | 0.102662875600 | 8.537e-07 |
-| 15-gon (`cpd`) | 76 | 0.101438407644 | 0.101437223330 | 1.184e-06 |
+| 15-gon (`cpd`) | 76 | 0.101438407646 | 0.101437223330 | 1.184e-06 |
 | 15-gon (`cpd`) | 77 | 0.100836211986 | 0.100835741189 | 4.708e-07 |
 | 15-gon (`cpd`) | 79 | 0.099586035548 | 0.099584993010 | 1.043e-06 |
 | 15-gon (`cpd`) | 81 | 0.098733868402 | 0.098732481024 | 1.387e-06 |
