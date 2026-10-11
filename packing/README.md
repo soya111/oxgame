@@ -83,3 +83,22 @@ basin hopping 2 本（計約 93 万試行）が同じ値に収束したので、
 ```
 
 `--seed` を変えたプロセスをコア数だけ並べると効率がよい。
+
+## 円を正多角形に詰める（Packomania）
+
+[Packomania](https://www.packomania.com/) の「circles in a regular polygon」のうち、2020 年 12 月から
+更新が止まっている正 7・9・10・11・12・13・14・15・17 角形（N≤48、15 角形は N≤122）が対象。
+記録表は `circles/records/` に保存してある（容器は外接円半径 rc、底辺が水平、9・10 角形だけ rc=1/2）。
+
+- `src/circpack.cpp` — 円用ソルバ。単位円を詰める正多角形の外接円半径 R を最小化（Packomania の半径は r = rc/R）
+  - `sweep`: N の範囲を巡回し、N−1 の最良解に円を 1 個足したもの・N+1 から 1 個抜いたもの・ランダム配置を
+    初期解に basin hopping。改善が出たら N±1 を再訪問する
+- `tools/campaign.py` — 複数の sweep を時間を区切って回し続ける司令塔。記録との比較を `summary.log` に残す
+- `tools/circ.py` — 50 桁精度の検証（`verify`）、提出用 `.pck` の出力（`export`）、記録との比較（`status`）、描画（`render`）
+
+```bash
+g++ -O3 -march=native -std=c++17 -o build/circpack src/circpack.cpp
+python3 tools/campaign.py --root /tmp/camp --workers 4 --slice 900 --hours 10 --ext 100
+python3 tools/circ.py status --code chp --dir /tmp/camp/chp
+python3 tools/circ.py export /tmp/camp/chp/40.txt --name "Your Name" --out chp40.pck
+```
