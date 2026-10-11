@@ -4,8 +4,8 @@
   python3 circ_submit.py --root CAMPAIGN --name "Full Name" --out DIR [--new] [--min-gain 1e-10]
 
 For every polygon, each packing that beats the published radius by more than
---min-gain (and, with --new, each size that has no record yet) is re-verified at
-50 digits and written as CODE<N>.pck. One zip per polygon is made, named with the
+--min-gain (and, with --new, each size that has no record yet) is written as
+CODE<N>.pck and then proven valid with exact_verify.py (exact rational arithmetic). One zip per polygon is made, named with the
 submitter and the date as Packomania asks, plus a markdown table of the results.
 """
 import argparse
@@ -18,6 +18,7 @@ import zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import circ  # noqa: E402
+import exact_verify  # noqa: E402
 
 
 def main():
@@ -46,10 +47,10 @@ def main():
         for n, f, r in sorted(picked):
             out = os.path.join(args.out, "%s%d.pck" % (code, n))
             circ.cmd_export([f, "--name", args.name, "--out", out])
-            r_out, pts = read_pck(out)
-            wall, pair = circ.check(k, r_out, pts, circ.RC[k])
-            if wall < 0 or pair < 0:
-                print("SKIP %s n=%d: failed verification" % (code, n))
+            # Final gate: a proof in exact arithmetic of the file as it will be sent.
+            ok, _, _ = exact_verify.verify(k, *exact_verify.read_pck(out))
+            if not ok:
+                print("SKIP %s n=%d: failed exact verification" % (code, n))
                 os.remove(out)
                 continue
             files.append(out)
@@ -64,12 +65,6 @@ def main():
             print("%s: %d packings -> %s" % (code, len(files), zpath))
     open(os.path.join(args.out, "summary.md"), "w").write("\n".join(table) + "\n")
     print("\n".join(table))
-
-
-def read_pck(path):
-    """Radius and coordinates of a .pck file (line 1 radius, line 2 names, then x y)."""
-    lines = open(path).read().splitlines()
-    return circ.D(lines[0]), [tuple(circ.D(v) for v in l.split()) for l in lines[2:] if l.strip()]
 
 
 if __name__ == "__main__":

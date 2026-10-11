@@ -4,7 +4,7 @@
   python3 circ_results.py --root CAMPAIGN
 
 Packings that beat the published radius, and packings for sizes without a record,
-go to circles/best/CODE/N.txt (verified at 50 digits first); RESULTS.md lists
+go to circles/best/CODE/N.txt (after an exact proof of validity); RESULTS.md lists
 them against the records.
 """
 import argparse
@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import circ  # noqa: E402
+import exact_verify  # noqa: E402
 
 PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,7 +44,13 @@ def main():
             else:
                 rr, P = circ.packomania_frame(k, R, pts, circ.RC[k])
                 wall, pair = circ.check(k, rr, P, circ.RC[k])
-                if wall < 0 or pair < 0:
+                # Proof in exact arithmetic, on the values rounded as they would be submitted.
+                r_q = (rr * (1 - circ.D("1e-15"))).quantize(circ.D("1e-18"))
+                proof, _, _ = exact_verify.verify(
+                    k, exact_verify.F(str(r_q)),
+                    [(exact_verify.F(str(x.quantize(circ.D("1e-18")))), exact_verify.F(str(y.quantize(circ.D("1e-18")))))
+                     for x, y in P])
+                if wall < 0 or pair < 0 or not proof:
                     failed.append((code, n))
                     continue
                 os.makedirs(dst, exist_ok=True)
@@ -55,7 +62,8 @@ def main():
     lines = ["# Circles in regular polygons: results", "",
              "Updated %s. Records are the Packomania tables in `records/` (last changed 2020-2023)." %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-             "Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic). Gains below",
+             "Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,",
+             "no floating point; see the README). Gains below",
              "%.0e (what re-polishing a published packing can give) are not counted." % args.min_gain, "",
              "## Better than the published record (%d)" % len(better), "",
              "| polygon | N | r (this search) | r (record) | gain |", "|---|---|---|---|---|"]
