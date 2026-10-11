@@ -26,7 +26,7 @@ def main():
     ap.add_argument("--name", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--new", action="store_true", help="also include sizes without a published record")
-    ap.add_argument("--min-gain", type=float, default=1e-10)
+    ap.add_argument("--min-gain", type=float, default=circ.SIGNIFICANT)
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     date = datetime.date.today().strftime("%Y-%m-%d")

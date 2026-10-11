@@ -89,7 +89,7 @@ def main():
             for l in improved:
                 m = re.search(r"n=\s*(\d+) r=([0-9.]+)", l)
                 n, r = int(m.group(1)), float(m.group(2))
-                if n in rec and r > rec[n] + 1e-10:
+                if n in rec and r > rec[n] + 1e-7:  # smaller gains are mere re-polishing
                     log("  BETTER %s n=%d r=%.12f record %.12f (+%.3e)" % (code, n, r, rec[n], r - rec[n]))
                 elif n not in rec:
                     log("  NEW %s n=%d r=%.12f" % (code, n, r))

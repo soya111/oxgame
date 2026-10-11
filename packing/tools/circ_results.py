@@ -23,7 +23,7 @@ PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", required=True)
-    ap.add_argument("--min-gain", type=float, default=1e-10)
+    ap.add_argument("--min-gain", type=float, default=circ.SIGNIFICANT)
     args = ap.parse_args()
     better, new, failed = [], {}, []
     for k, code in sorted(circ.CODE.items()):
@@ -53,9 +53,10 @@ def main():
             else:
                 new.setdefault((k, code), []).append((n, r))
     lines = ["# Circles in regular polygons: results", "",
-             "Updated %s. Records are the Packomania tables in `records/` (last changed in 2020)." %
+             "Updated %s. Records are the Packomania tables in `records/` (last changed 2020-2023)." %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-             "Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic).", "",
+             "Every packing listed here passed `tools/circ.py verify` (50-digit arithmetic). Gains below",
+             "%.0e (what re-polishing a published packing can give) are not counted." % args.min_gain, "",
              "## Better than the published record (%d)" % len(better), "",
              "| polygon | N | r (this search) | r (record) | gain |", "|---|---|---|---|---|"]
     for k, code, n, r, rr in sorted(better):
