@@ -286,6 +286,38 @@ class Searcher {
     return p;
   }
 
+  // Hexagonal patch: a lattice of spacing 2 with random orientation and offset;
+  // the n sites lying deepest inside the container are kept.
+  Packing LatticeStart() {
+    double area1 = 0.5 * poly_.k * std::sin(2 * kPi / poly_.k);
+    Packing p;
+    p.n = n_;
+    p.R = std::sqrt(n_ * kPi / (0.85 * area1)) + 1;
+    double phi = U(0, kPi / 3), ox = U(0, 2), oy = U(0, 2);
+    double ax = 2 * std::cos(phi), ay = 2 * std::sin(phi);
+    double bx = 2 * std::cos(phi + kPi / 3), by = 2 * std::sin(phi + kPi / 3);
+    for (;;) {
+      vector<std::pair<double, std::pair<double, double>>> sites;
+      int m = static_cast<int>(p.R) + 2;
+      for (int i = -m; i <= m; i++) {
+        for (int j = -m; j <= m; j++) {
+          double x = ox + i * ax + j * bx, y = oy + i * ay + j * by;
+          double depth = poly_.Inside(x, y, p.R);
+          if (depth >= 1) sites.push_back({depth, {x, y}});
+        }
+      }
+      if (static_cast<int>(sites.size()) >= n_) {
+        std::sort(sites.begin(), sites.end(), [](const auto& a, const auto& b) { return a.first > b.first; });
+        for (int i = 0; i < n_; i++) {
+          p.q.push_back(sites[i].second.first);
+          p.q.push_back(sites[i].second.second);
+        }
+        return p;
+      }
+      p.R *= 1.03;
+    }
+  }
+
   // Free room around (x, y): distance to the walls and to every other circle, minus 1.
   double Room(const Packing& p, int count, double x, double y, int skip) const {
     double c = poly_.Inside(x, y, p.R) - 1;
@@ -498,9 +530,19 @@ int CmdSweep(const std::map<string, string>& a) {
   std::map<int, double> rec = ReadRecords(ArgS(a, "records", ""));
   std::mt19937_64 rng(static_cast<uint64_t>(Arg(a, "seed", 1)));
   std::map<int, Packing> best;
-  for (int n = nmin - 1; n <= nmax + 1; n++) {
+  string seedDir = ArgS(a, "seeds", "");
+  for (int n = std::max(1, nmin - 1); n <= nmax + 1; n++) {
     Packing p;
-    if (n >= 1 && ReadPacking(BestPath(dir, n), k, p) && p.n == n) best[n] = p;
+    if (ReadPacking(BestPath(dir, n), k, p) && p.n == n) best[n] = p;
+    // Outside packings (e.g. the published records) are polished, since their
+    // printed digits can leave tiny overlaps, and adopted when they are better.
+    if (!seedDir.empty() && ReadPacking(BestPath(seedDir, n), k, p) && p.n == n) {
+      Searcher s(n, poly, 7);
+      if (s.Polish(p, 1e-11) && (!best.count(n) || p.R < best[n].R * (1 - 1e-12))) {
+        best[n] = p;
+        if (n >= nmin && n <= nmax) WritePacking(BestPath(dir, n), k, p, "seed from " + seedDir);
+      }
+    }
   }
   auto status = [&](int n) {
     double r = rc / best[n].R;
@@ -528,7 +570,7 @@ int CmdSweep(const std::map<string, string>& a) {
     if (best.count(n)) starts.push_back(best[n]);
     if (best.count(n - 1)) starts.push_back(s.FromSmaller(best[n - 1]));
     if (best.count(n + 1)) starts.push_back(s.FromLarger(best[n + 1]));
-    starts.push_back(s.RandomStart());
+    starts.push_back(s.U() < 0.5 ? s.LatticeStart() : s.RandomStart());
     double before = best.count(n) ? best[n].R : 1e300;
     for (size_t i = 0; i < starts.size(); i++) {
       Packing p = starts[i];
@@ -564,7 +606,7 @@ int main(int argc, char** argv) {
     fprintf(stderr,
             "usage: circpack <command> [--key value ...]\n"
             "  sweep     --k K --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
-            "            [--records FILE] [--trials T] [--temp T] [--tag NAME]\n"
+            "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME]\n"
             "  check     --k K --in FILE [--rc RC]\n"
             "  gradcheck [--k K] [--n N] [--margin M]\n");
     return 2;

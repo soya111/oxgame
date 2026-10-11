@@ -46,6 +46,7 @@ def main():
     ap.add_argument("--slice", type=int, default=900)
     ap.add_argument("--hours", type=float, default=8)
     ap.add_argument("--ext", type=int, default=100, help="extend each polygon up to this N")
+    ap.add_argument("--seeds", default="", help="directory with CODE/N.txt starting packings (e.g. the records)")
     args = ap.parse_args()
     binary = os.path.join(PACK, "build", "circpack")
     os.makedirs(os.path.join(args.root, "logs"), exist_ok=True)
@@ -96,6 +97,8 @@ def main():
                    "--dir", os.path.join(args.root, code), "--records",
                    os.path.join(PACK, "circles", "records", code + ".txt"), "--nmin", str(n1), "--nmax", str(n2),
                    "--time", str(args.slice), "--seed", str(rng.randrange(1 << 30)), "--trials", "300"]
+            if args.seeds:
+                cmd += ["--seeds", os.path.join(args.seeds, code)]
             os.makedirs(os.path.join(args.root, code), exist_ok=True)
             running[subprocess.Popen(cmd, stdout=open(path, "w"), stderr=subprocess.STDOUT)] = (job, path, time.time())
             busy.add((code, n1))
