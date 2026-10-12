@@ -1,6 +1,6 @@
 # Squares in squares: results
 
-Updated 2026-10-12 10:19 UTC. Records are the side lengths s on David Ellsworth's page
+Updated 2026-10-12 11:10 UTC. Records are the side lengths s on David Ellsworth's page
 (https://kingbird.myphotos.cc/packing/squares_in_squares.html, fetched 2026-10-11; `records.txt`).
 Every packing listed is proven valid by `tools/sq_verify.py` (exact rational arithmetic).
 
@@ -30,6 +30,7 @@ Every packing listed is proven valid by `tools/sq_verify.py` (exact rational ari
 | 239 | 15.9563498237408 | 15.9563535840631 | 3.760e-06 | refinement |
 | 240 | 15.9755110883406 | 15.9755628283309 | 5.174e-05 | refinement |
 | 241 | 15.9896269263521 | 15.9908051781052 | 1.178e-03 | improvement |
+| 263 | 16.7425752453947 | 16.7426406871193 | 6.544e-05 | improvement |
 | 268 | 16.8793111910502 | 16.8793114346537 | 2.436e-07 | refinement |
 | 270 | 16.9406173954171 | 16.9406205980074 | 3.203e-06 | refinement |
 | 271 | 16.9549764794354 | 16.9549990941253 | 2.261e-05 | refinement |
@@ -44,4 +45,4 @@ Every packing listed is proven valid by `tools/sq_verify.py` (exact rational ari
 | 307 | 17.9826197198549 | 17.9827220157961 | 1.023e-04 | refinement |
 | 2043 | 45.6964271487849 | 45.6964278394099 | 6.906e-07 | refinement |
 
-34 sizes below the record (29 refinements, 5 improvements).
+35 sizes below the record (29 refinements, 6 improvements).
