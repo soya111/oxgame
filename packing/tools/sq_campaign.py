@@ -9,6 +9,10 @@ records); every slice is compared with the records file ("n s" lines) and the
 results are appended to ROOT/summary.log.
 
   python3 sq_campaign.py --root DIR --records FILE [--workers 4] [--slice 300] [--hours 8] [--ns 11,17-19,...]
+                        [--nbr DIR1/best,DIR2/best]
+
+Each n also keeps a pool of its best distinct packings in ROOT/pool/N (sqpack
+--pool); --nbr names the best/ directories whose n +- 1 packings seed some rounds.
 """
 import argparse
 import json
@@ -49,6 +53,7 @@ def main():
     ap.add_argument("--slice", type=int, default=300)
     ap.add_argument("--hours", type=float, default=8)
     ap.add_argument("--ns", default="", help="sizes to search (default: every n in the records file)")
+    ap.add_argument("--nbr", default="", help="comma-separated best/ directories for n +- 1 seeds")
     args = ap.parse_args()
     binary = os.path.join(PACK, "build", "sqpack")
     rec = {}
@@ -59,6 +64,7 @@ def main():
     ns = parse_ns(args.ns) if args.ns else sorted(rec)
     os.makedirs(os.path.join(args.root, "logs"), exist_ok=True)
     os.makedirs(os.path.join(args.root, "best"), exist_ok=True)
+    os.makedirs(os.path.join(args.root, "pool"), exist_ok=True)
     jobs = {n: [0.0, 1.0] for n in ns}  # n -> [seconds used, score]
     state = os.path.join(args.root, "jobs.json")
     if os.path.exists(state):
@@ -108,7 +114,9 @@ def main():
             path = os.path.join(args.root, "logs", "%d_%d.log" % (n, int(time.time())))
             cmd = [binary, "search", "--n", str(n), "--out", os.path.join(args.root, "best", "%d.txt" % n),
                    "--time", str(args.slice), "--seed", str(rng.randrange(1 << 30)), "--fresh", str(fresh),
-                   "--trials", "400" if n <= 120 else "200"]
+                   "--trials", "400" if n <= 120 else "200", "--pool", os.path.join(args.root, "pool", str(n))]
+            if args.nbr:
+                cmd += ["--nbr", args.nbr]
             if n in rec:
                 cmd += ["--record", repr(rec[n])]
             before = best_s(args.root, n)

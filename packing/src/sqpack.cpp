@@ -14,6 +14,8 @@
 // File format: '#' comments, then "n s", then n lines "x y t" (center, angle in
 // radians), the container being [-s/2, s/2]^2.
 
+#include <sys/stat.h>
+
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -306,6 +308,28 @@ class Searcher {
     }
   }
 
+  // Seed for n squares from a packing of n + 1: drop one square.
+  Packing FromLarger(const Packing& s) {
+    Packing p = s;
+    int i = I(s.n);
+    p.q.erase(p.q.begin() + 3 * i, p.q.begin() + 3 * i + 3);
+    p.n = n_;
+    return p;
+  }
+
+  // Seed for n squares from a packing of n - 1: add an upright square at the roomiest spot.
+  Packing FromSmaller(const Packing& s) {
+    Packing p = s;
+    double x = 0, y = 0;
+    Hole(s, -1, &x, &y);
+    p.q.push_back(x);
+    p.q.push_back(y);
+    p.q.push_back(0.0);
+    p.n = n_;
+    Rescale(p, p.h * 1.03);
+    return p;
+  }
+
   enum Move { kShake, kLocal, kRelocate, kRotate, kAlign, kTilt, kNumMoves };
 
   void Perturb(Packing& p, int mv) {
@@ -438,13 +462,82 @@ int CmdGradCheck(const std::map<string, string>& a) {
   return worst < 1e-5 ? 0 : 1;
 }
 
+// Keeps the K best distinct packings found for one n (in memory, mirrored to
+// files DIR/i.txt so that the next run continues from the whole pool).
+class Pool {
+ public:
+  Pool(const string& dir, int k) : dir_(dir), k_(k) {}
+
+  void Load(int n) {
+    for (int i = 0; i < k_; i++) {
+      Packing p;
+      if (ReadPacking(Path(i), p) && p.n == n) Add(p);
+    }
+  }
+
+  // Packings whose sides agree to 1e-7 count as the same arrangement: only the
+  // better one is kept. Returns whether the pool changed.
+  bool Add(const Packing& p) {
+    for (size_t i = 0; i < items_.size(); i++) {
+      if (std::abs(items_[i].h - p.h) > 1e-7 * p.h) continue;
+      if (p.h >= items_[i].h) return false;
+      items_.erase(items_.begin() + i);
+      break;
+    }
+    items_.insert(std::upper_bound(items_.begin(), items_.end(), p,
+                                   [](const Packing& x, const Packing& y) { return x.h < y.h; }),
+                  p);
+    if (static_cast<int>(items_.size()) > k_) items_.pop_back();
+    return true;
+  }
+
+  void Save() const {
+    if (dir_.empty()) return;
+    mkdir(dir_.c_str(), 0755);
+    for (size_t i = 0; i < items_.size(); i++) WritePacking(Path(static_cast<int>(i)), items_[i], "pool");
+  }
+
+  // A member biased towards the best ones.
+  const Packing& Pick(double u) const { return items_[static_cast<size_t>(u * u * items_.size())]; }
+  bool empty() const { return items_.empty(); }
+  size_t size() const { return items_.size(); }
+
+ private:
+  string Path(int i) const { return dir_ + "/" + std::to_string(i) + ".txt"; }
+  string dir_;
+  int k_;
+  vector<Packing> items_;
+};
+
+// The best packing of size m found in any of the comma-separated directories.
+bool BestNeighbour(const string& dirs, int m, Packing& best) {
+  bool have = false;
+  size_t from = 0;
+  while (from <= dirs.size() && !dirs.empty()) {
+    size_t to = dirs.find(',', from);
+    if (to == string::npos) to = dirs.size();
+    Packing p;
+    if (ReadPacking(dirs.substr(from, to - from) + "/" + std::to_string(m) + ".txt", p) && p.n == m &&
+        (!have || p.h < best.h)) {
+      best = p;
+      have = true;
+    }
+    from = to + 1;
+  }
+  return have;
+}
+
 // Basin hopping from --in (or from random starts when --in is absent) for --time
-// seconds; the best packing goes to --out whenever it improves.
+// seconds; the best packing goes to --out whenever it improves. With --pool DIR
+// every round starts from one of the --pool-size best distinct packings found so
+// far (kept in DIR across runs); with --nbr DIRS some rounds start from the best
+// packing of n + 1 minus a square or of n - 1 plus a square.
 int CmdSearch(const std::map<string, string>& a) {
-  string in = ArgS(a, "in", ""), out = ArgS(a, "out", "");
+  string in = ArgS(a, "in", ""), out = ArgS(a, "out", ""), poolDir = ArgS(a, "pool", ""), nbr = ArgS(a, "nbr", "");
   int n = static_cast<int>(Arg(a, "n", 0));
   double timeLimit = Arg(a, "time", 60), temp = Arg(a, "temp", 1e-4), record = Arg(a, "record", 0);
   double fresh = Arg(a, "fresh", 0.5);  // share of rounds that start from randomness once a best exists
+  double nbrShare = nbr.empty() ? 0.0 : Arg(a, "nbr-share", 0.15);
   int trials = static_cast<int>(Arg(a, "trials", 400));
   uint64_t seed = static_cast<uint64_t>(Arg(a, "seed", 1));
   Packing best;
@@ -470,19 +563,36 @@ int CmdSearch(const std::map<string, string>& a) {
       if (!out.empty()) WritePacking(out, best, "polished from " + in);
     }
   }
+  Pool pool(poolDir, static_cast<int>(Arg(a, "pool-size", 24)));
+  pool.Load(n);
+  if (have) pool.Add(best);
   double t0 = Now();
   long tried = 0, rounds = 0;
   while (Now() - t0 < timeLimit) {
     rounds++;
     Packing p;
-    if (fromIn || (have && s.U() >= fresh)) {
-      p = best;
-    } else {
+    double u = s.U(), randomShare = fromIn ? 0.0 : (have ? fresh : 1.0);
+    string kind = "best";
+    if (u < randomShare) {
       p = s.RandomStart(s.U(0.3, 0.6));
+      kind = "random";
+    } else if (u < randomShare + nbrShare) {
+      Packing nb;
+      bool larger = s.U() < 0.5;
+      if (!BestNeighbour(nbr, larger ? n + 1 : n - 1, nb) && !BestNeighbour(nbr, (larger = !larger) ? n + 1 : n - 1, nb))
+        continue;
+      p = larger ? s.FromLarger(nb) : s.FromSmaller(nb);
+      kind = larger ? "shrink" : "grow";
+    } else {
+      p = pool.empty() ? best : pool.Pick(s.U());
+      kind = "pool";
+    }
+    if (kind != "best" && kind != "pool") {
       s.Compress(p, 1e1);
       if (!s.Polish(p, 1e-11)) continue;
     }
     Packing b = s.BasinHop(p, trials, temp, timeLimit - (Now() - t0), &tried);
+    if (pool.Add(b)) pool.Save();
     if (!have || b.h < best.h * (1 - 1e-13)) {
       best = b;
       have = true;
@@ -491,8 +601,8 @@ int CmdSearch(const std::map<string, string>& a) {
       char buf[160];
       snprintf(buf, sizeof buf, "n=%d s=%.15f found by sqpack", n, 2 * best.h);
       if (!out.empty()) WritePacking(out, best, buf);
-      printf("[%7.0fs] n=%d s=%.13f%s  gaps %.1e %.1e\n", Now() - t0, n, 2 * best.h,
-             record > 0 ? (2 * best.h < record - 1e-9 ? "  BELOW RECORD" : "") : "", pg, wg);
+      printf("[%7.0fs] n=%d s=%.13f%s  gaps %.1e %.1e  via=%s\n", Now() - t0, n, 2 * best.h,
+             record > 0 ? (2 * best.h < record - 1e-9 ? "  BELOW RECORD" : "") : "", pg, wg, kind.c_str());
       fflush(stdout);
     }
   }
@@ -507,7 +617,7 @@ int main(int argc, char** argv) {
     fprintf(stderr,
             "usage: sqpack <command> [--key value ...]\n"
             "  search    (--n N | --in FILE) [--out FILE] [--time SEC] [--trials T] [--temp T] [--seed S]\n"
-            "            [--record S] [--fresh P]\n"
+            "            [--record S] [--fresh P] [--pool DIR] [--pool-size K] [--nbr DIR1,DIR2] [--nbr-share P]\n"
             "  check     --in FILE\n"
             "  gradcheck [--n N] [--margin M]\n");
     return 2;
