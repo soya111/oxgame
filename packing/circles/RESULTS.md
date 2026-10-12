@@ -1,19 +1,23 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-12 12:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-12 13:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (472)
+## Better than the published record (476)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
+| circle (`cci`) | 405 | 0.045830451222 | 0.045822028729 | 8.422e-06 |
 | circle (`cci`) | 409 | 0.045702582574 | 0.045686348359 | 1.623e-05 |
 | circle (`cci`) | 411 | 0.045584071951 | 0.045582687310 | 1.385e-06 |
 | circle (`cci`) | 469 | 0.042650863841 | 0.042648872937 | 1.991e-06 |
 | circle (`cci`) | 516 | 0.040735827076 | 0.040723511685 | 1.232e-05 |
+| circle (`cci`) | 551 | 0.039422972594 | 0.039419126734 | 3.846e-06 |
+| circle (`cci`) | 572 | 0.038804067541 | 0.038798345694 | 5.722e-06 |
 | circle (`cci`) | 575 | 0.038716087506 | 0.038715940751 | 1.468e-07 |
+| circle (`cci`) | 594 | 0.038034423429 | 0.038030975455 | 3.448e-06 |
 | circle (`cci`) | 627 | 0.037036523598 | 0.037036254678 | 2.689e-07 |
 | circle (`cci`) | 628 | 0.037017901281 | 0.037017509497 | 3.918e-07 |
 | circle (`cci`) | 633 | 0.036908548817 | 0.036908218872 | 3.299e-07 |
