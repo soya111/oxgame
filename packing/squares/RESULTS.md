@@ -1,6 +1,6 @@
 # Squares in squares: results
 
-Updated 2026-10-12 06:58 UTC. Records are the side lengths s on David Ellsworth's page
+Updated 2026-10-12 08:09 UTC. Records are the side lengths s on David Ellsworth's page
 (https://kingbird.myphotos.cc/packing/squares_in_squares.html, fetched 2026-10-11; `records.txt`).
 Every packing listed is proven valid by `tools/sq_verify.py` (exact rational arithmetic).
 

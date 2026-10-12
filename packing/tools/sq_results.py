@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Copy a squares campaign's improvements into the repository and write squares/RESULTS.md.
 
-  python3 sq_results.py --root CAMPAIGN --polished DIR
+  python3 sq_results.py --root CAMPAIGN [--root CAMPAIGN2 ...] --polished DIR
 
 A packing whose side s is below the published record goes to squares/best/N.txt
 after sq_verify.py has proven it (exact rational arithmetic). RESULTS.md tells
@@ -30,7 +30,7 @@ def side(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", required=True)
+    ap.add_argument("--root", action="append", required=True)
     ap.add_argument("--polished", required=True)
     args = ap.parse_args()
     rec = {}
@@ -41,9 +41,11 @@ def main():
     os.makedirs(dst, exist_ok=True)
     rows, failed = [], []
     for n in sorted(rec):
-        src = os.path.join(args.root, "best", "%d.txt" % n)
-        s = side(src)
-        if s is None or s >= rec[n] - TINY:
+        found = [(side(p), p) for p in (os.path.join(r, "best", "%d.txt" % n) for r in args.root) if side(p) is not None]
+        if not found:
+            continue
+        s, src = min(found)
+        if s >= rec[n] - TINY:
             continue
         target = os.path.join(dst, "%d.txt" % n)
         if side(target) is None or side(target) > s:
