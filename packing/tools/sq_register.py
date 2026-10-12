@@ -49,7 +49,11 @@ def main():
                 t = math.atan2(float(pts[1][1] - pts[0][1]), float(pts[1][0] - pts[0][0]))
             elif rep == "center-angle":
                 cx, cy = num(sq["center"][0]), num(sq["center"][1])
-                t = math.radians(float(num(sq.get("angle", "0"))))
+                t = float(num(sq.get("angle", "0")))
+                if w["coordinates"]["angle_unit"] == "degrees":
+                    t = math.radians(t)
+                elif w["coordinates"]["angle_unit"] != "radians":
+                    raise SystemExit("%s: angle unit %s" % (path, w["coordinates"]["angle_unit"]))
             elif rep == "center-basis":
                 cx, cy = num(sq["center"][0]), num(sq["center"][1])
                 c, s = num(sq["basis"][0]), num(sq["basis"][1])
