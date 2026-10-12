@@ -121,12 +121,18 @@ python3 tools/circ.py export /tmp/camp/chp/40.txt --name "Your Name" --out chp40
 
 ### 正方形を正方形に詰める（Squares in Squares）
 
-一辺 1 の正方形 n 個を入れる最小の正方形の一辺 s。Erich Friedman のページを David Ellsworth が引き継いで
-管理している記録表（https://kingbird.myphotos.cc/packing/squares_in_squares.html）が対象で、2025〜2026 年に
-焼きなまし法や AI を使った更新が続いている。記録の図（SVG）は Ellsworth の
-`parse_svg_packing.py`（https://github.com/Davidebyzero/packing_squares_in_squares__tools）で座標に変換した。
+一辺 1 の正方形 n 個を入れる最小の正方形の一辺 s。現在の記録表は The Squares Project の登録簿
+（https://github.com/jlevy/squares、2026 年 8 月から、n = 1..324 の最良既知配置を厳密な座標つきで登録）。
+Erich Friedman のページを David Ellsworth が引き継いだ表（https://kingbird.myphotos.cc/packing/squares_in_squares.html）は
+2026-09-24 で更新が止まっている。
 
-- `squares/records.txt` — 図のある n の記録 s（2026-10-11 取得、図の最大の n のみ。n−1 は 1 個抜けば同じ s）
+**訂正（2026-10-12）**: 最初は Ellsworth のページだけを記録とみなして比較し、n = 180, 236, 237, 241, 263, 305 の
+新配置などを「記録更新」と報告したが、登録簿にはそれらすべてより良い配置が既に登録されていた。
+それらは `squares/superseded/` に移し、以後は登録簿を基準にしている（`squares/RESULTS.md`）。
+
+- `squares/records.txt` — 登録簿の s（`tools/sq_register.py` で 2026-10-12 の状態から取り込み、n = 1..324）
+- `squares/records_ellsworth_2026-09-24.txt` — Ellsworth のページの s（図の SVG を Ellsworth の
+  `parse_svg_packing.py`（https://github.com/Davidebyzero/packing_squares_in_squares__tools）で座標に変換）
 - `src/sqpack.cpp` — ソルバ。正方形 i, j の重なりは分離軸 4 本の上での射影の重なり
   `1/2 + (|cos Δ| + |sin Δ|)/2 − max|d·u|`（Δ は角度差）で、その二乗をペナルティにする。容器は
   `|x| + (|cos t| + |sin t|)/2 ≤ s/2`。圧縮（s + μP の最小化）→ 二分法で s を詰める研磨 → basin hopping
@@ -137,9 +143,10 @@ python3 tools/circ.py export /tmp/camp/chp/40.txt --name "Your Name" --out chp40
   壁 `|x| + (|cos|+|sin|)/2 ≤ s/2` と、中心間が √2 未満の全組の分離軸判定 `max|d·u| ≥ 1/2 + (|cos Δ|+|sin Δ|)/2`
   （cos Δ, sin Δ も有理数）を有理数演算だけで判定する
 - `tools/sq_export.py` — Ellsworth のツール（`check_packing.py`）の形式で書き出す
-- `tools/sq_results.py` — 記録を下回った解を厳密検証して `squares/best/` に入れ、`squares/RESULTS.md` を書く
+- `tools/sq_register.py` — 登録簿の配置（4 種類の表現）を sqpack の形式と `records.txt` に変換する
+- `tools/sq_results.py` — 登録簿を下回った解を厳密検証して `squares/best/` に入れ、`squares/RESULTS.md` を書く
 
-結果の区別: 公開されている図の配置をそのまま局所最適化（研磨）しただけで記録を下回るものを「refinement」、
+結果の区別: 登録簿の配置をそのまま局所最適化（研磨）しただけで記録を下回るものを「refinement」、
 探索で研磨後の値よりさらに良い配置が見つかったものを「improvement」と呼ぶ。
 
 ```bash
