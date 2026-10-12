@@ -1,6 +1,6 @@
 # Squares in squares: results
 
-Updated 2026-10-12 08:19 UTC. Records are the side lengths s on David Ellsworth's page
+Updated 2026-10-12 08:29 UTC. Records are the side lengths s on David Ellsworth's page
 (https://kingbird.myphotos.cc/packing/squares_in_squares.html, fetched 2026-10-11; `records.txt`).
 Every packing listed is proven valid by `tools/sq_verify.py` (exact rational arithmetic).
 
@@ -25,7 +25,7 @@ Every packing listed is proven valid by `tools/sq_verify.py` (exact rational ari
 | 208 | 14.9377626723689 | 14.9377665627791 | 3.890e-06 | refinement |
 | 209 | 14.9586126509676 | 14.9586150008748 | 2.350e-06 | refinement |
 | 210 | 14.9741311177996 | 14.9741334188640 | 2.301e-06 | refinement |
-| 236 | 15.8731407573267 | 15.8760753931520 | 2.935e-03 | improvement |
+| 236 | 15.8729956550578 | 15.8760753931520 | 3.080e-03 | improvement |
 | 239 | 15.9563498237408 | 15.9563535840631 | 3.760e-06 | refinement |
 | 240 | 15.9755110883406 | 15.9755628283309 | 5.174e-05 | refinement |
 | 241 | 15.9908018732126 | 15.9908051781052 | 3.305e-06 | refinement |
