@@ -2,16 +2,12 @@
 
 Updated 2026-10-12 21:42 UTC. Records: The Squares Project register (`records.txt`, imported from
 https://github.com/jlevy/squares at its 2026-10-12 state). Every packing listed is proven valid by
-`tools/sq_verify.py` (exact rational arithmetic).
+`tools/sq_verify.py` (exact rational arithmetic). Gains below 1e-07 (what polishing a published
+packing can give) are not counted.
 
-## Below the register (1)
+## Below the register (0)
 
-- *refinement*: local optimization of the register's packing itself (same arrangement);
-- *improvement*: an arrangement found by the search that beats the polished register packing too.
-
-| n | s (this search) | s (register) | gain | kind |
-|---|---|---|---|---|
-| 207 | 14.8809603717143 | 14.8809603730437 | 1.329e-09 | refinement |
+None so far.
 
 ## Superseded: below David Ellsworth's page only (35)
 

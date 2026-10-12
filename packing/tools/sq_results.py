@@ -26,6 +26,7 @@ import sq_verify  # noqa: E402
 
 PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TINY = 1e-10  # below this a difference is rounding
+SIGNIFICANT = 1e-7  # smaller gains are what re-polishing a published packing gives
 
 
 def side(path):
@@ -57,7 +58,7 @@ def main():
         if not found:
             continue
         s, src = min(found)
-        if s >= rec[n] - TINY:
+        if s >= rec[n] - SIGNIFICANT:
             continue
         target = os.path.join(dst, "%d.txt" % n)
         if side(target) is None or side(target) > s:
@@ -81,7 +82,8 @@ def main():
              "Updated %s. Records: The Squares Project register (`records.txt`, imported from" %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
              "https://github.com/jlevy/squares at its 2026-10-12 state). Every packing listed is proven valid by",
-             "`tools/sq_verify.py` (exact rational arithmetic).", "",
+             "`tools/sq_verify.py` (exact rational arithmetic). Gains below %.0e (what polishing a published" % SIGNIFICANT,
+             "packing can give) are not counted.", "",
              "## Below the register (%d)" % len(rows), ""]
     if rows:
         lines += ["- *refinement*: local optimization of the register's packing itself (same arrangement);",
