@@ -58,6 +58,7 @@ def main():
     ap.add_argument("--ext", type=int, default=100, help="extend each polygon up to this N")
     ap.add_argument("--seeds", default="", help="directory with CODE/N.txt starting packings (e.g. the records)")
     ap.add_argument("--jobs", default="", help="CODE:N1-N2[:WEIGHT],... instead of the polygon tables")
+    ap.add_argument("--only-dir", default="", help="DIR/CODE.txt lists the only sizes of CODE to visit")
     args = ap.parse_args()
     binary = os.path.join(PACK, "build", "circpack")
     os.makedirs(os.path.join(args.root, "logs"), exist_ok=True)
@@ -129,6 +130,8 @@ def main():
                    "--time", str(args.slice), "--seed", str(rng.randrange(1 << 30)), "--trials", "300"]
             if args.seeds:
                 cmd += ["--seeds", os.path.join(args.seeds, code)]
+            if args.only_dir and os.path.exists(os.path.join(args.only_dir, code + ".txt")):
+                cmd += ["--only-file", os.path.join(args.only_dir, code + ".txt")]
             os.makedirs(os.path.join(args.root, code), exist_ok=True)
             running[subprocess.Popen(cmd, stdout=open(path, "w"), stderr=subprocess.STDOUT)] = (job, path, time.time())
             busy.add((code, n1))

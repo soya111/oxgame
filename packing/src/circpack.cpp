@@ -20,6 +20,7 @@
 #include <cstring>
 #include <map>
 #include <random>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -629,14 +630,28 @@ int CmdSweep(const std::map<string, string>& a) {
     snprintf(buf, sizeof buf, "record %.12f, diff %+.3e", it->second, r - it->second);
     return string(buf);
   };
+  // --only-file restricts the visits to the sizes it lists (neighbours still seed them).
+  std::set<int> only;
+  if (FILE* f = fopen(ArgS(a, "only-file", "").c_str(), "r")) {
+    int v;
+    while (fscanf(f, "%d", &v) == 1) only.insert(v);
+    fclose(f);
+  }
+  auto visit = [&](int n) { return only.empty() || only.count(n) > 0; };
   vector<int> queue;
-  for (int n = nmin; n <= nmax; n++) queue.push_back(n);
+  for (int n = nmin; n <= nmax; n++)
+    if (visit(n)) queue.push_back(n);
+  if (queue.empty()) {
+    fprintf(stderr, "no size of %d..%d is listed in --only-file\n", nmin, nmax);
+    return 1;
+  }
   std::shuffle(queue.begin(), queue.end(), rng);
   double t0 = Now();
   long visits = 0;
   while (Now() - t0 < timeLimit) {
     if (queue.empty()) {  // start another pass over the whole range
-      for (int n = nmin; n <= nmax; n++) queue.push_back(n);
+      for (int n = nmin; n <= nmax; n++)
+        if (visit(n)) queue.push_back(n);
       std::shuffle(queue.begin(), queue.end(), rng);
     }
     int n = queue.back();
@@ -702,7 +717,8 @@ int CmdSweep(const std::map<string, string>& a) {
              via.c_str(), before == 1e300 ? "  (first)" : "");
       fflush(stdout);
       for (int m : {n - 1, n + 1})
-        if (m >= nmin && m <= nmax && std::find(queue.begin(), queue.end(), m) == queue.end()) queue.push_back(m);
+        if (m >= nmin && m <= nmax && visit(m) && std::find(queue.begin(), queue.end(), m) == queue.end())
+          queue.push_back(m);
     }
   }
   printf("sweep done: %ld visits in %.0fs\n", visits, Now() - t0);
@@ -718,7 +734,7 @@ int main(int argc, char** argv) {
     fprintf(stderr,
             "usage: circpack <command> [--key value ...]\n"
             "  sweep     --k K (0 = circle) --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
-            "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME]\n"
+            "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME] [--only-file FILE]\n"
             "  check     --k K --in FILE [--rc RC]\n"
             "  gradcheck [--k K] [--n N] [--margin M]\n");
     return 2;
