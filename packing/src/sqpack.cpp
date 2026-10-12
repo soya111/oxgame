@@ -330,7 +330,30 @@ class Searcher {
     return p;
   }
 
-  enum Move { kShake, kLocal, kRelocate, kRotate, kAlign, kTilt, kNumMoves };
+  enum Move { kShake, kLocal, kRelocate, kRotate, kAlign, kTilt, kKick, kAswap, kRowSlide, kNumMoves };
+
+  // Moves by weight: the last three (small kicks, angle swaps and row slides) gave
+  // the most new local minima per CPU-hour in Evan Daniel's measurements
+  // (github.com/evand/square-packing, search/packer/PACKER.md), relocating to a
+  // hole the fewest.
+  int PickMove() {
+    static const double w[kNumMoves] = {1.0, 1.0, 0.3, 1.0, 0.5, 0.5, 1.5, 1.5, 1.5};
+    double tot = 0;
+    for (double v : w) tot += v;
+    double u = U(0, tot);
+    for (int m = 0; m < kNumMoves; m++) {
+      if (u < w[m]) return m;
+      u -= w[m];
+    }
+    return kKick;
+  }
+
+  // Angle of square i folded into [-pi/4, pi/4): 0 means upright.
+  double Tilt(const Packing& p, int i) const {
+    double t = std::fmod(p.q[3 * i + 2], kPi / 2);
+    if (t < 0) t += kPi / 2;
+    return t >= kPi / 4 ? t - kPi / 2 : t;
+  }
 
   void Perturb(Packing& p, int mv) {
     switch (mv) {
@@ -388,6 +411,48 @@ class Searcher {
           if (std::hypot(p.q[3 * i] - cx, p.q[3 * i + 1] - cy) <= rad) p.q[3 * i + 2] = t0;
         break;
       }
+      case kKick: {  // every square a little, sigma log-uniform in [0.003, 0.05]
+        double sg = std::exp(U(std::log(0.003), std::log(0.05)));
+        for (int i = 0; i < n_; i++) {
+          p.q[3 * i] += G(sg);
+          p.q[3 * i + 1] += G(sg);
+          p.q[3 * i + 2] += G(1.41421356 * sg);
+        }
+        break;
+      }
+      case kAswap: {  // swap the angles of neighbours whose angles differ by more than 3 degrees
+        int m = 1 + I(3);
+        for (int t = 0; t < m; t++) {
+          int i = I(n_);
+          vector<int> cand;
+          for (int j = 0; j < n_; j++) {
+            if (j == i || std::hypot(p.q[3 * j] - p.q[3 * i], p.q[3 * j + 1] - p.q[3 * i + 1]) > 1.6) continue;
+            if (std::abs(Tilt(p, i) - Tilt(p, j)) > 3 * kPi / 180) cand.push_back(j);
+          }
+          if (cand.empty()) continue;
+          int j = cand[I(static_cast<int>(cand.size()))];
+          std::swap(p.q[3 * i + 2], p.q[3 * j + 2]);
+        }
+        break;
+      }
+      case kRowSlide: {  // slide a run of upright squares along its row (or column)
+        int axis = I(2), i = I(n_);
+        if (std::abs(Tilt(p, i)) > 1e-3) break;
+        vector<std::pair<double, int>> line;  // upright squares in the same row/column
+        for (int j = 0; j < n_; j++)
+          if (std::abs(Tilt(p, j)) <= 1e-3 && std::abs(p.q[3 * j + 1 - axis] - p.q[3 * i + 1 - axis]) < 0.3)
+            line.push_back({p.q[3 * j + axis], j});
+        std::sort(line.begin(), line.end());
+        size_t k = 0;
+        while (line[k].second != i) k++;
+        size_t lo = k, hi = k;  // grow the contiguous run around i (neighbours closer than 1.3)
+        while (lo > 0 && line[lo].first - line[lo - 1].first < 1.3) lo--;
+        while (hi + 1 < line.size() && line[hi + 1].first - line[hi].first < 1.3) hi++;
+        size_t a = lo + I(static_cast<int>(k - lo + 1)), b = k + I(static_cast<int>(hi - k + 1));
+        double d = (U() < 0.5 ? -1 : 1) * U(0.2, 0.6);
+        for (size_t r = a; r <= b; r++) p.q[3 * line[r].second + axis] += d;
+        break;
+      }
     }
   }
 
@@ -397,7 +462,7 @@ class Searcher {
     for (int t = 0; t < trials && Now() - t0 < tLimit; t++) {
       Packing x = cur;
       Rescale(x, cur.h * (1 + std::exp(U(std::log(0.001), std::log(0.05)))));
-      Perturb(x, I(kNumMoves));
+      Perturb(x, PickMove());
       double mus[] = {1e1, 1e2, 1e3};
       if (!Compress(x, mus[I(3)], cur.h * (1 + 30 * temp))) continue;
       if (tried) (*tried)++;
