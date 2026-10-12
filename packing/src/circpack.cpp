@@ -147,10 +147,12 @@ class Energy {
       double x = q[2 * i], y = q[2 * i + 1];
       if (poly_.circle()) {
         double d = std::hypot(x, y), s = d - lim;
-        if (s <= 0 || d == 0) continue;
+        if (s <= 0) continue;
         E += s * s;
-        g[2 * i] += 2 * s * x / d;
-        g[2 * i + 1] += 2 * s * y / d;
+        if (d > 0) {  // at the very center the direction is undefined, but the container still counts
+          g[2 * i] += 2 * s * x / d;
+          g[2 * i + 1] += 2 * s * y / d;
+        }
         gr -= 2 * s;
         continue;
       }
