@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous search campaign for circles in regular polygons.
+"""Autonomous search campaign for circles in regular polygons (and in a circle or square).
 
 Keeps --workers circpack sweeps busy, each on one (polygon, N range) job for a
 time slice, then moves on to the job with the least time relative to its share.
@@ -10,9 +10,14 @@ is compared with the Packomania records and the improvements are appended to
 ROOT/summary.log.
 
   python3 campaign.py --root DIR [--workers 4] [--slice 900] [--hours 8] [--ext 100]
+                     [--jobs CODE:N1-N2[:WEIGHT],...]
+
+Without --jobs every polygon table is searched (plus sizes up to --ext); --jobs
+names the (table, N range) jobs instead, e.g. "cci:301-400,cci:401-500".
 """
 import argparse
 import json
+import math
 import os
 import random
 import re
@@ -23,8 +28,9 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.dirname(HERE)
 SIDES = {"cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13, "crd": 14,
-         "cpd": 15, "cxd": 16, "ced": 17}
-RC = {}  # every container has circumradius 1
+         "cpd": 15, "cxd": 16, "ced": 17, "cci": 0, "csq": 4}
+RC = {"csq": math.sqrt(0.5)}  # the unit square; every other container has circumradius 1
+POLYGONS = ["cpt", "chx", "chp", "cno", "cdc", "chd", "cdd", "ctd", "crd", "cpd", "cxd", "ced"]
 
 
 def records(code):
@@ -51,11 +57,16 @@ def main():
     ap.add_argument("--hours", type=float, default=8)
     ap.add_argument("--ext", type=int, default=100, help="extend each polygon up to this N")
     ap.add_argument("--seeds", default="", help="directory with CODE/N.txt starting packings (e.g. the records)")
+    ap.add_argument("--jobs", default="", help="CODE:N1-N2[:WEIGHT],... instead of the polygon tables")
     args = ap.parse_args()
     binary = os.path.join(PACK, "build", "circpack")
     os.makedirs(os.path.join(args.root, "logs"), exist_ok=True)
     jobs = []  # [code, nmin, nmax, weight, seconds_used, score]
-    for code in SIDES:
+    for spec in filter(None, args.jobs.split(",")):
+        part = spec.split(":")
+        n1, n2 = map(int, part[1].split("-"))
+        jobs.append([part[0], n1, n2, float(part[2]) if len(part) > 2 else 1.0, 0.0, 1.0])
+    for code in POLYGONS if not jobs else []:
         rec = records(code)
         top = 0
         while top + 1 in rec:  # the contiguous part of the table (the hexagon also lists a few larger N)

@@ -7,8 +7,10 @@
   python3 circ.py render FILE OUT.svg [--png OUT.png]
 
 circpack files: '#' comments, then "k n R", then n lines "x y" -- unit circles in the
-regular k-gon of circumradius R centered at the origin with a horizontal bottom side.
-Packomania fixes the container at circumradius 1 and reports the radius r = 1 / R.
+regular k-gon of circumradius R centered at the origin with a horizontal bottom side
+(k = 0: the circle of radius R). Packomania fixes the container at circumradius 1
+and reports the radius r = 1 / R -- except for the square (csq), which has side 1,
+i.e. circumradius RC = sqrt(2)/2, so that r = RC / R.
 """
 import glob
 import math
@@ -22,9 +24,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Gains below this are what re-polishing a published packing can give; they are
 # reported as marginal rather than as improvements.
 SIGNIFICANT = 1e-7
-RC = {5: 1, 6: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1}
-CODE = {5: "cpt", 6: "chx", 7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd", 15: "cpd", 16: "cxd",
-        17: "ced"}
+RC = {0: 1, 4: math.sqrt(0.5), 5: 1, 6: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1}
+CODE = {0: "cci", 4: "csq", 5: "cpt", 6: "chx", 7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd",
+        15: "cpd", 16: "cxd", 17: "ced"}
 
 
 def read(path):
@@ -41,10 +43,15 @@ def opt(args, name, default=None):
     return args[args.index(name) + 1] if name in args else default
 
 
+def rc_dec(k, rc):
+    """rc as a 50-digit Decimal; the unit square's sqrt(2)/2 is computed, not read from a float."""
+    getcontext().prec = 50
+    return D(2).sqrt() / 2 if k == 4 and abs(rc - math.sqrt(0.5)) < 1e-15 else D(str(rc))
+
+
 def packomania_frame(k, R, pts, rc):
     """Radius and coordinates for a container of circumradius rc, as Decimals."""
-    getcontext().prec = 50
-    s = D(str(rc)) / D(R)
+    s = rc_dec(k, rc) / D(R)
     return s, [(D(x) * s, D(y) * s) for x, y in pts]
 
 
@@ -92,10 +99,15 @@ def dec_pi():
 def check(k, r, pts, rc):
     """Exact-ish (50 digit) check that circles of radius r at pts fit in the k-gon."""
     getcontext().prec = 50
-    PI = dec_pi()
-    apothem = D(str(rc)) * dec_cos_sin(PI / k)[0]
-    normals = [dec_cos_sin(-PI / 2 + 2 * PI * j / k) for j in range(k)]
-    wall = min(apothem - (x * c + y * s) for x, y in pts for c, s in normals) - r
+    if k == 0:  # circle of radius rc
+        wall = min(D(str(rc)) - (x * x + y * y).sqrt() for x, y in pts) - r
+    elif k == 4:  # square of circumradius rc, axis-parallel
+        wall = min(rc_dec(k, rc) / D(2).sqrt() - max(abs(x), abs(y)) for x, y in pts) - r
+    else:
+        PI = dec_pi()
+        apothem = D(str(rc)) * dec_cos_sin(PI / k)[0]
+        normals = [dec_cos_sin(-PI / 2 + 2 * PI * j / k) for j in range(k)]
+        wall = min(apothem - (x * c + y * s) for x, y in pts for c, s in normals) - r
     pair = None
     order = sorted(range(len(pts)), key=lambda i: pts[i][0])
     for a in range(len(order)):

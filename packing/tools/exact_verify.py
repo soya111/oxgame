@@ -4,8 +4,11 @@
   python3 exact_verify.py K FILE.pck [FILE.pck ...]
 
 The polygon is the regular K-gon of circumradius 1 centered at the origin with a
-horizontal bottom side (Packomania's convention). A .pck file holds the radius on
-line 1, the authors on line 2 and one "x y" center per following line.
+horizontal bottom side (Packomania's convention). Two containers follow
+Packomania's other conventions instead: K = 4 is the unit square [-1/2, 1/2]^2
+(table csq) and K = 0 is the unit circle (table cci); both are checked with
+rationals only. A .pck file holds the radius on line 1, the authors on line 2
+and one "x y" center per following line.
 
 No floating point is used:
 - the radius and the coordinates are decimal strings, read as exact rationals;
@@ -113,6 +116,14 @@ def verify(k, r, pts):
             if min_excess is None or excess < min_excess:
                 min_excess = excess
     pair_ok = min_excess is None or min_excess >= 0
+    if k in (0, 4):  # unit circle / unit square: the walls are rational too
+        if k == 0:
+            # x^2 + y^2 <= (1 - r)^2 with 1 - r >= 0; half the slack is a lower bound on the clearance
+            min_wall = min((1 - r) ** 2 - x * x - y * y for x, y in pts) / 2 if r <= 1 else F(-1)
+        else:
+            min_wall = min(F(1, 2) - r - max(abs(x), abs(y)) for x, y in pts)
+        pair_gap = None if min_excess is None else F(min_excess, den * den)
+        return pair_ok and min_wall >= 0, pair_gap, min_wall
     # circle-side, rigorous intervals
     apo, sides = polygon(k)
     min_wall = None

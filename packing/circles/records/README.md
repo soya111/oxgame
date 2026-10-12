@@ -20,3 +20,10 @@ The published N=1 entries of the nonagon and decagon tables are computed for cir
 | cpd | 15 | 14-Dec-2020 | 122 |
 | cxd | 16 | 07-Mar-2023 | 200 |
 | ced | 17 | 10-Dec-2020 | 48 |
+
+Added 2026-10-12 (fetched from the same site the same day; `txt/radius.txt` of each table):
+
+| code | container | last update | N |
+|---|---|---|---|
+| cci | circle of radius 1 | 25-Dec-2024 | 1-2600 complete, then 135 selected N up to 5000 |
+| csq | square of side 1 (circumradius sqrt(2)/2) | 10-Sep-2026 | 951 sizes up to 1000, then selected N up to 9996 (radii printed with 12 digits) |

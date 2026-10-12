@@ -1,14 +1,45 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-11 19:25 UTC. Records are the Packomania tables in `records/` (last changed 2020-2023).
+Updated 2026-10-12 05:38 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (235)
+## Better than the published record (266)
 
-| polygon | N | r (this search) | r (record) | gain |
+| container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
+| circle (`cci`) | 469 | 0.042650863841 | 0.042648872937 | 1.991e-06 |
+| circle (`cci`) | 901 | 0.031023003940 | 0.031022698628 | 3.053e-07 |
+| circle (`cci`) | 902 | 0.030995037392 | 0.030994727634 | 3.098e-07 |
+| circle (`cci`) | 904 | 0.030970634797 | 0.030970016119 | 6.187e-07 |
+| circle (`cci`) | 905 | 0.030960836314 | 0.030959828230 | 1.008e-06 |
+| circle (`cci`) | 906 | 0.030953578342 | 0.030953460832 | 1.175e-07 |
+| circle (`cci`) | 907 | 0.030941652120 | 0.030941377669 | 2.745e-07 |
+| circle (`cci`) | 1001 | 0.029430002009 | 0.029429434500 | 5.675e-07 |
+| circle (`cci`) | 1002 | 0.029428169419 | 0.029428027574 | 1.418e-07 |
+| circle (`cci`) | 1004 | 0.029385804874 | 0.029384116075 | 1.689e-06 |
+| circle (`cci`) | 1005 | 0.029375744627 | 0.029373482703 | 2.262e-06 |
+| circle (`cci`) | 1006 | 0.029372545947 | 0.029368474819 | 4.071e-06 |
+| circle (`cci`) | 1008 | 0.029353360889 | 0.029352231634 | 1.129e-06 |
+| circle (`cci`) | 1009 | 0.029345801629 | 0.029344816218 | 9.854e-07 |
+| circle (`cci`) | 1010 | 0.029326573960 | 0.029322861173 | 3.713e-06 |
+| circle (`cci`) | 1011 | 0.029316208325 | 0.029313674301 | 2.534e-06 |
+| circle (`cci`) | 1013 | 0.029295968999 | 0.029294143920 | 1.825e-06 |
+| circle (`cci`) | 1014 | 0.029289384547 | 0.029287737726 | 1.647e-06 |
+| circle (`cci`) | 1016 | 0.029237632980 | 0.029235166128 | 2.467e-06 |
+| circle (`cci`) | 1017 | 0.029234706102 | 0.029230452171 | 4.254e-06 |
+| circle (`cci`) | 1018 | 0.029219330796 | 0.029211219993 | 8.111e-06 |
+| circle (`cci`) | 1019 | 0.029208879324 | 0.029204280755 | 4.599e-06 |
+| circle (`cci`) | 1020 | 0.029202354527 | 0.029199264154 | 3.090e-06 |
+| circle (`cci`) | 1021 | 0.029191458903 | 0.029187690389 | 3.769e-06 |
+| circle (`cci`) | 1022 | 0.029180784901 | 0.029178134809 | 2.650e-06 |
+| circle (`cci`) | 1023 | 0.029163292305 | 0.029161630151 | 1.662e-06 |
+| circle (`cci`) | 1024 | 0.029149184240 | 0.029146574633 | 2.610e-06 |
+| circle (`cci`) | 1025 | 0.029140281004 | 0.029138539416 | 1.742e-06 |
+| circle (`cci`) | 1026 | 0.029132884077 | 0.029131569963 | 1.314e-06 |
+| circle (`cci`) | 1029 | 0.029043848431 | 0.029042062206 | 1.786e-06 |
+| circle (`cci`) | 1030 | 0.029028994419 | 0.029028770104 | 2.243e-07 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
@@ -247,7 +278,7 @@ no floating point; see the README). Gains below
 
 ## Sizes beyond the published tables
 
-| polygon | N | count |
+| container | N | count |
 |---|---|---|
 | 7-gon (`chp`) | 49-100 | 52 |
 | 9-gon (`cno`) | 49-100 | 52 |

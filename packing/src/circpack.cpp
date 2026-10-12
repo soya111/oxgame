@@ -1,9 +1,11 @@
-// circpack: equal circles in a regular k-gon (Packomania's "circles in a regular polygon").
+// circpack: equal circles in a regular k-gon (Packomania's "circles in a regular polygon"),
+// or in a circle for k = 0.
 //
 // Internally every circle has radius 1 and the container -- a regular k-gon of
-// circumradius R, centered at the origin, with a horizontal bottom side -- is made
-// as small as possible. Packomania fixes the container (circumradius Rc) and
-// maximizes the radius; the two views are related by r = Rc / R.
+// circumradius R, centered at the origin, with a horizontal bottom side, or the
+// circle of radius R -- is made as small as possible. Packomania fixes the
+// container (circumradius Rc) and maximizes the radius; the two views are
+// related by r = Rc / R.
 //
 // The optimizer mirrors tripack: squared-overlap penalty, L-BFGS on R + mu * P
 // with mu raised step by step, bisection on R for a strictly feasible packing,
@@ -78,20 +80,25 @@ bool WritePacking(const string& path, int k, const Packing& p, const string& com
 
 // Regular k-gon of circumradius R centered at the origin with a horizontal
 // bottom side: side j has outward normal at angle -pi/2 + 2*pi*j/k and lies at
-// distance R*cos(pi/k) (the apothem) from the center.
+// distance R*cos(pi/k) (the apothem) from the center. k = 0 is the circle of
+// radius R.
 struct Polygon {
   int k;
   double cosk;
   vector<double> ux, uy;
-  explicit Polygon(int k_) : k(k_), cosk(std::cos(kPi / k_)), ux(k_), uy(k_) {
+  explicit Polygon(int k_) : k(k_), cosk(k_ ? std::cos(kPi / k_) : 1.0), ux(k_), uy(k_) {
     for (int j = 0; j < k; j++) {
       double a = -kPi / 2 + 2 * kPi * j / k;
       ux[j] = std::cos(a);
       uy[j] = std::sin(a);
     }
   }
+  bool circle() const { return k == 0; }
+  // Area of the container with R = 1.
+  double Area() const { return circle() ? kPi : 0.5 * k * std::sin(2 * kPi / k); }
   // Signed distance from (x, y) to the boundary (positive inside).
   double Inside(double x, double y, double R) const {
+    if (circle()) return R - std::hypot(x, y);
     double d = 1e300;
     for (int j = 0; j < k; j++) d = std::min(d, R * cosk - (x * ux[j] + y * uy[j]));
     return d;
@@ -138,6 +145,15 @@ class Energy {
     const double lim = R * poly_.cosk - 1 - margin;
     for (int i = 0; i < n_; i++) {
       double x = q[2 * i], y = q[2 * i + 1];
+      if (poly_.circle()) {
+        double d = std::hypot(x, y), s = d - lim;
+        if (s <= 0 || d == 0) continue;
+        E += s * s;
+        g[2 * i] += 2 * s * x / d;
+        g[2 * i + 1] += 2 * s * y / d;
+        gr -= 2 * s;
+        continue;
+      }
       for (int j = 0; j < poly_.k; j++) {
         double s = x * poly_.ux[j] + y * poly_.uy[j] - lim;
         if (s <= 0) continue;
@@ -273,7 +289,7 @@ class Searcher {
 
   Packing RandomStart() {
     // Container with about 55% density so that the start is loose.
-    double area1 = 0.5 * poly_.k * std::sin(2 * kPi / poly_.k);
+    double area1 = poly_.Area();
     Packing p;
     p.n = n_;
     p.R = std::sqrt(n_ * kPi / (0.55 * area1)) + 1;
@@ -289,7 +305,7 @@ class Searcher {
   // Hexagonal patch: a lattice of spacing 2 with random orientation and offset;
   // the n sites lying deepest inside the container are kept.
   Packing LatticeStart() {
-    double area1 = 0.5 * poly_.k * std::sin(2 * kPi / poly_.k);
+    double area1 = poly_.Area();
     Packing p;
     p.n = n_;
     p.R = std::sqrt(n_ * kPi / (0.85 * area1)) + 1;
@@ -375,10 +391,11 @@ class Searcher {
     return p;
   }
 
-  // A symmetry of the container applied to a packing: rotation by m * 2pi/k,
-  // optionally preceded by the mirror in the vertical axis.
+  // A symmetry of the container applied to a packing: rotation by m * 2pi/k
+  // (any angle for the circle), optionally preceded by the mirror in the
+  // vertical axis.
   void Symmetry(Packing& p, int m, bool mirror) {
-    double a = 2 * kPi * m / poly_.k, c = std::cos(a), s = std::sin(a);
+    double a = poly_.circle() ? U(0, 2 * kPi) : 2 * kPi * m / poly_.k, c = std::cos(a), s = std::sin(a);
     for (int i = 0; i < p.n; i++) {
       double x = p.q[2 * i], y = p.q[2 * i + 1];
       if (mirror) x = -x;
@@ -578,8 +595,8 @@ int CmdSweep(const std::map<string, string>& a) {
   string dir = ArgS(a, "dir", ""), tag = ArgS(a, "tag", "circpack");
   double timeLimit = Arg(a, "time", 600), rc = Arg(a, "rc", 1.0), temp = Arg(a, "temp", 1e-4);
   int trials = static_cast<int>(Arg(a, "trials", 300));
-  if (k < 3 || dir.empty()) {
-    fprintf(stderr, "--k and --dir required\n");
+  if ((k < 3 && k != 0) || dir.empty()) {
+    fprintf(stderr, "--k (0 for a circle, else >= 3) and --dir required\n");
     return 1;
   }
   Polygon poly(k);
@@ -593,6 +610,8 @@ int CmdSweep(const std::map<string, string>& a) {
     // Outside packings (e.g. the published records) are polished, since their
     // printed digits can leave tiny overlaps, and adopted when they are better.
     if (!seedDir.empty() && ReadPacking(BestPath(seedDir, n), k, p) && p.n == n) {
+      // Polishing costs seconds for large n: skip seeds that cannot beat the stored best.
+      if (best.count(n) && best[n].R <= p.R * (1 + 1e-10)) continue;
       Searcher s(n, poly, 7);
       if (s.Polish(p, 1e-11) && (!best.count(n) || p.R < best[n].R * (1 - 1e-12))) {
         best[n] = p;
@@ -640,7 +659,7 @@ int CmdSweep(const std::map<string, string>& a) {
       Packing other = s.U() < 0.5 && best.count(n - 1)   ? s.FromSmaller(best[n - 1])
                       : s.U() < 0.5 && best.count(n + 1) ? s.FromLarger(best[n + 1])
                                                          : best[n];
-      s.Symmetry(other, s.I(poly.k), s.U() < 0.5);
+      s.Symmetry(other, s.I(std::max(poly.k, 1)), s.U() < 0.5);
       starts.push_back(s.Crossover(best[n], other));
       kinds.push_back("cross");
     }
@@ -696,7 +715,7 @@ int main(int argc, char** argv) {
   if (argc < 2) {
     fprintf(stderr,
             "usage: circpack <command> [--key value ...]\n"
-            "  sweep     --k K --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
+            "  sweep     --k K (0 = circle) --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
             "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME]\n"
             "  check     --k K --in FILE [--rc RC]\n"
             "  gradcheck [--k K] [--n N] [--margin M]\n");

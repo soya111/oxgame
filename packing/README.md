@@ -88,7 +88,7 @@ basin hopping 2 本（計約 93 万試行）が同じ値に収束したので、
 
 [Packomania](https://www.packomania.com/) の「circles in a regular polygon」のうち、2020 年 12 月から
 更新が止まっている正 7・9・10・11・12・13・14・15・17 角形（N≤48、15 角形は N≤122）が対象。
-記録表は `circles/records/` に保存してある（容器は外接円半径 rc、底辺が水平、9・10 角形だけ rc=1/2）。
+記録表は `circles/records/` に保存してある（容器は外接円半径 1、底辺が水平）。
 
 - `src/circpack.cpp` — 円用ソルバ。単位円を詰める正多角形の外接円半径 R を最小化（Packomania の半径は r = rc/R）
   - `sweep`: N の範囲を巡回し、N−1 の最良解に円を 1 個足したもの・N+1 から 1 個抜いたもの・ランダム配置を
@@ -116,3 +116,43 @@ python3 tools/campaign.py --root /tmp/camp --workers 4 --slice 900 --hours 10 --
 python3 tools/circ.py status --code chp --dir /tmp/camp/chp
 python3 tools/circ.py export /tmp/camp/chp/40.txt --name "Your Name" --out chp40.pck
 ```
+
+## 有名問題への挑戦（2026-10-12〜）
+
+### 正方形を正方形に詰める（Squares in Squares）
+
+一辺 1 の正方形 n 個を入れる最小の正方形の一辺 s。Erich Friedman のページを David Ellsworth が引き継いで
+管理している記録表（https://kingbird.myphotos.cc/packing/squares_in_squares.html）が対象で、2025〜2026 年に
+焼きなまし法や AI を使った更新が続いている。記録の図（SVG）は Ellsworth の
+`parse_svg_packing.py`（https://github.com/Davidebyzero/packing_squares_in_squares__tools）で座標に変換した。
+
+- `squares/records.txt` — 図のある n の記録 s（2026-10-11 取得、図の最大の n のみ。n−1 は 1 個抜けば同じ s）
+- `src/sqpack.cpp` — ソルバ。正方形 i, j の重なりは分離軸 4 本の上での射影の重なり
+  `1/2 + (|cos Δ| + |sin Δ|)/2 − max|d·u|`（Δ は角度差）で、その二乗をペナルティにする。容器は
+  `|x| + (|cos t| + |sin t|)/2 ≤ s/2`。圧縮（s + μP の最小化）→ 二分法で s を詰める研磨 → basin hopping
+  （ゆすり・局所変形・穴への移動・回転・傾きの解消/付与）。`search --in` で既存解から、`--n` でランダム初期配置から
+- `tools/sq_campaign.py` — n ごとに時間を区切って回す司令塔（改善の出た n に時間を寄せる）
+- `tools/sq_verify.py` — 厳密検証。各正方形の回転を有理数 u（tan(t/2) の 1e-30 以内）で
+  `cos = (1−u²)/(1+u²)`, `sin = 2u/(1+u²)` と表すと、ちょうど一辺 1 の正方形で頂点も有理数になる。
+  壁 `|x| + (|cos|+|sin|)/2 ≤ s/2` と、中心間が √2 未満の全組の分離軸判定 `max|d·u| ≥ 1/2 + (|cos Δ|+|sin Δ|)/2`
+  （cos Δ, sin Δ も有理数）を有理数演算だけで判定する
+- `tools/sq_export.py` — Ellsworth のツール（`check_packing.py`）の形式で書き出す
+- `tools/sq_results.py` — 記録を下回った解を厳密検証して `squares/best/` に入れ、`squares/RESULTS.md` を書く
+
+結果の区別: 公開されている図の配置をそのまま局所最適化（研磨）しただけで記録を下回るものを「refinement」、
+探索で研磨後の値よりさらに良い配置が見つかったものを「improvement」と呼ぶ。
+
+```bash
+g++ -O3 -march=native -std=c++17 -o build/sqpack src/sqpack.cpp
+./build/sqpack search --n 17 --out /tmp/sq17.txt --time 120          # ランダム初期配置から
+./build/sqpack search --in rec/301.txt --out /tmp/sq301.txt --time 600  # 記録の配置から
+python3 tools/sq_campaign.py --root /tmp/sqcamp --records squares/records.txt --workers 3 --slice 300 --hours 10
+python3 tools/sq_verify.py /tmp/sqcamp/best/301.txt
+```
+
+### 円を円・正方形に詰める（Packomania cci / csq）
+
+`circpack` は `--k 0` で円の容器を扱う。正方形は正 4 角形で、Packomania の csq は一辺 1（外接円半径 √2/2）
+なので `--rc 0.7071067811865476` を渡す。記録の座標は Packomania の `cci_coords.tar.gz` / `csq_coords.tar.gz` から
+`tools/pm_seeds.py` で種に変換する。`tools/exact_verify.py` は K=0（単位円）と K=4（単位正方形 [−1/2, 1/2]²）を
+有理数演算だけで判定する。司令塔は `tools/campaign.py --jobs "cci:401-500,..."` で範囲を指定する。

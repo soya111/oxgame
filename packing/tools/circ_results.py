@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Copy a campaign's improvements into the repository and write circles/RESULTS.md.
 
-  python3 circ_results.py --root CAMPAIGN
+  python3 circ_results.py --root CAMPAIGN [--root CAMPAIGN2 ...]
 
 Packings that beat the published radius, and packings for sizes without a record,
 go to circles/best/CODE/N.txt (after an exact proof of validity); RESULTS.md lists
-them against the records.
+everything in circles/best against the records.
 """
 import argparse
 import datetime
@@ -21,19 +21,21 @@ import exact_verify  # noqa: E402
 PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+def container(k):
+    return {0: "circle", 4: "square"}.get(k, "%d-gon" % k)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", required=True)
+    ap.add_argument("--root", action="append", required=True)
     ap.add_argument("--min-gain", type=float, default=circ.SIGNIFICANT)
     args = ap.parse_args()
     better, new, failed = [], {}, []
     for k, code in sorted(circ.CODE.items()):
-        d = os.path.join(args.root, code)
-        if not os.path.isdir(d):
-            continue
         rec = circ.records(code)
         dst = os.path.join(PACK, "circles", "best", code)
-        for f in sorted(glob.glob(os.path.join(d, "*.txt")), key=lambda p: int(os.path.basename(p)[:-4])):
+        files = [f for root in args.root for f in glob.glob(os.path.join(root, code, "*.txt"))]
+        for f in sorted(files, key=lambda p: int(os.path.basename(p)[:-4])):
             kk, n, R, pts = circ.read(f)
             r = circ.RC[k] / float(R)
             if not ((n in rec and r > rec[n] + args.min_gain) or n not in rec):
@@ -55,24 +57,28 @@ def main():
                     continue
                 os.makedirs(dst, exist_ok=True)
                 shutil.copyfile(f, target)
+        # The table lists the repository copies (the best over every campaign so far).
+        for f in glob.glob(os.path.join(dst, "*.txt")):
+            kk, n, R, pts = circ.read(f)
+            r = circ.RC[k] / float(R)
             if n in rec:
                 better.append((k, code, n, r, rec[n]))
             else:
                 new.setdefault((k, code), []).append((n, r))
     lines = ["# Circles in regular polygons: results", "",
-             "Updated %s. Records are the Packomania tables in `records/` (last changed 2020-2023)." %
+             "Updated %s. Records are the Packomania tables in `records/` (see records/README.md for dates)." %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
              "Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,",
              "no floating point; see the README). Gains below",
              "%.0e (what re-polishing a published packing can give) are not counted." % args.min_gain, "",
              "## Better than the published record (%d)" % len(better), "",
-             "| polygon | N | r (this search) | r (record) | gain |", "|---|---|---|---|---|"]
+             "| container | N | r (this search) | r (record) | gain |", "|---|---|---|---|---|"]
     for k, code, n, r, rr in sorted(better):
-        lines.append("| %d-gon (`%s`) | %d | %.12f | %.12f | %.3e |" % (k, code, n, r, rr, r - rr))
-    lines += ["", "## Sizes beyond the published tables", "", "| polygon | N | count |", "|---|---|---|"]
+        lines.append("| %s (`%s`) | %d | %.12f | %.12f | %.3e |" % (container(k), code, n, r, rr, r - rr))
+    lines += ["", "## Sizes beyond the published tables", "", "| container | N | count |", "|---|---|---|"]
     for (k, code), items in sorted(new.items()):
         ns = [n for n, _ in items]
-        lines.append("| %d-gon (`%s`) | %d-%d | %d |" % (k, code, min(ns), max(ns), len(ns)))
+        lines.append("| %s (`%s`) | %d-%d | %d |" % (container(k), code, min(ns), max(ns), len(ns)))
     if failed:
         lines += ["", "Failed verification (not copied): %s" % failed]
     open(os.path.join(PACK, "circles", "RESULTS.md"), "w").write("\n".join(lines) + "\n")
