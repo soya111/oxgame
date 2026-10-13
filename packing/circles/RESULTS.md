@@ -1,11 +1,11 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-13 04:45 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-13 05:15 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (532)
+## Better than the published record (533)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -18,6 +18,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 465 | 0.042845299659 | 0.042839184772 | 6.115e-06 |
 | circle (`cci`) | 469 | 0.042650863841 | 0.042648872937 | 1.991e-06 |
 | circle (`cci`) | 470 | 0.042613124728 | 0.042608082449 | 5.042e-06 |
+| circle (`cci`) | 474 | 0.042440823948 | 0.042434766924 | 6.057e-06 |
 | circle (`cci`) | 475 | 0.042420415762 | 0.042417386478 | 3.029e-06 |
 | circle (`cci`) | 490 | 0.041899280586 | 0.041894899436 | 4.381e-06 |
 | circle (`cci`) | 496 | 0.041649579516 | 0.041644691456 | 4.888e-06 |
@@ -149,9 +150,9 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 946 | 0.030253410871 | 0.030252178489 | 1.232e-06 |
 | circle (`cci`) | 947 | 0.030232150038 | 0.030228174055 | 3.976e-06 |
 | circle (`cci`) | 948 | 0.030218501669 | 0.030217278352 | 1.223e-06 |
-| circle (`cci`) | 949 | 0.030208469092 | 0.030204546244 | 3.923e-06 |
+| circle (`cci`) | 949 | 0.030208965211 | 0.030204546244 | 4.419e-06 |
 | circle (`cci`) | 953 | 0.030148435342 | 0.030145576789 | 2.859e-06 |
-| circle (`cci`) | 954 | 0.030141396119 | 0.030136793121 | 4.603e-06 |
+| circle (`cci`) | 954 | 0.030141654762 | 0.030136793121 | 4.862e-06 |
 | circle (`cci`) | 956 | 0.030110672178 | 0.030107785870 | 2.886e-06 |
 | circle (`cci`) | 957 | 0.030096344101 | 0.030094606730 | 1.737e-06 |
 | circle (`cci`) | 959 | 0.030073451474 | 0.030072267673 | 1.184e-06 |
