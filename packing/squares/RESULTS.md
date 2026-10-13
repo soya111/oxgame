@@ -1,6 +1,6 @@
 # Squares in squares: results
 
-Updated 2026-10-13 02:44 UTC. Records: The Squares Project register (`records.txt`, imported from
+Updated 2026-10-13 04:15 UTC. Records: The Squares Project register (`records.txt`, imported from
 https://github.com/jlevy/squares at its 2026-10-12 state). Every packing listed is proven valid by
 `tools/sq_verify.py` (exact rational arithmetic). Gains below 1e-07 (what polishing a published
 packing can give) are not counted.
