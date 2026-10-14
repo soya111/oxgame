@@ -1,11 +1,11 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-14 04:19 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-14 05:04 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (568)
+## Better than the published record (569)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -296,6 +296,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1465 | 0.024420168126 | 0.024419875343 | 2.928e-07 |
 | circle (`cci`) | 1482 | 0.024307666975 | 0.024307086992 | 5.800e-07 |
 | circle (`cci`) | 1483 | 0.024305997388 | 0.024305697161 | 3.002e-07 |
+| circle (`cci`) | 1550 | 0.023755215662 | 0.023749596835 | 5.619e-06 |
 | circle (`cci`) | 1590 | 0.023458274554 | 0.023458137252 | 1.373e-07 |
 | circle (`cci`) | 1591 | 0.023455023724 | 0.023454844738 | 1.790e-07 |
 | circle (`cci`) | 1622 | 0.023252404401 | 0.023251917572 | 4.868e-07 |
