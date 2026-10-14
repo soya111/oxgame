@@ -171,3 +171,14 @@ python3 tools/sq_verify.py /tmp/sqcamp/best/301.txt
 - 上回った記録の 330 件は Packomania 自身のプログラム（表の参照 [31]）によるもの。2024 年の研究グループの記録を
   上回ったのは N=411, 572, 704 の 3 件だけで、N≤400 は 1 件も上回れていない。
 - csq（N≤400）は改善なし。正方形を正方形には上記の通り登録簿を一つも超えられていない。
+
+### 球を球・立方体に、超球を超球に詰める（Packomania ssp / scu / hsp4〜hsp6）
+
+- `src/spack.cpp` — d 次元のソルバー（単位球を半径 R の球、または [−R, R]^d の立方体に詰める）。円の
+  `circpack` と同じ罰則・圧縮・二分法・basin hopping・N±1 の種に加えて、D_d 格子（3 次元では面心立方格子）を
+  ランダムに回転・平行移動して容器で切り抜いた初期配置を使う
+- `tools/pm_seeds_nd.py` — Packomania の座標を種に変換する。公開ファイルの欠陥：ssp は最後の球の座標が空欄
+  （spack が最も広い隙間に補う）、hsp5 / hsp6 は 4 列しか座標がない（種にできない）
+- `tools/sphere_results.py` — `verify`（書き出した値を有理数だけで判定：球 x·x ≤ (1−r)²、立方体 |x_k| ≤ 1/2−r、
+  全組 |x_i−x_j|² ≥ (2r)²）と `sync`（記録を上回った解を `spheres/best/` に入れ `spheres/RESULTS.md` を書く）
+- `tools/campaign.py` は `--jobs "hsp4:1-100,ssp:101-200,..."` でこれらの表も回せる。`--until` で終了時刻を指定

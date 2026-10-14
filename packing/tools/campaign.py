@@ -31,6 +31,8 @@ SIDES = {"cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12
          "cpd": 15, "cxd": 16, "ced": 17, "cci": 0, "csq": 4}
 RC = {"csq": math.sqrt(0.5)}  # the unit square; every other container has circumradius 1
 POLYGONS = ["cpt", "chx", "chp", "cno", "cdc", "chd", "cdd", "ctd", "crd", "cpd", "cxd", "ced"]
+# Tables searched with spack: dimension and container.
+SPHERES = {"ssp": (3, "ball"), "scu": (3, "cube"), "hsp4": (4, "ball"), "hsp5": (5, "ball"), "hsp6": (6, "ball")}
 
 
 def records(code):
@@ -55,6 +57,7 @@ def main():
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--slice", type=int, default=900)
     ap.add_argument("--hours", type=float, default=8)
+    ap.add_argument("--until", default="", help="stop at this UTC time (YYYY-mm-ddTHH:MM) instead of --hours")
     ap.add_argument("--ext", type=int, default=100, help="extend each polygon up to this N")
     ap.add_argument("--seeds", default="", help="directory with CODE/N.txt starting packings (e.g. the records)")
     ap.add_argument("--jobs", default="", help="CODE:N1-N2[:WEIGHT],... instead of the polygon tables")
@@ -84,6 +87,8 @@ def main():
     summary = open(os.path.join(args.root, "summary.log"), "a")
     running = {}  # Popen -> (job, log path, start)
     deadline = time.time() + args.hours * 3600
+    if args.until:
+        deadline = time.mktime(time.strptime(args.until, "%Y-%m-%dT%H:%M")) - time.timezone
     rng = random.Random()
 
     def log(msg):
@@ -124,10 +129,14 @@ def main():
             job = min(free, key=lambda j: (j[4] / (j[3] * (0.5 + j[5])), rng.random()))
             code, n1, n2 = job[0], job[1], job[2]
             path = os.path.join(args.root, "logs", "%s_%d-%d_%d.log" % (code, n1, n2, int(time.time())))
-            cmd = [binary, "sweep", "--k", str(SIDES[code]), "--rc", str(RC.get(code, 1.0)),
-                   "--dir", os.path.join(args.root, code), "--records",
-                   os.path.join(PACK, "circles", "records", code + ".txt"), "--nmin", str(n1), "--nmax", str(n2),
-                   "--time", str(args.slice), "--seed", str(rng.randrange(1 << 30)), "--trials", "300"]
+            if code in SPHERES:
+                cmd = [os.path.join(PACK, "build", "spack"), "sweep", "--d", str(SPHERES[code][0]),
+                       "--container", SPHERES[code][1], "--trials", "200"]
+            else:
+                cmd = [binary, "sweep", "--k", str(SIDES[code]), "--rc", str(RC.get(code, 1.0)), "--trials", "300"]
+            cmd += ["--dir", os.path.join(args.root, code), "--records",
+                    os.path.join(PACK, "circles", "records", code + ".txt"), "--nmin", str(n1), "--nmax", str(n2),
+                    "--time", str(args.slice), "--seed", str(rng.randrange(1 << 30))]
             if args.seeds:
                 cmd += ["--seeds", os.path.join(args.seeds, code)]
             if args.only_dir and os.path.exists(os.path.join(args.only_dir, code + ".txt")):
