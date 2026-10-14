@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-14 03:34 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-14 04:19 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -19,7 +19,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 281 | 0.080228406678 | 0.080136763682 | 9.164e-05 | search |
 | 289 | 0.079406872421 | 0.079393902904 | 1.297e-05 | search |
 
-## hsp4 (12)
+## hsp4 (14)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -34,6 +34,8 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 74 | 0.258526020796 | 0.258522851648 | 3.169e-06 | search |
 | 75 | 0.258088554121 | 0.258082894946 | 5.659e-06 | search |
 | 80 | 0.255464864108 | 0.255463163131 | 1.701e-06 | search |
+| 88 | 0.248513624601 | 0.248505598356 | 8.026e-06 | search |
+| 94 | 0.245942532191 | 0.245932827006 | 9.705e-06 | search |
 | 117 | 0.236110170795 | 0.236108284019 | 1.887e-06 | polish |
 
 ## hsp5 (1)
@@ -42,9 +44,14 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 |---|---|---|---|---|
 | 45 | 0.327087495087 | 0.327087178530 | 3.166e-07 | search |
 
-## hsp6 (1)
+## hsp6 (6)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
+| 16 | 0.391649418580 | 0.391638462915 | 1.096e-05 | search |
 | 18 | 0.387750010355 | 0.387690929906 | 5.908e-05 | search |
+| 20 | 0.385289927926 | 0.385122550811 | 1.674e-04 | search |
+| 22 | 0.379973876700 | 0.379795897113 | 1.780e-04 | search |
+| 52 | 0.342302068596 | 0.342226488112 | 7.558e-05 | search |
+| 53 | 0.342116277915 | 0.342114480758 | 1.797e-06 | search |
 
