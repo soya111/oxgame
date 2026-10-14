@@ -22,7 +22,7 @@ PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def container(k):
-    return {0: "circle", 4: "square"}.get(k, "%d-gon" % k)
+    return {0: "circle", 4: "square", -1: "half disk", -2: "quarter disk", -3: "right triangle"}.get(k, "%d-gon" % k)
 
 
 def main():
@@ -65,7 +65,7 @@ def main():
                 better.append((k, code, n, r, rec[n]))
             else:
                 new.setdefault((k, code), []).append((n, r))
-    lines = ["# Circles in regular polygons: results", "",
+    lines = ["# Circles in regular polygons and other containers: results", "",
              "Updated %s. Records are the Packomania tables in `records/` (see records/README.md for dates)." %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
              "Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,",

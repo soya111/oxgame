@@ -30,7 +30,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.dirname(HERE)
 SIDES = {"cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13, "crd": 14,
-         "cpd": 15, "cxd": 16, "ced": 17, "cci": 0, "csq": 4}
+         "cpd": 15, "cxd": 16, "ced": 17, "cci": 0, "csq": 4, "csc": -1, "ccq": -2, "crt": -3}
 RC = {"csq": math.sqrt(0.5)}  # the unit square; every other container has circumradius 1
 POLYGONS = ["cpt", "chx", "chp", "cno", "cdc", "chd", "cdd", "ctd", "crd", "cpd", "cxd", "ced"]
 # Tables searched with spack: dimension and container.

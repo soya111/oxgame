@@ -5,10 +5,14 @@
 
 COORDS_DIR holds CODEn.txt ("i x y" lines, '#' comments) as found in Packomania's
 CODE_coords.tar.gz; RADIUS_FILE lists "N r". Packomania's containers are the unit
-square centered at the origin (csq), the unit circle (cci) and regular polygons of
-circumradius 1 with a horizontal bottom side. circpack wants unit circles, so the
-coordinates are divided by r and the container size becomes rc / r, where rc is
-the circumradius (sqrt(2)/2 for the unit square; the circle is circpack's k = 0).
+square centered at the origin (csq), the unit circle (cci), regular polygons of
+circumradius 1 with a horizontal bottom side, the half disk x^2 + y^2 <= 1, y >= 0
+(csc), the quarter disk x^2 + y^2 <= 1, x, y >= 0 (ccq) and the isosceles right
+triangle x, y >= 0, x + y <= 1 (crt), the last three in circpack's frame (k = -1,
+-2, -3). circpack wants unit circles, so the coordinates are divided by r and the
+container size becomes rc / r, where rc is the circumradius (sqrt(2)/2 for the
+unit square, 1 otherwise; the circle is circpack's k = 0). Empty coordinate files
+(csc's ten sizes improved in September 2026) are skipped.
 The printed digits can leave overlaps of the order of the last digit; circpack
 polishes every seed before using it.
 """
@@ -17,7 +21,7 @@ import math
 import os
 
 SIDES = {"csq": 4, "cci": 0, "cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13,
-         "crd": 14, "cpd": 15, "cxd": 16, "ced": 17}
+         "crd": 14, "cpd": 15, "cxd": 16, "ced": 17, "csc": -1, "ccq": -2, "crt": -3}
 RC = {"csq": math.sqrt(0.5)}
 
 

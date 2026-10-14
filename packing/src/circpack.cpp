@@ -1,11 +1,13 @@
 // circpack: equal circles in a regular k-gon (Packomania's "circles in a regular polygon"),
-// or in a circle for k = 0.
+// in a circle for k = 0, and in a half disk (k = -1), a quarter disk (k = -2) or an
+// isosceles right triangle (k = -3).
 //
 // Internally every circle has radius 1 and the container -- a regular k-gon of
-// circumradius R, centered at the origin, with a horizontal bottom side, or the
-// circle of radius R -- is made as small as possible. Packomania fixes the
-// container (circumradius Rc) and maximizes the radius; the two views are
-// related by r = Rc / R.
+// circumradius R, centered at the origin, with a horizontal bottom side, the
+// circle of radius R, or one of the other shapes scaled by R (see Polygon) -- is
+// made as small as possible. Packomania fixes the container (circumradius Rc;
+// radius 1 or legs 1 for the other shapes) and maximizes the radius; the two
+// views are related by r = Rc / R.
 //
 // The optimizer mirrors tripack: squared-overlap penalty, L-BFGS on R + mu * P
 // with mu raised step by step, bisection on R for a strictly feasible packing,
@@ -79,30 +81,65 @@ bool WritePacking(const string& path, int k, const Packing& p, const string& com
   return rename(tmp.c_str(), path.c_str()) == 0;
 }
 
-// Regular k-gon of circumradius R centered at the origin with a horizontal
-// bottom side: side j has outward normal at angle -pi/2 + 2*pi*j/k and lies at
-// distance R*cos(pi/k) (the apothem) from the center. k = 0 is the circle of
-// radius R.
+// The container for R = 1; it is scaled by R about the origin.
+//   k >= 3: the regular k-gon of circumradius 1 centered at the origin with a
+//           horizontal bottom side: side j has outward normal at angle
+//           -pi/2 + 2*pi*j/k and lies at distance cos(pi/k) (the apothem) from the center;
+//   k = 0:  the unit circle;
+//   k = -1: the half disk x^2 + y^2 <= 1, y >= 0 (Packomania's csc);
+//   k = -2: the quarter disk x^2 + y^2 <= 1, x >= 0, y >= 0 (ccq);
+//   k = -3: the isosceles right triangle x >= 0, y >= 0, x + y <= 1 (crt).
+// Each is the intersection of half-planes u . x <= h and, for k = 0, -1, -2, the unit disk.
 struct Polygon {
   int k;
-  double cosk;
-  vector<double> ux, uy;
-  explicit Polygon(int k_) : k(k_), cosk(k_ ? std::cos(kPi / k_) : 1.0), ux(k_), uy(k_) {
-    for (int j = 0; j < k; j++) {
-      double a = -kPi / 2 + 2 * kPi * j / k;
-      ux[j] = std::cos(a);
-      uy[j] = std::sin(a);
+  bool disk;
+  double area, cx, cy;  // area and centroid
+  vector<double> ux, uy, h;
+  explicit Polygon(int k_) : k(k_), disk(k_ <= 0 && k_ >= -2), area(kPi), cx(0), cy(0) {
+    auto plane = [&](double x, double y, double off) {
+      ux.push_back(x);
+      uy.push_back(y);
+      h.push_back(off);
+    };
+    if (k >= 3) {
+      for (int j = 0; j < k; j++) {
+        double a = -kPi / 2 + 2 * kPi * j / k;
+        plane(std::cos(a), std::sin(a), std::cos(kPi / k));
+      }
+      area = 0.5 * k * std::sin(2 * kPi / k);
+    } else if (k == -1) {
+      plane(0, -1, 0);
+      area = kPi / 2;
+      cy = 4 / (3 * kPi);
+    } else if (k == -2) {
+      plane(-1, 0, 0);
+      plane(0, -1, 0);
+      area = kPi / 4;
+      cx = cy = 4 / (3 * kPi);
+    } else if (k == -3) {
+      plane(-1, 0, 0);
+      plane(0, -1, 0);
+      plane(std::sqrt(0.5), std::sqrt(0.5), std::sqrt(0.5));
+      area = 0.5;
+      cx = cy = 1.0 / 3;
     }
   }
+  static bool Valid(int k) { return k >= 3 || (k <= 0 && k >= -3); }
   bool circle() const { return k == 0; }
-  // Area of the container with R = 1.
-  double Area() const { return circle() ? kPi : 0.5 * k * std::sin(2 * kPi / k); }
+  double Area() const { return area; }
   // Signed distance from (x, y) to the boundary (positive inside).
   double Inside(double x, double y, double R) const {
-    if (circle()) return R - std::hypot(x, y);
-    double d = 1e300;
-    for (int j = 0; j < k; j++) d = std::min(d, R * cosk - (x * ux[j] + y * uy[j]));
+    double d = disk ? R - std::hypot(x, y) : 1e300;
+    for (size_t j = 0; j < h.size(); j++) d = std::min(d, R * h[j] - (x * ux[j] + y * uy[j]));
     return d;
+  }
+  // The container's mirror symmetry: x -> -x, or x <-> y for the quarter disk and the triangle.
+  void Mirror(double& x, double& y) const {
+    if (k == -2 || k == -3) {
+      std::swap(x, y);
+    } else {
+      x = -x;
+    }
   }
 };
 
@@ -143,27 +180,26 @@ class Energy {
         g[2 * j + 1] -= c * dy;
       }
     }
-    const double lim = R * poly_.cosk - 1 - margin;
     for (int i = 0; i < n_; i++) {
       double x = q[2 * i], y = q[2 * i + 1];
-      if (poly_.circle()) {
-        double d = std::hypot(x, y), s = d - lim;
-        if (s <= 0) continue;
-        E += s * s;
-        if (d > 0) {  // at the very center the direction is undefined, but the container still counts
-          g[2 * i] += 2 * s * x / d;
-          g[2 * i + 1] += 2 * s * y / d;
+      if (poly_.disk) {
+        double d = std::hypot(x, y), s = d - (R - 1 - margin);
+        if (s > 0) {
+          E += s * s;
+          if (d > 0) {  // at the very center the direction is undefined, but the container still counts
+            g[2 * i] += 2 * s * x / d;
+            g[2 * i + 1] += 2 * s * y / d;
+          }
+          gr -= 2 * s;
         }
-        gr -= 2 * s;
-        continue;
       }
-      for (int j = 0; j < poly_.k; j++) {
-        double s = x * poly_.ux[j] + y * poly_.uy[j] - lim;
+      for (size_t j = 0; j < poly_.h.size(); j++) {
+        double s = x * poly_.ux[j] + y * poly_.uy[j] - (R * poly_.h[j] - 1 - margin);
         if (s <= 0) continue;
         E += s * s;
         g[2 * i] += 2 * s * poly_.ux[j];
         g[2 * i + 1] += 2 * s * poly_.uy[j];
-        gr -= 2 * s * poly_.cosk;
+        gr -= 2 * s * poly_.h[j];
       }
     }
     *gR = gr;
@@ -396,8 +432,13 @@ class Searcher {
 
   // A symmetry of the container applied to a packing: rotation by m * 2pi/k
   // (any angle for the circle), optionally preceded by the mirror in the
-  // vertical axis.
+  // vertical axis. The shapes with k < 0 have their mirror only.
   void Symmetry(Packing& p, int m, bool mirror) {
+    if (poly_.k < 0) {
+      if (mirror)
+        for (int i = 0; i < p.n; i++) poly_.Mirror(p.q[2 * i], p.q[2 * i + 1]);
+      return;
+    }
     double a = poly_.circle() ? U(0, 2 * kPi) : 2 * kPi * m / poly_.k, c = std::cos(a), s = std::sin(a);
     for (int i = 0; i < p.n; i++) {
       double x = p.q[2 * i], y = p.q[2 * i + 1];
@@ -412,14 +453,17 @@ class Searcher {
   // overlapped circles or adding circles at the roomiest spots.
   Packing Crossover(const Packing& A, Packing B) {
     Rescale(B, A.R);
-    double ang = U(0, kPi), ux = std::cos(ang), uy = std::sin(ang), off = U(-0.3, 0.3) * A.R;
+    // The cut passes near the centroid; its offset scales with the container's size.
+    double ang = U(0, kPi), ux = std::cos(ang), uy = std::sin(ang),
+           off = U(-0.3, 0.3) * A.R * (poly_.k < 0 ? std::sqrt(poly_.Area() / kPi) : 1.0);
+    double cx = poly_.cx * A.R, cy = poly_.cy * A.R;
     Packing c;
     c.n = 0;
     c.R = A.R;
     for (int src = 0; src < 2; src++) {
       const Packing& P = src ? B : A;
       for (int i = 0; i < P.n; i++) {
-        bool side = P.q[2 * i] * -uy + P.q[2 * i + 1] * ux >= off;
+        bool side = (P.q[2 * i] - cx) * -uy + (P.q[2 * i + 1] - cy) * ux >= off;
         if (side != (src == 0)) continue;
         c.q.push_back(P.q[2 * i]);
         c.q.push_back(P.q[2 * i + 1]);
@@ -598,8 +642,8 @@ int CmdSweep(const std::map<string, string>& a) {
   string dir = ArgS(a, "dir", ""), tag = ArgS(a, "tag", "circpack");
   double timeLimit = Arg(a, "time", 600), rc = Arg(a, "rc", 1.0), temp = Arg(a, "temp", 1e-4);
   int trials = static_cast<int>(Arg(a, "trials", 300));
-  if ((k < 3 && k != 0) || dir.empty()) {
-    fprintf(stderr, "--k (0 for a circle, else >= 3) and --dir required\n");
+  if (!Polygon::Valid(k) || dir.empty()) {
+    fprintf(stderr, "--k (>= 3; 0 circle, -1 half disk, -2 quarter disk, -3 right triangle) and --dir required\n");
     return 1;
   }
   Polygon poly(k);
@@ -733,7 +777,7 @@ int main(int argc, char** argv) {
   if (argc < 2) {
     fprintf(stderr,
             "usage: circpack <command> [--key value ...]\n"
-            "  sweep     --k K (0 = circle) --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
+            "  sweep     --k K (0 circle, -1 half disk, -2 quarter disk, -3 right triangle) --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
             "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME] [--only-file FILE]\n"
             "  check     --k K --in FILE [--rc RC]\n"
             "  gradcheck [--k K] [--n N] [--margin M]\n");

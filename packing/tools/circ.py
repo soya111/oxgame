@@ -8,9 +8,11 @@
 
 circpack files: '#' comments, then "k n R", then n lines "x y" -- unit circles in the
 regular k-gon of circumradius R centered at the origin with a horizontal bottom side
-(k = 0: the circle of radius R). Packomania fixes the container at circumradius 1
-and reports the radius r = 1 / R -- except for the square (csq), which has side 1,
-i.e. circumradius RC = sqrt(2)/2, so that r = RC / R.
+(k = 0: the circle of radius R; k = -1, -2, -3: the half disk, the quarter disk and
+the isosceles right triangle of circpack, scaled by R). Packomania fixes the
+container at circumradius 1 (radius 1, legs 1) and reports the radius r = 1 / R --
+except for the square (csq), which has side 1, i.e. circumradius RC = sqrt(2)/2, so
+that r = RC / R.
 """
 import glob
 import math
@@ -24,9 +26,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Gains below this are what re-polishing a published packing can give; they are
 # reported as marginal rather than as improvements.
 SIGNIFICANT = 1e-7
-RC = {0: 1, 4: math.sqrt(0.5), 5: 1, 6: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1}
+RC = {0: 1, 4: math.sqrt(0.5), 5: 1, 6: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1,
+      -1: 1, -2: 1, -3: 1}
 CODE = {0: "cci", 4: "csq", 5: "cpt", 6: "chx", 7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd",
-        15: "cpd", 16: "cxd", 17: "ced"}
+        15: "cpd", 16: "cxd", 17: "ced", -1: "csc", -2: "ccq", -3: "crt"}
 
 
 def read(path):
@@ -103,6 +106,14 @@ def check(k, r, pts, rc):
         wall = min(D(str(rc)) - (x * x + y * y).sqrt() for x, y in pts) - r
     elif k == 4:  # square of circumradius rc, axis-parallel
         wall = min(rc_dec(k, rc) / D(2).sqrt() - max(abs(x), abs(y)) for x, y in pts) - r
+    elif k in (-1, -2, -3):  # half disk (y >= 0), quarter disk (x, y >= 0), right triangle (x, y >= 0, x + y <= rc)
+        R1 = D(str(rc))
+        walls = []
+        for x, y in pts:
+            w = [y] if k == -1 else [x, y]
+            w.append((R1 - x - y) / D(2).sqrt() if k == -3 else R1 - (x * x + y * y).sqrt())
+            walls.append(min(w))
+        wall = min(walls) - r
     else:
         PI = dec_pi()
         apothem = D(str(rc)) * dec_cos_sin(PI / k)[0]
