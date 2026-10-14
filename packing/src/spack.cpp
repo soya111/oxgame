@@ -365,10 +365,10 @@ class Searcher {
     return r;
   }
 
-  void Hole(const Packing& p, int count, int skip, double* best) {
+  void Hole(const Packing& p, int count, int skip, double* best, int samples = 400) {
     vector<double> x(c_.d);
     double bv = -1e300;
-    for (int s = 0; s < 400; s++) {
+    for (int s = 0; s < samples; s++) {
       RandomPoint(p.R, x.data());
       double v = Room(p, count, x.data(), skip);
       if (v > bv) {
@@ -574,9 +574,12 @@ int CmdSweep(const std::map<string, string>& a) {
     if (!seedDir.empty() && ReadPacking(BestPath(seedDir, n), c, p) && (p.n == n || p.n == n - 1)) {
       if (best.count(n) && best[n].R <= p.R * (1 + 1e-10)) continue;  // cannot beat the stored best
       Searcher s(n, c, 7);
-      if (p.n == n - 1) {  // a published file that lost its last sphere: put it at the roomiest spot
-        p = s.FromSmaller(p);
-        s.Compress(p, 1e3);
+      if (p.n == n - 1) {  // a published file that lost its last sphere: it sat in a hole of its exact size
+        Packing full = p;
+        full.n = n;
+        full.q.resize(c.d * n);
+        s.Hole(p, p.n, -1, &full.q[c.d * (n - 1)], 50000);
+        p = full;
       }
       if (s.Polish(p, 1e-11) && (!best.count(n) || p.R < best[n].R * (1 - 1e-12))) {
         best[n] = p;
