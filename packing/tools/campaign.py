@@ -10,10 +10,12 @@ is compared with the Packomania records and the improvements are appended to
 ROOT/summary.log.
 
   python3 campaign.py --root DIR [--workers 4] [--slice 900] [--hours 8] [--ext 100]
-                     [--jobs CODE:N1-N2[:WEIGHT],...]
+                     [--jobs CODE:N1-N2[:WEIGHT],... | --jobs-file FILE]
 
 Without --jobs every polygon table is searched (plus sizes up to --ext); --jobs
 names the (table, N range) jobs instead, e.g. "cci:301-400,cci:401-500".
+--jobs-file holds the same list and is read again before every new slice, so jobs
+can be added, dropped or reweighted while the campaign runs.
 """
 import argparse
 import json
@@ -61,15 +63,22 @@ def main():
     ap.add_argument("--ext", type=int, default=100, help="extend each polygon up to this N")
     ap.add_argument("--seeds", default="", help="directory with CODE/N.txt starting packings (e.g. the records)")
     ap.add_argument("--jobs", default="", help="CODE:N1-N2[:WEIGHT],... instead of the polygon tables")
+    ap.add_argument("--jobs-file", default="", help="file with the --jobs list, re-read before every slice")
     ap.add_argument("--only-dir", default="", help="DIR/CODE.txt lists the only sizes of CODE to visit")
     args = ap.parse_args()
     binary = os.path.join(PACK, "build", "circpack")
     os.makedirs(os.path.join(args.root, "logs"), exist_ok=True)
     jobs = []  # [code, nmin, nmax, weight, seconds_used, score]
-    for spec in filter(None, args.jobs.split(",")):
-        part = spec.split(":")
-        n1, n2 = map(int, part[1].split("-"))
-        jobs.append([part[0], n1, n2, float(part[2]) if len(part) > 2 else 1.0, 0.0, 1.0])
+
+    def parse(text):
+        out = []
+        for spec in filter(None, text.replace("\n", ",").replace(" ", "").split(",")):
+            part = spec.split(":")
+            n1, n2 = map(int, part[1].split("-"))
+            out.append([part[0], n1, n2, float(part[2]) if len(part) > 2 else 1.0, 0.0, 1.0])
+        return out
+
+    jobs = parse(open(args.jobs_file).read() if args.jobs_file else args.jobs)
     for code in POLYGONS if not jobs else []:
         rec = records(code)
         top = 0
@@ -103,7 +112,8 @@ def main():
             if p.poll() is None:
                 continue
             job, path, start = running.pop(p)
-            job[4] += time.time() - start
+            elapsed = time.time() - start
+            job[4] += elapsed if elapsed > 60 else args.slice  # a sweep that quits at once (nothing to visit) must not be rescheduled at once
             code, n1, n2 = job[0], job[1], job[2]
             rec = records(code)
             improved = [l.strip() for l in open(path) if l.startswith("[")]
@@ -120,7 +130,32 @@ def main():
                     gain += 0.25
             # Adaptive share: recent success raises a job's priority, old success decays.
             job[5] = 0.5 * job[5] + gain
-            json.dump({"%s %d-%d" % (j[0], j[1], j[2]): [j[4], j[5]] for j in jobs}, open(state, "w"), indent=1)
+            saved = json.load(open(state)) if os.path.exists(state) else {}  # dropped jobs keep their entry
+            saved.update({"%s %d-%d" % (j[0], j[1], j[2]): [j[4], j[5]] for j in jobs + [job]})
+            json.dump(saved, open(state, "w"), indent=1)
+        if args.jobs_file and len(running) < args.workers:
+            try:  # pick up edits of the jobs file; a job keeps its time and score
+                listed = parse(open(args.jobs_file).read())
+            except (OSError, ValueError, IndexError):
+                listed = None
+            if listed:
+                old = {(j[0], j[1], j[2]): j for j in jobs}
+                saved = json.load(open(state)) if os.path.exists(state) else {}
+                kept = []
+                for j in listed:
+                    key = (j[0], j[1], j[2])
+                    if key in old:  # the same object: a running slice of it is credited on return
+                        old[key][3] = j[3]
+                        j = old[key]
+                    else:
+                        v = saved.get("%s %d-%d" % key)
+                        if v is not None:
+                            j[4], j[5] = (v, 1.0) if isinstance(v, (int, float)) else (v[0], v[1])
+                        log("job added: %s %d-%d" % key)
+                    kept.append(j)
+                for key in set(old) - {(j[0], j[1], j[2]) for j in kept}:
+                    log("job dropped: %s %d-%d" % key)
+                jobs = kept
         busy = {(j[0], j[1]) for j, _, _ in running.values()}
         while len(running) < args.workers and time.time() < deadline:
             free = [j for j in jobs if (j[0], j[1]) not in busy]

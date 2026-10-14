@@ -182,3 +182,7 @@ python3 tools/sq_verify.py /tmp/sqcamp/best/301.txt
 - `tools/sphere_results.py` — `verify`（書き出した値を有理数だけで判定：球 x·x ≤ (1−r)²、立方体 |x_k| ≤ 1/2−r、
   全組 |x_i−x_j|² ≥ (2r)²）と `sync`（記録を上回った解を `spheres/best/` に入れ `spheres/RESULTS.md` を書く）
 - `tools/campaign.py` は `--jobs "hsp4:1-100,ssp:101-200,..."` でこれらの表も回せる。`--until` で終了時刻を指定
+- `tools/campaign.py --jobs-file FILE` はジョブ一覧をスライスごとに読み直す（走らせたまま追加・削除・重み変更できる）
+- `tools/target_sizes.py` — 記録の弱そうなサイズを選んで `--only-dir` 用の一覧を書く。記録の密度 n·r^d を
+  前後 8 サイズの中央値と比べ、低い順に一定割合を残す。cci の N=401〜1300 では密度が低い 5 分の 1 のサイズは
+  180 件中 38 件が探索で上回れたのに対し、高い 5 分の 1 は 11 件だった
