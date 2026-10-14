@@ -1,6 +1,6 @@
 # Circles in regular polygons: results
 
-Updated 2026-10-14 01:06 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-14 02:04 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
