@@ -44,3 +44,7 @@ Added 2026-10-14 (pages fetched 2026-10-14; `txt/radius.txt` of each table):
 Most crt records (251 of 299) come from E. Specht's program of 2009-2010, most ccq records (489 of 600)
 from one source of October-December 2010; csc had ten improvements in September 2026.
 
+Rectangles (pages and `txt/radius.txt` fetched 2026-10-14): `crc_100` .. `crc_800` hold N equal circles in
+the rectangle 1 x a, a = 0.1 .. 0.8, centered at the origin (|x| <= 1/2, |y| <= a/2); all eight were last
+updated 21-Jun-2018 and list every N from 1 to 200 (a = 0.1), 347, 300, 299, 300, 307, 437 and 420 (a = 0.8).
+Most of their records come from E. Specht's program crc of 1999-2010.

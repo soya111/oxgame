@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Convert Packomania coordinate files into circpack seed files.
 
-  python3 pm_seeds.py CODE COORDS_DIR RADIUS_FILE OUT_DIR [--nmin A] [--nmax B]
+  python3 pm_seeds.py CODE COORDS_DIR RADIUS_FILE OUT_DIR [--nmin A] [--nmax B] [--pattern P]
 
 COORDS_DIR holds CODEn.txt ("i x y" lines, '#' comments) as found in Packomania's
 CODE_coords.tar.gz; RADIUS_FILE lists "N r". Packomania's containers are the unit
@@ -12,7 +12,9 @@ triangle x, y >= 0, x + y <= 1 (crt), the last three in circpack's frame (k = -1
 -2, -3). circpack wants unit circles, so the coordinates are divided by r and the
 container size becomes rc / r, where rc is the circumradius (sqrt(2)/2 for the
 unit square, 1 otherwise; the circle is circpack's k = 0). Empty coordinate files
-(csc's ten sizes improved in September 2026) are skipped.
+(csc's ten sizes improved in September 2026) are skipped. The rectangles crc_100 ..
+crc_800 (|x| <= 1/2, |y| <= a/2) name their files differently: --pattern
+"crc{n}_0.100000000000.txt".
 The printed digits can leave overlaps of the order of the last digit; circpack
 polishes every seed before using it.
 """
@@ -22,6 +24,7 @@ import os
 
 SIDES = {"csq": 4, "cci": 0, "cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13,
          "crd": 14, "cpd": 15, "cxd": 16, "ced": 17, "csc": -1, "ccq": -2, "crt": -3}
+SIDES.update({"crc_%d" % a: -1000 - a for a in range(100, 900, 100)})
 RC = {"csq": math.sqrt(0.5)}
 
 
@@ -33,6 +36,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--nmin", type=int, default=1)
     ap.add_argument("--nmax", type=int, default=10**9)
+    ap.add_argument("--pattern", default="", help="file name with {n} for the size (default CODE{n}.txt)")
     args = ap.parse_args()
     k, rc = SIDES[args.code], RC.get(args.code, 1.0)
     radius = {}
@@ -43,7 +47,7 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     done = 0
     for n in sorted(radius):
-        path = os.path.join(args.coords, "%s%d.txt" % (args.code, n))
+        path = os.path.join(args.coords, (args.pattern or args.code + "{n}.txt").replace("{n}", str(n)))
         if not args.nmin <= n <= args.nmax or not os.path.exists(path):
             continue
         pts = []

@@ -1,6 +1,6 @@
 // circpack: equal circles in a regular k-gon (Packomania's "circles in a regular polygon"),
-// in a circle for k = 0, and in a half disk (k = -1), a quarter disk (k = -2) or an
-// isosceles right triangle (k = -3).
+// in a circle for k = 0, in a half disk (k = -1), a quarter disk (k = -2), an
+// isosceles right triangle (k = -3) or a 1 x a rectangle (k = -1000 - 1000 a).
 //
 // Internally every circle has radius 1 and the container -- a regular k-gon of
 // circumradius R, centered at the origin, with a horizontal bottom side, the
@@ -88,7 +88,8 @@ bool WritePacking(const string& path, int k, const Packing& p, const string& com
 //   k = 0:  the unit circle;
 //   k = -1: the half disk x^2 + y^2 <= 1, y >= 0 (Packomania's csc);
 //   k = -2: the quarter disk x^2 + y^2 <= 1, x >= 0, y >= 0 (ccq);
-//   k = -3: the isosceles right triangle x >= 0, y >= 0, x + y <= 1 (crt).
+//   k = -3: the isosceles right triangle x >= 0, y >= 0, x + y <= 1 (crt);
+//   k <= -1000: the rectangle |x| <= 1/2, |y| <= a/2 with a = (-k - 1000) / 1000 (crc_100 .. crc_800).
 // Each is the intersection of half-planes u . x <= h and, for k = 0, -1, -2, the unit disk.
 struct Polygon {
   int k;
@@ -122,9 +123,16 @@ struct Polygon {
       plane(std::sqrt(0.5), std::sqrt(0.5), std::sqrt(0.5));
       area = 0.5;
       cx = cy = 1.0 / 3;
+    } else if (k <= -1000) {
+      double a = (-k - 1000) / 1000.0;
+      plane(1, 0, 0.5);
+      plane(-1, 0, 0.5);
+      plane(0, 1, a / 2);
+      plane(0, -1, a / 2);
+      area = a;
     }
   }
-  static bool Valid(int k) { return k >= 3 || (k <= 0 && k >= -3); }
+  static bool Valid(int k) { return k >= 3 || (k <= 0 && k >= -3) || (k < -1000 && k >= -2000); }
   bool circle() const { return k == 0; }
   double Area() const { return area; }
   // Signed distance from (x, y) to the boundary (positive inside).
@@ -134,6 +142,7 @@ struct Polygon {
     return d;
   }
   // The container's mirror symmetry: x -> -x, or x <-> y for the quarter disk and the triangle.
+  // (The rectangle's other mirror and its half turn are not used.)
   void Mirror(double& x, double& y) const {
     if (k == -2 || k == -3) {
       std::swap(x, y);
@@ -643,7 +652,9 @@ int CmdSweep(const std::map<string, string>& a) {
   double timeLimit = Arg(a, "time", 600), rc = Arg(a, "rc", 1.0), temp = Arg(a, "temp", 1e-4);
   int trials = static_cast<int>(Arg(a, "trials", 300));
   if (!Polygon::Valid(k) || dir.empty()) {
-    fprintf(stderr, "--k (>= 3; 0 circle, -1 half disk, -2 quarter disk, -3 right triangle) and --dir required\n");
+    fprintf(stderr,
+            "--k (>= 3; 0 circle, -1 half disk, -2 quarter disk, -3 right triangle, -1000 - 1000 a rectangle 1 x a)"
+            " and --dir required\n");
     return 1;
   }
   Polygon poly(k);
@@ -777,7 +788,8 @@ int main(int argc, char** argv) {
   if (argc < 2) {
     fprintf(stderr,
             "usage: circpack <command> [--key value ...]\n"
-            "  sweep     --k K (0 circle, -1 half disk, -2 quarter disk, -3 right triangle) --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
+            "  sweep     --k K (0 circle, -1 half disk, -2 quarter disk, -3 right triangle, -1000-1000a 1 x a rectangle)\n"
+            "            --dir DIR [--nmin A] [--nmax B] [--time SEC] [--seed N] [--rc RC]\n"
             "            [--records FILE] [--seeds DIR] [--trials T] [--temp T] [--tag NAME] [--only-file FILE]\n"
             "  check     --k K --in FILE [--rc RC]\n"
             "  gradcheck [--k K] [--n N] [--margin M]\n");

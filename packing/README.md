@@ -198,3 +198,8 @@ python3 tools/sq_verify.py /tmp/sqcamp/best/301.txt
 記録表は crt と ccq が 2018-06-21 から更新なしで、crt の 299 件中 251 件は 2009〜2010 年の
 E. Specht のプログラム、ccq の 600 件中 489 件は 2010 年 10〜12 月の一つの出典による
 （`circles/records/README.md`）。csc は 2026 年 9 月に 10 件が更新された（その 10 件の座標ファイルは空）。
+
+長方形 1×a（Packomania crc_100〜crc_800、a = 0.1〜0.8、|x| ≤ 1/2, |y| ≤ a/2）は `circpack --k -1000-1000a`
+（例：a = 0.5 は `--k -1500`）。座標ファイル名が違うので種は `tools/pm_seeds.py crc_500 ... --pattern
+"crc{n}_0.500000000000.txt"` で作る。8 表とも 2018-06-21 から更新がなく、記録の大半は 1999〜2010 年の
+E. Specht のプログラム（crc_100 は 200 件中 175 件、crc_500 は 300 件中 268 件）。

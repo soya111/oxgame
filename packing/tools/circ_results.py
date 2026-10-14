@@ -22,6 +22,8 @@ PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def container(k):
+    if k <= -1000:
+        return "1 x %s rectangle" % ("%.1f" % ((-k - 1000) / 1000))
     return {0: "circle", 4: "square", -1: "half disk", -2: "quarter disk", -3: "right triangle"}.get(k, "%d-gon" % k)
 
 
