@@ -22,7 +22,7 @@ import argparse
 import math
 import os
 
-SIDES = {"csq": 4, "cci": 0, "cpt": 5, "chx": 6, "chp": 7, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13,
+SIDES = {"csq": 4, "cci": 0, "cpt": 5, "chx": 6, "chp": 7, "coc": 8, "cno": 9, "cdc": 10, "chd": 11, "cdd": 12, "ctd": 13,
          "crd": 14, "cpd": 15, "cxd": 16, "ced": 17, "csc": -1, "ccq": -2, "crt": -3}
 SIDES.update({"crc_%d" % a: -1000 - a for a in range(100, 900, 100)})
 RC = {"csq": math.sqrt(0.5)}

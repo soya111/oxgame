@@ -48,3 +48,6 @@ Rectangles (pages and `txt/radius.txt` fetched 2026-10-14): `crc_100` .. `crc_80
 the rectangle 1 x a, a = 0.1 .. 0.8, centered at the origin (|x| <= 1/2, |y| <= a/2); all eight were last
 updated 21-Jun-2018 and list every N from 1 to 200 (a = 0.1), 347, 300, 299, 300, 307, 437 and 420 (a = 0.8).
 Most of their records come from E. Specht's program crc of 1999-2010.
+
+Added 2026-10-15: `coc`, the regular octagon of circumradius 1 (bottom side horizontal), last updated
+23-Sep-2026, N = 1-48 (radii printed with 12 digits); missing from the polygon campaign of 2026-10-11.

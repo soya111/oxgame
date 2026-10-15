@@ -27,10 +27,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Gains below this are what re-polishing a published packing can give; they are
 # reported as marginal rather than as improvements.
 SIGNIFICANT = 1e-7
-RC = {0: 1, 4: math.sqrt(0.5), 5: 1, 6: 1, 7: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1,
+RC = {0: 1, 4: math.sqrt(0.5), 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1,
       -1: 1, -2: 1, -3: 1}
 RC.update({-1000 - a: 1 for a in range(100, 900, 100)})
-CODE = {0: "cci", 4: "csq", 5: "cpt", 6: "chx", 7: "chp", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd",
+CODE = {0: "cci", 4: "csq", 5: "cpt", 6: "chx", 7: "chp", 8: "coc", 9: "cno", 10: "cdc", 11: "chd", 12: "cdd", 13: "ctd", 14: "crd",
         15: "cpd", 16: "cxd", 17: "ced", -1: "csc", -2: "ccq", -3: "crt"}
 CODE.update({-1000 - a: "crc_%d" % a for a in range(100, 900, 100)})  # 1 x a rectangles, a = 0.1 .. 0.8
 
