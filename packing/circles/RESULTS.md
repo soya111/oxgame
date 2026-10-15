@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-15 18:08 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-15 18:53 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2186)
+## Better than the published record (2205)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1410,8 +1410,11 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 411 | 0.022880402957 | 0.022879142899 | 1.260e-06 |
 | quarter disk (`ccq`) | 413 | 0.022806630924 | 0.022793277084 | 1.335e-05 |
 | quarter disk (`ccq`) | 414 | 0.022781730238 | 0.022780192596 | 1.538e-06 |
+| quarter disk (`ccq`) | 424 | 0.022544326736 | 0.022542855162 | 1.472e-06 |
 | quarter disk (`ccq`) | 425 | 0.022507882681 | 0.022506463349 | 1.419e-06 |
+| quarter disk (`ccq`) | 429 | 0.022402031877 | 0.022383757336 | 1.827e-05 |
 | quarter disk (`ccq`) | 430 | 0.022347213357 | 0.022345677727 | 1.536e-06 |
+| quarter disk (`ccq`) | 435 | 0.022255944899 | 0.022253489188 | 2.456e-06 |
 | quarter disk (`ccq`) | 436 | 0.022222546531 | 0.022217961917 | 4.585e-06 |
 | quarter disk (`ccq`) | 438 | 0.022176085997 | 0.022172320004 | 3.766e-06 |
 | quarter disk (`ccq`) | 440 | 0.022121594445 | 0.022119219010 | 2.375e-06 |
@@ -1426,6 +1429,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 477 | 0.021266674846 | 0.021266368514 | 3.063e-07 |
 | quarter disk (`ccq`) | 481 | 0.021181108913 | 0.021179922862 | 1.186e-06 |
 | quarter disk (`ccq`) | 486 | 0.021078369518 | 0.021078120213 | 2.493e-07 |
+| quarter disk (`ccq`) | 487 | 0.021065516119 | 0.021061086633 | 4.429e-06 |
 | quarter disk (`ccq`) | 489 | 0.021011799242 | 0.021010063954 | 1.735e-06 |
 | quarter disk (`ccq`) | 490 | 0.021002038210 | 0.021000125239 | 1.913e-06 |
 | quarter disk (`ccq`) | 495 | 0.020895184023 | 0.020892651829 | 2.532e-06 |
@@ -1861,6 +1865,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1465 | 0.024420168126 | 0.024419875343 | 2.928e-07 |
 | circle (`cci`) | 1482 | 0.024307666975 | 0.024307086992 | 5.800e-07 |
 | circle (`cci`) | 1483 | 0.024305997388 | 0.024305697161 | 3.002e-07 |
+| circle (`cci`) | 1524 | 0.023944487336 | 0.023941058128 | 3.429e-06 |
 | circle (`cci`) | 1550 | 0.023755215662 | 0.023749596835 | 5.619e-06 |
 | circle (`cci`) | 1590 | 0.023458274554 | 0.023458137252 | 1.373e-07 |
 | circle (`cci`) | 1591 | 0.023455023724 | 0.023454844738 | 1.790e-07 |
@@ -1960,6 +1965,20 @@ no floating point; see the README). Gains below
 | square (`csq`) | 990 | 0.016729442981 | 0.016463423221 | 2.660e-04 |
 | square (`csq`) | 991 | 0.016725526510 | 0.016714637930 | 1.089e-05 |
 | square (`csq`) | 992 | 0.016615557553 | 0.015873015873 | 7.425e-04 |
+| square (`csq`) | 1027 | 0.016489340274 | 0.016488244122 | 1.096e-06 |
+| square (`csq`) | 1036 | 0.016412203141 | 0.016411994000 | 2.091e-07 |
+| square (`csq`) | 1062 | 0.016179101244 | 0.016176020230 | 3.081e-06 |
+| square (`csq`) | 1102 | 0.015899488076 | 0.015899133036 | 3.550e-07 |
+| square (`csq`) | 1134 | 0.015701981609 | 0.015701655341 | 3.263e-07 |
+| square (`csq`) | 1170 | 0.015466454328 | 0.015422254739 | 4.420e-05 |
+| square (`csq`) | 1209 | 0.015165058688 | 0.015164636181 | 4.225e-07 |
+| square (`csq`) | 1224 | 0.015134567786 | 0.015134434044 | 1.337e-07 |
+| square (`csq`) | 1518 | 0.013583205689 | 0.013578739829 | 4.466e-06 |
+| square (`csq`) | 1520 | 0.013458233980 | 0.012996025099 | 4.622e-04 |
+| square (`csq`) | 1528 | 0.013497662512 | 0.013431915279 | 6.575e-05 |
+| square (`csq`) | 1540 | 0.013472784209 | 0.013472216554 | 5.677e-07 |
+| square (`csq`) | 1560 | 0.013228156055 | 0.012667237012 | 5.609e-04 |
+| square (`csq`) | 1562 | 0.013420775515 | 0.013420608919 | 1.666e-07 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
