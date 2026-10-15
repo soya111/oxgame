@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-15 14:22 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-15 15:08 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2113)
+## Better than the published record (2116)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -121,6 +121,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 219 | 0.031325513368 | 0.031291828212 | 3.369e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 220 | 0.031268816170 | 0.031266481760 | 2.334e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 225 | 0.030964547551 | 0.030934645041 | 2.990e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 226 | 0.030892896365 | 0.030884832776 | 8.064e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 227 | 0.030855547447 | 0.030847910478 | 7.637e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 231 | 0.030713639000 | 0.030710177509 | 3.461e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 234 | 0.030563112314 | 0.030549340677 | 1.377e-05 |
@@ -610,7 +611,7 @@ no floating point; see the README). Gains below
 | 1 x 0.5 rectangle (`crc_500`) | 142 | 0.030649128003 | 0.030648977161 | 1.508e-07 |
 | 1 x 0.5 rectangle (`crc_500`) | 143 | 0.030545809953 | 0.030524298789 | 2.151e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 145 | 0.030283052349 | 0.030253161384 | 2.989e-05 |
-| 1 x 0.5 rectangle (`crc_500`) | 147 | 0.030011620304 | 0.029996034415 | 1.559e-05 |
+| 1 x 0.5 rectangle (`crc_500`) | 147 | 0.030039700476 | 0.029996034415 | 4.367e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 148 | 0.029952850608 | 0.029939498172 | 1.335e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 150 | 0.029756053921 | 0.029755549335 | 5.046e-07 |
 | 1 x 0.5 rectangle (`crc_500`) | 151 | 0.029621941699 | 0.029583427717 | 3.851e-05 |
@@ -751,6 +752,7 @@ no floating point; see the README). Gains below
 | 1 x 0.4 rectangle (`crc_400`) | 168 | 0.025399933358 | 0.025399828845 | 1.045e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 169 | 0.025357180742 | 0.025356271184 | 9.096e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 173 | 0.025168400509 | 0.025164079622 | 4.321e-06 |
+| 1 x 0.4 rectangle (`crc_400`) | 175 | 0.025024630704 | 0.025023766538 | 8.642e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 177 | 0.024731675430 | 0.024723290510 | 8.385e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 178 | 0.024605448886 | 0.024601914918 | 3.534e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 179 | 0.024541692773 | 0.024535533103 | 6.160e-06 |
@@ -785,7 +787,7 @@ no floating point; see the README). Gains below
 | 1 x 0.4 rectangle (`crc_400`) | 222 | 0.022057955205 | 0.022057041869 | 9.133e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 223 | 0.021995360140 | 0.021993704952 | 1.655e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 224 | 0.021950105475 | 0.021948315901 | 1.790e-06 |
-| 1 x 0.4 rectangle (`crc_400`) | 226 | 0.021827289819 | 0.021809934125 | 1.736e-05 |
+| 1 x 0.4 rectangle (`crc_400`) | 226 | 0.021840246169 | 0.021809934125 | 3.031e-05 |
 | 1 x 0.4 rectangle (`crc_400`) | 228 | 0.021691768068 | 0.021663345142 | 2.842e-05 |
 | 1 x 0.4 rectangle (`crc_400`) | 229 | 0.021658185174 | 0.021655178084 | 3.007e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 230 | 0.021636323806 | 0.021618100539 | 1.822e-05 |
@@ -837,7 +839,7 @@ no floating point; see the README). Gains below
 | 1 x 0.4 rectangle (`crc_400`) | 290 | 0.019344034093 | 0.019341900406 | 2.134e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 291 | 0.019326405429 | 0.019318991974 | 7.413e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 292 | 0.019317728895 | 0.019275284167 | 4.244e-05 |
-| 1 x 0.4 rectangle (`crc_400`) | 293 | 0.019302998953 | 0.019268752742 | 3.425e-05 |
+| 1 x 0.4 rectangle (`crc_400`) | 293 | 0.019308804856 | 0.019268752742 | 4.005e-05 |
 | 1 x 0.4 rectangle (`crc_400`) | 294 | 0.019267336227 | 0.019266875538 | 4.607e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 295 | 0.019236971110 | 0.019226433710 | 1.054e-05 |
 | 1 x 0.4 rectangle (`crc_400`) | 296 | 0.019212076962 | 0.019205610235 | 6.467e-06 |
@@ -1106,7 +1108,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 173 | 0.027580938699 | 0.027580060414 | 8.783e-07 |
 | right triangle (`crt`) | 174 | 0.027485144492 | 0.027483945804 | 1.199e-06 |
 | right triangle (`crt`) | 177 | 0.027280524788 | 0.027276864383 | 3.660e-06 |
-| right triangle (`crt`) | 179 | 0.027125257780 | 0.027122097848 | 3.160e-06 |
+| right triangle (`crt`) | 179 | 0.027127273318 | 0.027122097848 | 5.175e-06 |
 | right triangle (`crt`) | 183 | 0.026832864805 | 0.026830965024 | 1.900e-06 |
 | right triangle (`crt`) | 186 | 0.026630362150 | 0.026628562481 | 1.800e-06 |
 | right triangle (`crt`) | 190 | 0.026360685657 | 0.026356945835 | 3.740e-06 |
@@ -1280,7 +1282,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 230 | 0.030341610479 | 0.030327668614 | 1.394e-05 |
 | quarter disk (`ccq`) | 231 | 0.030265295174 | 0.030262707641 | 2.588e-06 |
 | quarter disk (`ccq`) | 233 | 0.030133106224 | 0.030132018393 | 1.088e-06 |
-| quarter disk (`ccq`) | 235 | 0.030013718722 | 0.030013466413 | 2.523e-07 |
+| quarter disk (`ccq`) | 235 | 0.030013730083 | 0.030013466413 | 2.637e-07 |
 | quarter disk (`ccq`) | 238 | 0.029830379665 | 0.029827790827 | 2.589e-06 |
 | quarter disk (`ccq`) | 239 | 0.029756512374 | 0.029752691470 | 3.821e-06 |
 | quarter disk (`ccq`) | 240 | 0.029730333798 | 0.029729958850 | 3.749e-07 |
@@ -1294,7 +1296,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 255 | 0.028829970409 | 0.028826910596 | 3.060e-06 |
 | quarter disk (`ccq`) | 256 | 0.028782954131 | 0.028775357304 | 7.597e-06 |
 | quarter disk (`ccq`) | 258 | 0.028676788461 | 0.028675194763 | 1.594e-06 |
-| quarter disk (`ccq`) | 259 | 0.028619035938 | 0.028618312221 | 7.237e-07 |
+| quarter disk (`ccq`) | 259 | 0.028619204633 | 0.028618312221 | 8.924e-07 |
 | quarter disk (`ccq`) | 260 | 0.028581737377 | 0.028579549321 | 2.188e-06 |
 | quarter disk (`ccq`) | 261 | 0.028533564696 | 0.028530694264 | 2.870e-06 |
 | quarter disk (`ccq`) | 262 | 0.028467899704 | 0.028462909047 | 4.991e-06 |
@@ -1307,7 +1309,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 272 | 0.027976862167 | 0.027974177081 | 2.685e-06 |
 | quarter disk (`ccq`) | 273 | 0.027909660075 | 0.027908598278 | 1.062e-06 |
 | quarter disk (`ccq`) | 274 | 0.027859794086 | 0.027857827733 | 1.966e-06 |
-| quarter disk (`ccq`) | 275 | 0.027819343103 | 0.027809002870 | 1.034e-05 |
+| quarter disk (`ccq`) | 275 | 0.027823612739 | 0.027809002870 | 1.461e-05 |
 | quarter disk (`ccq`) | 276 | 0.027767239496 | 0.027766762022 | 4.775e-07 |
 | quarter disk (`ccq`) | 278 | 0.027656768434 | 0.027651746586 | 5.022e-06 |
 | quarter disk (`ccq`) | 279 | 0.027607856938 | 0.027603205064 | 4.652e-06 |
@@ -1464,6 +1466,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 155 | 0.051956212287 | 0.051945924431 | 1.029e-05 |
 | half disk (`csc`) | 156 | 0.051816543061 | 0.051804192590 | 1.235e-05 |
 | half disk (`csc`) | 157 | 0.051673818381 | 0.051672460347 | 1.358e-06 |
+| half disk (`csc`) | 158 | 0.051499577345 | 0.051496533944 | 3.043e-06 |
 | half disk (`csc`) | 159 | 0.051352929337 | 0.051337618534 | 1.531e-05 |
 | half disk (`csc`) | 160 | 0.051241284312 | 0.051222039861 | 1.924e-05 |
 | half disk (`csc`) | 161 | 0.051051568520 | 0.051034822131 | 1.675e-05 |
