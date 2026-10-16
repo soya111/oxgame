@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-16 16:45 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-16 17:31 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2414)
+## Better than the published record (2417)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1428,6 +1428,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 326 | 0.025622193693 | 0.025620775101 | 1.419e-06 |
 | quarter disk (`ccq`) | 327 | 0.025575846340 | 0.025574055022 | 1.791e-06 |
 | quarter disk (`ccq`) | 328 | 0.025546056083 | 0.025541398043 | 4.658e-06 |
+| quarter disk (`ccq`) | 329 | 0.025506844216 | 0.025502947914 | 3.896e-06 |
 | quarter disk (`ccq`) | 330 | 0.025460662112 | 0.025453888805 | 6.773e-06 |
 | quarter disk (`ccq`) | 331 | 0.025423476716 | 0.025402996513 | 2.048e-05 |
 | quarter disk (`ccq`) | 332 | 0.025397460942 | 0.025393222894 | 4.238e-06 |
@@ -1530,6 +1531,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 498 | 0.020830053425 | 0.020828916089 | 1.137e-06 |
 | quarter disk (`ccq`) | 499 | 0.020811878659 | 0.020793736959 | 1.814e-05 |
 | quarter disk (`ccq`) | 501 | 0.020764284261 | 0.020763895316 | 3.889e-07 |
+| quarter disk (`ccq`) | 503 | 0.020732936240 | 0.020721441943 | 1.149e-05 |
 | quarter disk (`ccq`) | 504 | 0.020699309050 | 0.020693251846 | 6.057e-06 |
 | quarter disk (`ccq`) | 505 | 0.020674668253 | 0.020669949984 | 4.718e-06 |
 | quarter disk (`ccq`) | 507 | 0.020626412621 | 0.020622451105 | 3.962e-06 |
@@ -1552,6 +1554,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 548 | 0.019853671536 | 0.019851848220 | 1.823e-06 |
 | quarter disk (`ccq`) | 550 | 0.019809997070 | 0.019807672338 | 2.325e-06 |
 | quarter disk (`ccq`) | 551 | 0.019803080535 | 0.019792604042 | 1.048e-05 |
+| quarter disk (`ccq`) | 552 | 0.019783879879 | 0.019777659442 | 6.220e-06 |
 | quarter disk (`ccq`) | 554 | 0.019756008566 | 0.019755175753 | 8.328e-07 |
 | quarter disk (`ccq`) | 556 | 0.019716090822 | 0.019714517483 | 1.573e-06 |
 | quarter disk (`ccq`) | 558 | 0.019681554673 | 0.019674481207 | 7.073e-06 |
