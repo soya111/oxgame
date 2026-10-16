@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-16 09:13 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-16 09:59 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2375)
+## Better than the published record (2378)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1028,6 +1028,7 @@ no floating point; see the README). Gains below
 | 1 x 0.2 rectangle (`crc_200`) | 112 | 0.021833868840 | 0.021831637708 | 2.231e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 117 | 0.021135026107 | 0.021134661204 | 3.649e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 124 | 0.020401266764 | 0.020394425835 | 6.841e-06 |
+| 1 x 0.2 rectangle (`crc_200`) | 126 | 0.020227945342 | 0.020226752847 | 1.192e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 129 | 0.020005070071 | 0.020001905162 | 3.165e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 132 | 0.019801165576 | 0.019789101289 | 1.206e-05 |
 | 1 x 0.2 rectangle (`crc_200`) | 136 | 0.019559356184 | 0.019559084400 | 2.718e-07 |
@@ -1496,6 +1497,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 462 | 0.021603938678 | 0.021601609266 | 2.329e-06 |
 | quarter disk (`ccq`) | 465 | 0.021518274802 | 0.021511020431 | 7.254e-06 |
 | quarter disk (`ccq`) | 468 | 0.021450239905 | 0.021447767871 | 2.472e-06 |
+| quarter disk (`ccq`) | 469 | 0.021443769404 | 0.021442484669 | 1.285e-06 |
 | quarter disk (`ccq`) | 472 | 0.021388907268 | 0.021383421552 | 5.486e-06 |
 | quarter disk (`ccq`) | 474 | 0.021334060267 | 0.021332690950 | 1.369e-06 |
 | quarter disk (`ccq`) | 475 | 0.021318569550 | 0.021309491385 | 9.078e-06 |
@@ -2009,6 +2011,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 452 | 0.024687545569 | 0.024684998971 | 2.547e-06 |
 | square (`csq`) | 501 | 0.023428964469 | 0.023428002886 | 9.616e-07 |
 | square (`csq`) | 507 | 0.023273025127 | 0.023272252747 | 7.724e-07 |
+| square (`csq`) | 520 | 0.023080056511 | 0.023063647836 | 1.641e-05 |
 | square (`csq`) | 568 | 0.022121284884 | 0.022121177733 | 1.072e-07 |
 | square (`csq`) | 575 | 0.021956076277 | 0.021954765350 | 1.311e-06 |
 | square (`csq`) | 606 | 0.021403317005 | 0.021402837092 | 4.799e-07 |
