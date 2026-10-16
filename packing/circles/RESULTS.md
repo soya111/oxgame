@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-16 06:13 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-16 06:58 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2355)
+## Better than the published record (2359)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1205,6 +1205,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 245 | 0.023312826672 | 0.023309894998 | 2.932e-06 |
 | right triangle (`crt`) | 246 | 0.023263948399 | 0.023260295186 | 3.653e-06 |
 | right triangle (`crt`) | 247 | 0.023223708481 | 0.023220619523 | 3.089e-06 |
+| right triangle (`crt`) | 248 | 0.023176620048 | 0.023168220062 | 8.400e-06 |
 | right triangle (`crt`) | 249 | 0.023138015603 | 0.023128949876 | 9.066e-06 |
 | right triangle (`crt`) | 250 | 0.023100071324 | 0.023079967224 | 2.010e-05 |
 | right triangle (`crt`) | 251 | 0.023037443635 | 0.023035567155 | 1.876e-06 |
@@ -1246,6 +1247,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 290 | 0.021490498431 | 0.021489806017 | 6.924e-07 |
 | right triangle (`crt`) | 291 | 0.021450385483 | 0.021449966547 | 4.189e-07 |
 | right triangle (`crt`) | 293 | 0.021387635340 | 0.021384735888 | 2.899e-06 |
+| right triangle (`crt`) | 294 | 0.021347978074 | 0.021346547960 | 1.430e-06 |
 | right triangle (`crt`) | 295 | 0.021320328201 | 0.021316856359 | 3.472e-06 |
 | right triangle (`crt`) | 296 | 0.021276329143 | 0.021275607176 | 7.220e-07 |
 | right triangle (`crt`) | 297 | 0.021239141802 | 0.021237377022 | 1.765e-06 |
@@ -2092,8 +2094,10 @@ no floating point; see the README). Gains below
 | square (`csq`) | 1571 | 0.013372459596 | 0.013372357468 | 1.021e-07 |
 | square (`csq`) | 1638 | 0.012990834045 | 0.012658227848 | 3.326e-04 |
 | square (`csq`) | 1672 | 0.012990466621 | 0.012987012987 | 3.454e-06 |
+| square (`csq`) | 1702 | 0.012851481251 | 0.012720511345 | 1.310e-04 |
 | square (`csq`) | 1716 | 0.012689003699 | 0.012658227848 | 3.078e-05 |
 | square (`csq`) | 1722 | 0.012605684553 | 0.012048192771 | 5.575e-04 |
+| square (`csq`) | 1752 | 0.012624194694 | 0.012389479626 | 2.347e-04 |
 | square (`csq`) | 1804 | 0.012185099244 | 0.012048192771 | 1.369e-04 |
 | square (`csq`) | 1840 | 0.012353804376 | 0.012345679012 | 8.125e-06 |
 | square (`csq`) | 1886 | 0.012082453152 | 0.012048192771 | 3.426e-05 |
