@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-16 12:59 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-16 13:44 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2388)
+## Better than the published record (2392)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1178,6 +1178,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 192 | 0.026220643146 | 0.026217277473 | 3.366e-06 |
 | right triangle (`crt`) | 193 | 0.026146959890 | 0.026143153872 | 3.806e-06 |
 | right triangle (`crt`) | 195 | 0.026032831554 | 0.026031575693 | 1.256e-06 |
+| right triangle (`crt`) | 196 | 0.025980783856 | 0.025979393498 | 1.390e-06 |
 | right triangle (`crt`) | 197 | 0.025904633419 | 0.025897762267 | 6.871e-06 |
 | right triangle (`crt`) | 198 | 0.025840033427 | 0.025839106920 | 9.265e-07 |
 | right triangle (`crt`) | 199 | 0.025784349344 | 0.025779262520 | 5.087e-06 |
@@ -1529,8 +1530,10 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 509 | 0.020575127990 | 0.020573062187 | 2.066e-06 |
 | quarter disk (`ccq`) | 511 | 0.020525822104 | 0.020524434942 | 1.387e-06 |
 | quarter disk (`ccq`) | 512 | 0.020509316640 | 0.020508051115 | 1.266e-06 |
+| quarter disk (`ccq`) | 516 | 0.020428383043 | 0.020422050079 | 6.333e-06 |
 | quarter disk (`ccq`) | 517 | 0.020413554525 | 0.020411607607 | 1.947e-06 |
 | quarter disk (`ccq`) | 519 | 0.020397309837 | 0.020395722284 | 1.588e-06 |
+| quarter disk (`ccq`) | 520 | 0.020376636233 | 0.020375404423 | 1.232e-06 |
 | quarter disk (`ccq`) | 529 | 0.020226570495 | 0.020219739867 | 6.831e-06 |
 | quarter disk (`ccq`) | 530 | 0.020213419654 | 0.020206610782 | 6.809e-06 |
 | quarter disk (`ccq`) | 531 | 0.020188967467 | 0.020187871089 | 1.096e-06 |
@@ -2148,6 +2151,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2256 | 0.010972322152 | 0.010526315789 | 4.460e-04 |
 | square (`csq`) | 2300 | 0.010999999239 | 0.010752688172 | 2.473e-04 |
 | square (`csq`) | 2340 | 0.010991688900 | 0.010989010989 | 2.678e-06 |
+| square (`csq`) | 2376 | 0.010825129304 | 0.010807895817 | 1.723e-05 |
 | square (`csq`) | 2400 | 0.010704300611 | 0.010309278351 | 3.950e-04 |
 | square (`csq`) | 2450 | 0.010555041012 | 0.010101010101 | 4.540e-04 |
 | square (`csq`) | 2496 | 0.010396645354 | 0.010309278351 | 8.737e-05 |
