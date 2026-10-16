@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-16 04:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-16 05:27 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2346)
+## Better than the published record (2350)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1371,6 +1371,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 279 | 0.027607856938 | 0.027603205064 | 4.652e-06 |
 | quarter disk (`ccq`) | 284 | 0.027392390041 | 0.027378621660 | 1.377e-05 |
 | quarter disk (`ccq`) | 286 | 0.027270969859 | 0.027262527000 | 8.443e-06 |
+| quarter disk (`ccq`) | 289 | 0.027132359766 | 0.027126285110 | 6.075e-06 |
 | quarter disk (`ccq`) | 291 | 0.027035408492 | 0.027028451656 | 6.957e-06 |
 | quarter disk (`ccq`) | 293 | 0.026970744961 | 0.026963393299 | 7.352e-06 |
 | quarter disk (`ccq`) | 294 | 0.026954214972 | 0.026952779910 | 1.435e-06 |
@@ -1989,12 +1990,15 @@ no floating point; see the README). Gains below
 | square (`csq`) | 568 | 0.022121284884 | 0.022121177733 | 1.072e-07 |
 | square (`csq`) | 575 | 0.021956076277 | 0.021954765350 | 1.311e-06 |
 | square (`csq`) | 606 | 0.021403317005 | 0.021402837092 | 4.799e-07 |
+| square (`csq`) | 615 | 0.021277715739 | 0.021277444688 | 2.711e-07 |
 | square (`csq`) | 627 | 0.021020414623 | 0.021017576521 | 2.838e-06 |
 | square (`csq`) | 629 | 0.020959112119 | 0.020957687446 | 1.425e-06 |
 | square (`csq`) | 636 | 0.020879279256 | 0.020879130118 | 1.491e-07 |
+| square (`csq`) | 650 | 0.020649275551 | 0.020648544504 | 7.310e-07 |
 | square (`csq`) | 674 | 0.020277220296 | 0.020264252866 | 1.297e-05 |
 | square (`csq`) | 675 | 0.020239470169 | 0.020239102470 | 3.677e-07 |
 | square (`csq`) | 676 | 0.020228366926 | 0.020221011990 | 7.355e-06 |
+| square (`csq`) | 677 | 0.020204008732 | 0.020203327309 | 6.814e-07 |
 | square (`csq`) | 681 | 0.020156381219 | 0.020155345773 | 1.035e-06 |
 | square (`csq`) | 690 | 0.020031823572 | 0.020031640732 | 1.828e-07 |
 | square (`csq`) | 705 | 0.019870817554 | 0.019870507569 | 3.100e-07 |
