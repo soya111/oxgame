@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 11:24 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 12:09 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2520)
+## Better than the published record (2521)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -391,6 +391,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 319 | 0.024506206130 | 0.024497468496 | 8.738e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 320 | 0.024497803859 | 0.024451813301 | 4.599e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 321 | 0.024334069475 | 0.024325622010 | 8.447e-06 |
+| 1 x 0.7 rectangle (`crc_700`) | 322 | 0.024318894207 | 0.024290253519 | 2.864e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 323 | 0.024285020132 | 0.024233083758 | 5.194e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 325 | 0.024178206546 | 0.024166123070 | 1.208e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 326 | 0.024153268144 | 0.024149304630 | 3.964e-06 |
