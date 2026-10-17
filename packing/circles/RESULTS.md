@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 15:55 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 16:40 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2541)
+## Better than the published record (2543)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1328,6 +1328,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 117 | 0.042004621030 | 0.041999098155 | 5.523e-06 |
 | quarter disk (`ccq`) | 118 | 0.041830922434 | 0.041827105448 | 3.817e-06 |
 | quarter disk (`ccq`) | 119 | 0.041670828538 | 0.041664363839 | 6.465e-06 |
+| quarter disk (`ccq`) | 120 | 0.041528813647 | 0.041528702891 | 1.108e-07 |
 | quarter disk (`ccq`) | 121 | 0.041345142984 | 0.041343986761 | 1.156e-06 |
 | quarter disk (`ccq`) | 124 | 0.040844194188 | 0.040839089927 | 5.104e-06 |
 | quarter disk (`ccq`) | 125 | 0.040666557164 | 0.040665412126 | 1.145e-06 |
@@ -1746,6 +1747,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 203 | 0.045611193838 | 0.045598196785 | 1.300e-05 |
 | half disk (`csc`) | 204 | 0.045510218153 | 0.045482723794 | 2.749e-05 |
 | half disk (`csc`) | 205 | 0.045429165950 | 0.045415032203 | 1.413e-05 |
+| half disk (`csc`) | 206 | 0.045317853087 | 0.045315606544 | 2.247e-06 |
 | half disk (`csc`) | 207 | 0.045160064425 | 0.045158063790 | 2.001e-06 |
 | half disk (`csc`) | 208 | 0.045036885095 | 0.045035630332 | 1.255e-06 |
 | half disk (`csc`) | 209 | 0.044920287411 | 0.044916766539 | 3.521e-06 |
