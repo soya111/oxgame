@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 07:38 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 08:23 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2500)
+## Better than the published record (2502)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1168,6 +1168,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 108 | 0.034544673770 | 0.034542778792 | 1.895e-06 |
 | right triangle (`crt`) | 109 | 0.034374051563 | 0.034372259324 | 1.792e-06 |
 | right triangle (`crt`) | 111 | 0.034086519610 | 0.034086416481 | 1.031e-07 |
+| right triangle (`crt`) | 113 | 0.033820103163 | 0.033819343156 | 7.600e-07 |
 | right triangle (`crt`) | 116 | 0.033371974164 | 0.033371154079 | 8.201e-07 |
 | right triangle (`crt`) | 124 | 0.032345240547 | 0.032344586691 | 6.539e-07 |
 | right triangle (`crt`) | 125 | 0.032218737002 | 0.032204794946 | 1.394e-05 |
@@ -1944,6 +1945,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 986 | 0.029676063905 | 0.029668429903 | 7.634e-06 |
 | circle (`cci`) | 987 | 0.029655194041 | 0.029651807963 | 3.386e-06 |
 | circle (`cci`) | 988 | 0.029638733910 | 0.029636143965 | 2.590e-06 |
+| circle (`cci`) | 989 | 0.029618379089 | 0.029616539923 | 1.839e-06 |
 | circle (`cci`) | 992 | 0.029577854542 | 0.029573698614 | 4.156e-06 |
 | circle (`cci`) | 994 | 0.029543352134 | 0.029538345450 | 5.007e-06 |
 | circle (`cci`) | 995 | 0.029519198306 | 0.029518904648 | 2.937e-07 |
