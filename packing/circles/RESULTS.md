@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 16:40 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 17:25 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2543)
+## Better than the published record (2545)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -139,6 +139,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 241 | 0.030036385910 | 0.029913929545 | 1.225e-04 |
 | 1 x 0.8 rectangle (`crc_800`) | 242 | 0.029934603196 | 0.029860743707 | 7.386e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 243 | 0.029853138869 | 0.029825829793 | 2.731e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 244 | 0.029791031144 | 0.029785896076 | 5.135e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 245 | 0.029742555189 | 0.029741399917 | 1.155e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 246 | 0.029715891293 | 0.029711783135 | 4.108e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 249 | 0.029504581063 | 0.029477290781 | 2.729e-05 |
@@ -232,6 +233,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 410 | 0.023133689489 | 0.023131426655 | 2.263e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 411 | 0.023104285405 | 0.023104154286 | 1.311e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 412 | 0.023090834466 | 0.023084996066 | 5.838e-06 |
+| 1 x 0.8 rectangle (`crc_800`) | 416 | 0.023033282913 | 0.023024148941 | 9.134e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 418 | 0.023016074257 | 0.023015962110 | 1.121e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 21 | 0.089261198925 | 0.089253147701 | 8.051e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 31 | 0.074867080081 | 0.074848562871 | 1.852e-05 |
