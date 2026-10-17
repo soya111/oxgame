@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 06:53 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 07:38 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2494)
+## Better than the published record (2500)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1559,6 +1559,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 469 | 0.021443769404 | 0.021442484669 | 1.285e-06 |
 | quarter disk (`ccq`) | 470 | 0.021414326763 | 0.021412498282 | 1.828e-06 |
 | quarter disk (`ccq`) | 472 | 0.021388907268 | 0.021383421552 | 5.486e-06 |
+| quarter disk (`ccq`) | 473 | 0.021356208680 | 0.021355001419 | 1.207e-06 |
 | quarter disk (`ccq`) | 474 | 0.021334060267 | 0.021332690950 | 1.369e-06 |
 | quarter disk (`ccq`) | 475 | 0.021318569550 | 0.021309491385 | 9.078e-06 |
 | quarter disk (`ccq`) | 476 | 0.021285366545 | 0.021283986055 | 1.380e-06 |
@@ -1570,6 +1571,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 482 | 0.021161711819 | 0.021157049874 | 4.662e-06 |
 | quarter disk (`ccq`) | 486 | 0.021078369518 | 0.021078120213 | 2.493e-07 |
 | quarter disk (`ccq`) | 487 | 0.021065516119 | 0.021061086633 | 4.429e-06 |
+| quarter disk (`ccq`) | 488 | 0.021052328164 | 0.021034698408 | 1.763e-05 |
 | quarter disk (`ccq`) | 489 | 0.021011799242 | 0.021010063954 | 1.735e-06 |
 | quarter disk (`ccq`) | 490 | 0.021002038210 | 0.021000125239 | 1.913e-06 |
 | quarter disk (`ccq`) | 491 | 0.020976299633 | 0.020973872389 | 2.427e-06 |
@@ -1597,11 +1599,13 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 518 | 0.020403133991 | 0.020400834618 | 2.299e-06 |
 | quarter disk (`ccq`) | 519 | 0.020397309837 | 0.020395722284 | 1.588e-06 |
 | quarter disk (`ccq`) | 520 | 0.020376636233 | 0.020375404423 | 1.232e-06 |
+| quarter disk (`ccq`) | 522 | 0.020347981534 | 0.020347770605 | 2.109e-07 |
 | quarter disk (`ccq`) | 529 | 0.020226570495 | 0.020219739867 | 6.831e-06 |
 | quarter disk (`ccq`) | 530 | 0.020213419654 | 0.020206610782 | 6.809e-06 |
 | quarter disk (`ccq`) | 531 | 0.020188967467 | 0.020187871089 | 1.096e-06 |
 | quarter disk (`ccq`) | 532 | 0.020164143813 | 0.020162374359 | 1.769e-06 |
 | quarter disk (`ccq`) | 537 | 0.020068951153 | 0.020067525988 | 1.425e-06 |
+| quarter disk (`ccq`) | 540 | 0.020027885789 | 0.020021823085 | 6.063e-06 |
 | quarter disk (`ccq`) | 543 | 0.019948255212 | 0.019947123728 | 1.131e-06 |
 | quarter disk (`ccq`) | 546 | 0.019901822788 | 0.019897827803 | 3.995e-06 |
 | quarter disk (`ccq`) | 547 | 0.019871954299 | 0.019870679589 | 1.275e-06 |
@@ -1619,6 +1623,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 567 | 0.019566740704 | 0.019565033173 | 1.708e-06 |
 | quarter disk (`ccq`) | 573 | 0.019450996278 | 0.019448034345 | 2.962e-06 |
 | quarter disk (`ccq`) | 579 | 0.019338730240 | 0.019334308603 | 4.422e-06 |
+| quarter disk (`ccq`) | 580 | 0.019319663528 | 0.019318382583 | 1.281e-06 |
 | quarter disk (`ccq`) | 581 | 0.019299292415 | 0.019295298343 | 3.994e-06 |
 | quarter disk (`ccq`) | 584 | 0.019249282765 | 0.019247926866 | 1.356e-06 |
 | quarter disk (`ccq`) | 585 | 0.019231118037 | 0.019230272489 | 8.455e-07 |
@@ -2169,6 +2174,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 992 | 0.016615557553 | 0.015873015873 | 7.425e-04 |
 | square (`csq`) | 1027 | 0.016489340274 | 0.016488244122 | 1.096e-06 |
 | square (`csq`) | 1036 | 0.016412203141 | 0.016411994000 | 2.091e-07 |
+| square (`csq`) | 1037 | 0.016412934389 | 0.016409207802 | 3.727e-06 |
 | square (`csq`) | 1062 | 0.016179101244 | 0.016176020230 | 3.081e-06 |
 | square (`csq`) | 1102 | 0.015899488076 | 0.015899133036 | 3.550e-07 |
 | square (`csq`) | 1134 | 0.015701981609 | 0.015701655341 | 3.263e-07 |
