@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-17 06:08 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-17 06:53 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2491)
+## Better than the published record (2494)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1583,6 +1583,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 503 | 0.020732936240 | 0.020721441943 | 1.149e-05 |
 | quarter disk (`ccq`) | 504 | 0.020699309050 | 0.020693251846 | 6.057e-06 |
 | quarter disk (`ccq`) | 505 | 0.020674668253 | 0.020669949984 | 4.718e-06 |
+| quarter disk (`ccq`) | 506 | 0.020649412117 | 0.020645015670 | 4.396e-06 |
 | quarter disk (`ccq`) | 507 | 0.020626412621 | 0.020622451105 | 3.962e-06 |
 | quarter disk (`ccq`) | 508 | 0.020599639171 | 0.020596613479 | 3.026e-06 |
 | quarter disk (`ccq`) | 509 | 0.020575127990 | 0.020573062187 | 2.066e-06 |
@@ -1599,7 +1600,9 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 529 | 0.020226570495 | 0.020219739867 | 6.831e-06 |
 | quarter disk (`ccq`) | 530 | 0.020213419654 | 0.020206610782 | 6.809e-06 |
 | quarter disk (`ccq`) | 531 | 0.020188967467 | 0.020187871089 | 1.096e-06 |
+| quarter disk (`ccq`) | 532 | 0.020164143813 | 0.020162374359 | 1.769e-06 |
 | quarter disk (`ccq`) | 537 | 0.020068951153 | 0.020067525988 | 1.425e-06 |
+| quarter disk (`ccq`) | 543 | 0.019948255212 | 0.019947123728 | 1.131e-06 |
 | quarter disk (`ccq`) | 546 | 0.019901822788 | 0.019897827803 | 3.995e-06 |
 | quarter disk (`ccq`) | 547 | 0.019871954299 | 0.019870679589 | 1.275e-06 |
 | quarter disk (`ccq`) | 548 | 0.019853671536 | 0.019851848220 | 1.823e-06 |
