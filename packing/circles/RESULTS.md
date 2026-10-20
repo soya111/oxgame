@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-20 15:11 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-20 15:22 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2550)
+## Better than the published record (2552)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -198,6 +198,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 339 | 0.025509493285 | 0.025508358819 | 1.134e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 343 | 0.025353617249 | 0.025287740234 | 6.588e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 344 | 0.025284342486 | 0.025266577459 | 1.777e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 345 | 0.025248086381 | 0.025230323237 | 1.776e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 347 | 0.025150217359 | 0.025137691040 | 1.253e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 348 | 0.025109586520 | 0.025104063518 | 5.523e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 349 | 0.025086126324 | 0.025080377659 | 5.749e-06 |
@@ -236,6 +237,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 410 | 0.023133689489 | 0.023131426655 | 2.263e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 411 | 0.023104285405 | 0.023104154286 | 1.311e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 412 | 0.023090834466 | 0.023084996066 | 5.838e-06 |
+| 1 x 0.8 rectangle (`crc_800`) | 414 | 0.023060091715 | 0.023058206566 | 1.885e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 416 | 0.023033282913 | 0.023024148941 | 9.134e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 418 | 0.023016074257 | 0.023015962110 | 1.121e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 21 | 0.089261198925 | 0.089253147701 | 8.051e-06 |
