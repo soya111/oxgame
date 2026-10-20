@@ -107,7 +107,7 @@ def main():
     rows = collect()
     circles = [r for r in rows if r["kind"] == "circle"]
     spheres = [r for r in rows if r["kind"] == "sphere"]
-    lines = ["# 一週間探索（2026-10-14〜21）の結果", "",
+    lines = ["# 探索（2026-10-14〜28、10/21 に一週間延長）の結果", "",
              "更新 %s。Packomania の記録表と比べて、半径が 1e-7 以上大きい配置をリポジトリに持つサイズの数です。" %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
              "どの配置も、有理数演算だけの厳密な検証（`tools/exact_verify.py`、`tools/sphere_results.py`）を通っています。", "",
