@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-21 07:14 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-21 10:14 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2629)
+## Better than the published record (2635)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -233,6 +233,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 375 | 0.024234513267 | 0.024210217975 | 2.430e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 376 | 0.024213019599 | 0.024207112010 | 5.908e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 381 | 0.024114522659 | 0.024071515792 | 4.301e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 382 | 0.024038333198 | 0.024013317381 | 2.502e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 385 | 0.023933446189 | 0.023933289721 | 1.565e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 386 | 0.023900062888 | 0.023897543756 | 2.519e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 387 | 0.023871405613 | 0.023871291303 | 1.143e-07 |
@@ -476,6 +477,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 398 | 0.022006496707 | 0.021987828835 | 1.867e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 399 | 0.021971593305 | 0.021964481426 | 7.112e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 400 | 0.021933864063 | 0.021933319714 | 5.443e-07 |
+| 1 x 0.7 rectangle (`crc_700`) | 401 | 0.021893255341 | 0.021888084212 | 5.171e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 402 | 0.021838045159 | 0.021836340064 | 1.705e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 403 | 0.021815756067 | 0.021811109086 | 4.647e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 404 | 0.021802717154 | 0.021793869613 | 8.848e-06 |
@@ -1559,7 +1561,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 337 | 0.025184952711 | 0.025180106363 | 4.846e-06 |
 | quarter disk (`ccq`) | 338 | 0.025135311566 | 0.025127493649 | 7.818e-06 |
 | quarter disk (`ccq`) | 339 | 0.025109094332 | 0.025105310642 | 3.784e-06 |
-| quarter disk (`ccq`) | 340 | 0.025081289842 | 0.025079810551 | 1.479e-06 |
+| quarter disk (`ccq`) | 340 | 0.025082022442 | 0.025079810551 | 2.212e-06 |
 | quarter disk (`ccq`) | 341 | 0.025039503902 | 0.025039345325 | 1.586e-07 |
 | quarter disk (`ccq`) | 342 | 0.025013722469 | 0.025009472747 | 4.250e-06 |
 | quarter disk (`ccq`) | 343 | 0.024974801271 | 0.024963787110 | 1.101e-05 |
@@ -1586,6 +1588,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 367 | 0.024152620479 | 0.024147759568 | 4.861e-06 |
 | quarter disk (`ccq`) | 368 | 0.024136026497 | 0.024135214009 | 8.125e-07 |
 | quarter disk (`ccq`) | 369 | 0.024104378382 | 0.024103328975 | 1.049e-06 |
+| quarter disk (`ccq`) | 370 | 0.024074101911 | 0.024073680858 | 4.211e-07 |
 | quarter disk (`ccq`) | 371 | 0.024053461355 | 0.024051099798 | 2.362e-06 |
 | quarter disk (`ccq`) | 372 | 0.024024870391 | 0.024002224998 | 2.265e-05 |
 | quarter disk (`ccq`) | 373 | 0.023984197126 | 0.023980653158 | 3.544e-06 |
@@ -2097,7 +2100,9 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1042 | 0.028885921229 | 0.028879860881 | 6.060e-06 |
 | circle (`cci`) | 1043 | 0.028873466259 | 0.028871363277 | 2.103e-06 |
 | circle (`cci`) | 1044 | 0.028871390879 | 0.028869479108 | 1.912e-06 |
+| circle (`cci`) | 1046 | 0.028840010423 | 0.028771972518 | 6.804e-05 |
 | circle (`cci`) | 1047 | 0.028771467445 | 0.028767891418 | 3.576e-06 |
+| circle (`cci`) | 1048 | 0.028773168321 | 0.028754998190 | 1.817e-05 |
 | circle (`cci`) | 1049 | 0.028736779781 | 0.028734767392 | 2.012e-06 |
 | circle (`cci`) | 1050 | 0.028729467426 | 0.028726494683 | 2.973e-06 |
 | circle (`cci`) | 1051 | 0.028729183699 | 0.028719991247 | 9.192e-06 |
@@ -2107,6 +2112,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1055 | 0.028683823655 | 0.028677152950 | 6.671e-06 |
 | circle (`cci`) | 1056 | 0.028668139533 | 0.028664613832 | 3.526e-06 |
 | circle (`cci`) | 1057 | 0.028655139113 | 0.028654703801 | 4.353e-07 |
+| circle (`cci`) | 1058 | 0.028647370629 | 0.028631062622 | 1.631e-05 |
 | circle (`cci`) | 1059 | 0.028625806694 | 0.028622745013 | 3.062e-06 |
 | circle (`cci`) | 1060 | 0.028620547208 | 0.028616572096 | 3.975e-06 |
 | circle (`cci`) | 1061 | 0.028610864755 | 0.028609643193 | 1.222e-06 |
