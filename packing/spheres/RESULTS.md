@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-21 04:14 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-21 07:14 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -13,7 +13,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 361 | 0.118164495718 | 0.118159920816 | 4.575e-06 | polish |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (49)
+## scu (51)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -34,7 +34,9 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 301 | 0.077955192609 | 0.077933307741 | 2.188e-05 | search |
 | 321 | 0.076958955245 | 0.076859330225 | 9.963e-05 | search |
 | 322 | 0.076577323974 | 0.076512697794 | 6.463e-05 | search |
+| 323 | 0.076411644942 | 0.076275780454 | 1.359e-04 | search |
 | 327 | 0.075956150464 | 0.075927701640 | 2.845e-05 | search |
+| 328 | 0.075820058066 | 0.075750037213 | 7.002e-05 | search |
 | 330 | 0.075670169241 | 0.075656321568 | 1.385e-05 | search |
 | 332 | 0.075639695260 | 0.075485773613 | 1.539e-04 | search |
 | 334 | 0.075287516370 | 0.075266496599 | 2.102e-05 | search |
@@ -47,7 +49,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 376 | 0.072797474952 | 0.072774860627 | 2.261e-05 | search |
 | 377 | 0.072769583882 | 0.072707540923 | 6.204e-05 | search |
 | 378 | 0.072693830557 | 0.072631514671 | 6.232e-05 | search |
-| 396 | 0.072063832560 | 0.071947277991 | 1.166e-04 | search |
+| 396 | 0.072068746472 | 0.071947277991 | 1.215e-04 | search |
 | 406 | 0.071408661953 | 0.071241993138 | 1.667e-04 | search |
 | 407 | 0.071151365611 | 0.071130322806 | 2.104e-05 | search |
 | 408 | 0.070997111173 | 0.070993252511 | 3.859e-06 | search |
