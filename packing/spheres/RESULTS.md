@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-21 22:15 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-22 01:15 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -13,7 +13,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 361 | 0.118164495718 | 0.118159920816 | 4.575e-06 | polish |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (67)
+## scu (70)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -69,6 +69,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 509 | 0.065910236931 | 0.065905855526 | 4.381e-06 | search |
 | 511 | 0.065889731753 | 0.065885407402 | 4.324e-06 | search |
 | 518 | 0.065849198122 | 0.065842685338 | 6.513e-06 | search |
+| 521 | 0.065846585281 | 0.065823055952 | 2.353e-05 | search |
 | 551 | 0.064970810142 | 0.064841571660 | 1.292e-04 | search |
 | 555 | 0.064366864624 | 0.064178751987 | 1.881e-04 | search |
 | 556 | 0.064201841924 | 0.064122789791 | 7.905e-05 | search |
@@ -76,9 +77,11 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 559 | 0.064083754459 | 0.064077272310 | 6.482e-06 | search |
 | 573 | 0.063835762475 | 0.063825529382 | 1.023e-05 | search |
 | 601 | 0.063136080589 | 0.062799509911 | 3.366e-04 | search |
+| 615 | 0.062131021126 | 0.062110989315 | 2.003e-05 | search |
 | 617 | 0.062048325896 | 0.062001328687 | 4.700e-05 | search |
 | 618 | 0.061969354853 | 0.061958738596 | 1.062e-05 | search |
 | 667 | 0.061252110718 | 0.060647071886 | 6.050e-04 | search |
+| 668 | 0.060926661780 | 0.060616432387 | 3.102e-04 | search |
 | 669 | 0.060605950592 | 0.060598485373 | 7.465e-06 | search |
 | 670 | 0.060592236192 | 0.060583767873 | 8.468e-06 | search |
 | 672 | 0.060539645568 | 0.060539470205 | 1.754e-07 | search |
