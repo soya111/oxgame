@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-22 18:39 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-22 21:39 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -14,13 +14,14 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 390 | 0.115132498631 | 0.115129577836 | 2.921e-06 | search |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (77)
+## scu (79)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
 | 136 | 0.099976907087 | 0.099974992408 | 1.915e-06 | search |
 | 149 | 0.096918451892 | 0.096863752878 | 5.470e-05 | search |
 | 201 | 0.088571364151 | 0.088534834881 | 3.653e-05 | search |
+| 206 | 0.087829751249 | 0.087644826501 | 1.849e-04 | search |
 | 225 | 0.085378178101 | 0.085354356066 | 2.382e-05 | search |
 | 259 | 0.082254758113 | 0.081686226015 | 5.685e-04 | search |
 | 260 | 0.082079103507 | 0.081610305005 | 4.688e-04 | search |
@@ -70,6 +71,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 456 | 0.068161647965 | 0.068102950565 | 5.870e-05 | search |
 | 457 | 0.068058096007 | 0.067984472713 | 7.362e-05 | search |
 | 458 | 0.068002143620 | 0.067898631768 | 1.035e-04 | search |
+| 459 | 0.068023718242 | 0.067898397220 | 1.253e-04 | search |
 | 501 | 0.067155838557 | 0.066010694348 | 1.145e-03 | search |
 | 502 | 0.066857872857 | 0.065976088763 | 8.818e-04 | search |
 | 503 | 0.065962013569 | 0.065957707035 | 4.307e-06 | search |
@@ -105,7 +107,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 42 | 0.293369217470 | 0.293368844389 | 3.731e-07 | search |
 | 62 | 0.268832988732 | 0.268830626376 | 2.362e-06 | search |
 | 65 | 0.265312352802 | 0.265294765188 | 1.759e-05 | search |
-| 66 | 0.264995332915 | 0.264968466676 | 2.687e-05 | search |
+| 66 | 0.264997674320 | 0.264968466676 | 2.921e-05 | search |
 | 67 | 0.264072201316 | 0.264026543809 | 4.566e-05 | search |
 | 69 | 0.261918900508 | 0.261916266401 | 2.634e-06 | search |
 | 71 | 0.260669674516 | 0.260636725181 | 3.295e-05 | search |
