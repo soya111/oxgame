@@ -1,20 +1,21 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-26 05:25 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-26 08:25 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
 
-## ssp (4)
+## ssp (5)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
+| 127 | 0.164907186237 | 0.164897399764 | 9.786e-06 | search |
 | 360 | 0.118299836907 | 0.118285197830 | 1.464e-05 | search |
 | 361 | 0.118164495718 | 0.118159920816 | 4.575e-06 | polish |
 | 390 | 0.115132498631 | 0.115129577836 | 2.921e-06 | search |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (95)
+## scu (100)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -23,11 +24,14 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 151 | 0.096558259983 | 0.096537083462 | 2.118e-05 | search |
 | 201 | 0.088571364151 | 0.088534834881 | 3.653e-05 | search |
 | 206 | 0.087829751249 | 0.087644826501 | 1.849e-04 | search |
+| 207 | 0.087661451946 | 0.087581767936 | 7.968e-05 | search |
+| 223 | 0.085624724161 | 0.085613896482 | 1.083e-05 | search |
 | 225 | 0.085378178101 | 0.085354356066 | 2.382e-05 | search |
 | 259 | 0.082254758113 | 0.081686226015 | 5.685e-04 | search |
 | 260 | 0.082079103507 | 0.081610305005 | 4.688e-04 | search |
 | 261 | 0.081780313123 | 0.081596290128 | 1.840e-04 | search |
 | 262 | 0.081579941121 | 0.081490012743 | 8.993e-05 | search |
+| 263 | 0.081515357298 | 0.081471608812 | 4.375e-05 | search |
 | 264 | 0.081471309859 | 0.081425055157 | 4.625e-05 | search |
 | 281 | 0.080228406678 | 0.080136763682 | 9.164e-05 | search |
 | 282 | 0.080095471442 | 0.080095032623 | 4.388e-07 | search |
@@ -53,6 +57,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 377 | 0.072769583882 | 0.072707540923 | 6.204e-05 | search |
 | 378 | 0.072693830557 | 0.072631514671 | 6.232e-05 | search |
 | 396 | 0.072068746472 | 0.071947277991 | 1.215e-04 | search |
+| 398 | 0.071945476489 | 0.071945073441 | 4.030e-07 | search |
 | 406 | 0.071408661953 | 0.071241993138 | 1.667e-04 | search |
 | 407 | 0.071151365611 | 0.071130322806 | 2.104e-05 | search |
 | 408 | 0.070997111173 | 0.070993252511 | 3.859e-06 | search |
@@ -78,6 +83,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 503 | 0.065962013569 | 0.065957707035 | 4.307e-06 | search |
 | 504 | 0.065943975516 | 0.065943870989 | 1.045e-07 | search |
 | 505 | 0.065942002372 | 0.065941752602 | 2.498e-07 | search |
+| 507 | 0.065936756247 | 0.065932119200 | 4.637e-06 | search |
 | 509 | 0.065910236931 | 0.065905855526 | 4.381e-06 | search |
 | 511 | 0.065889731753 | 0.065885407402 | 4.324e-06 | search |
 | 513 | 0.065876262007 | 0.065865875761 | 1.039e-05 | search |
