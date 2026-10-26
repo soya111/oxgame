@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-26 20:26 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-26 23:26 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -123,7 +123,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 685 | 0.060271481960 | 0.060191867074 | 7.961e-05 | search |
 | 686 | 0.060203988650 | 0.060191867074 | 1.212e-05 | search |
 
-## hsp4 (35)
+## hsp4 (37)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -135,13 +135,15 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 65 | 0.265312352802 | 0.265294765188 | 1.759e-05 | search |
 | 66 | 0.265002277004 | 0.264968466676 | 3.381e-05 | search |
 | 67 | 0.264072201900 | 0.264026543809 | 4.566e-05 | search |
+| 68 | 0.262886117260 | 0.262885925177 | 1.921e-07 | search |
 | 69 | 0.261918900508 | 0.261916266401 | 2.634e-06 | search |
 | 71 | 0.260669674516 | 0.260636725181 | 3.295e-05 | search |
 | 72 | 0.260132048197 | 0.260127117620 | 4.931e-06 | search |
 | 73 | 0.259381306414 | 0.259369077971 | 1.223e-05 | search |
 | 74 | 0.258526020796 | 0.258522851648 | 3.169e-06 | search |
 | 75 | 0.258093089169 | 0.258082894946 | 1.019e-05 | search |
-| 77 | 0.257464865900 | 0.257434674091 | 3.019e-05 | search |
+| 77 | 0.257465003389 | 0.257434674091 | 3.033e-05 | search |
+| 78 | 0.256963011772 | 0.256958022526 | 4.989e-06 | search |
 | 79 | 0.256565462727 | 0.256468324828 | 9.714e-05 | search |
 | 80 | 0.255467352002 | 0.255463163131 | 4.189e-06 | search |
 | 81 | 0.254078667529 | 0.254058669351 | 2.000e-05 | search |
@@ -151,7 +153,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 99 | 0.243292171144 | 0.243259915388 | 3.226e-05 | search |
 | 101 | 0.242335749360 | 0.242327122009 | 8.627e-06 | search |
 | 107 | 0.239124238155 | 0.238986214814 | 1.380e-04 | search |
-| 111 | 0.237374625653 | 0.237355353009 | 1.927e-05 | search |
+| 111 | 0.237401915624 | 0.237355353009 | 4.656e-05 | search |
 | 113 | 0.236797109484 | 0.236792514357 | 4.595e-06 | search |
 | 115 | 0.236381636689 | 0.236364128573 | 1.751e-05 | search |
 | 117 | 0.236149446562 | 0.236108284019 | 4.116e-05 | search |
