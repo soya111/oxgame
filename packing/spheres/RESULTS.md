@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-25 23:25 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-26 02:25 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -14,7 +14,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 390 | 0.115132498631 | 0.115129577836 | 2.921e-06 | search |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (86)
+## scu (88)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -88,6 +88,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 558 | 0.064184911312 | 0.064086737337 | 9.817e-05 | search |
 | 559 | 0.064083754459 | 0.064077272310 | 6.482e-06 | search |
 | 560 | 0.064080533978 | 0.064072439945 | 8.094e-06 | search |
+| 561 | 0.064069646237 | 0.064038890503 | 3.076e-05 | search |
 | 573 | 0.063835762475 | 0.063825529382 | 1.023e-05 | search |
 | 601 | 0.063136080589 | 0.062799509911 | 3.366e-04 | search |
 | 602 | 0.062906716619 | 0.062767045566 | 1.397e-04 | search |
@@ -104,6 +105,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 674 | 0.060529763987 | 0.060519034812 | 1.073e-05 | search |
 | 684 | 0.060271872978 | 0.060227353013 | 4.452e-05 | search |
 | 685 | 0.060271481960 | 0.060191867074 | 7.961e-05 | search |
+| 686 | 0.060203988650 | 0.060191867074 | 1.212e-05 | search |
 
 ## hsp4 (34)
 
