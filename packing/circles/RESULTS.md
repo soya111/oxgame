@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-26 23:26 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-27 00:46 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3025)
+## Better than the published record (3029)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -34,6 +34,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 75 | 0.052414264460 | 0.052365749298 | 4.852e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 76 | 0.052314948745 | 0.052314721022 | 2.277e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 78 | 0.051618399315 | 0.051611169782 | 7.230e-06 |
+| 1 x 0.8 rectangle (`crc_800`) | 79 | 0.051293849015 | 0.051265729977 | 2.812e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 84 | 0.050247058573 | 0.050241723653 | 5.335e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 86 | 0.050014781537 | 0.050013999248 | 7.823e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 87 | 0.049137318890 | 0.049137061067 | 2.578e-07 |
@@ -2756,10 +2757,12 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2080 | 0.011598433894 | 0.011403247846 | 1.952e-04 |
 | square (`csq`) | 2107 | 0.011552468164 | 0.011550489540 | 1.979e-06 |
 | square (`csq`) | 2112 | 0.011512659618 | 0.011235955056 | 2.767e-04 |
+| square (`csq`) | 2118 | 0.011538516383 | 0.011388197464 | 1.503e-04 |
 | square (`csq`) | 2126 | 0.011522678156 | 0.011520501733 | 2.176e-06 |
 | square (`csq`) | 2159 | 0.011406655148 | 0.011396323452 | 1.033e-05 |
 | square (`csq`) | 2160 | 0.011315949032 | 0.010989010989 | 3.269e-04 |
 | square (`csq`) | 2173 | 0.011251464862 | 0.011170981396 | 8.048e-05 |
+| square (`csq`) | 2175 | 0.011377472373 | 0.011363636364 | 1.384e-05 |
 | square (`csq`) | 2200 | 0.011319476626 | 0.011235955056 | 8.352e-05 |
 | square (`csq`) | 2208 | 0.011277214941 | 0.010752688172 | 5.245e-04 |
 | square (`csq`) | 2250 | 0.011148675705 | 0.010989010989 | 1.597e-04 |
@@ -2767,6 +2770,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2263 | 0.011166557335 | 0.011118387979 | 4.817e-05 |
 | square (`csq`) | 2268 | 0.011151001663 | 0.010948181931 | 2.028e-04 |
 | square (`csq`) | 2275 | 0.011093042275 | 0.010869565217 | 2.235e-04 |
+| square (`csq`) | 2295 | 0.011057928273 | 0.010911411119 | 1.465e-04 |
 | square (`csq`) | 2300 | 0.010999999239 | 0.010752688172 | 2.473e-04 |
 | square (`csq`) | 2340 | 0.010991688900 | 0.010989010989 | 2.678e-06 |
 | square (`csq`) | 2360 | 0.010935807259 | 0.010875180361 | 6.063e-05 |
