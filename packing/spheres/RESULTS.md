@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-10-27 01:16 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
+Updated 2026-10-27 04:16 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -15,7 +15,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 390 | 0.115132498631 | 0.115129577836 | 2.921e-06 | search |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (103)
+## scu (105)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -80,6 +80,8 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 457 | 0.068058096007 | 0.067984472713 | 7.362e-05 | search |
 | 458 | 0.068002143620 | 0.067898631768 | 1.035e-04 | search |
 | 459 | 0.068023718242 | 0.067898397220 | 1.253e-04 | search |
+| 460 | 0.067997114747 | 0.067898382278 | 9.873e-05 | search |
+| 461 | 0.067902235187 | 0.067898327834 | 3.907e-06 | search |
 | 501 | 0.067155838557 | 0.066010694348 | 1.145e-03 | search |
 | 502 | 0.066857872857 | 0.065976088763 | 8.818e-04 | search |
 | 503 | 0.065962013569 | 0.065957707035 | 4.307e-06 | search |
@@ -159,7 +161,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 117 | 0.236149446562 | 0.236108284019 | 4.116e-05 | search |
 | 118 | 0.236083973320 | 0.236077896536 | 6.077e-06 | search |
 | 139 | 0.224953500000 | 0.224938240752 | 1.526e-05 | search |
-| 154 | 0.220683441376 | 0.220677273610 | 6.168e-06 | search |
+| 154 | 0.220686981672 | 0.220677273610 | 9.708e-06 | search |
 | 170 | 0.215650792468 | 0.215589695168 | 6.110e-05 | search |
 | 182 | 0.211919600954 | 0.211886963127 | 3.264e-05 | search |
 | 262 | 0.194576946011 | 0.194569235607 | 7.710e-06 | search |
