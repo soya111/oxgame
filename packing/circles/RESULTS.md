@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-27 05:16 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-27 08:16 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3034)
+## Better than the published record (3037)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1640,6 +1640,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 310 | 0.026223916293 | 0.026220263802 | 3.652e-06 |
 | quarter disk (`ccq`) | 311 | 0.026183767985 | 0.026183260064 | 5.079e-07 |
 | quarter disk (`ccq`) | 312 | 0.026154294646 | 0.026149704385 | 4.590e-06 |
+| quarter disk (`ccq`) | 313 | 0.026118164031 | 0.026113588346 | 4.576e-06 |
 | quarter disk (`ccq`) | 314 | 0.026071736606 | 0.026071627271 | 1.093e-07 |
 | quarter disk (`ccq`) | 315 | 0.026046067044 | 0.026044245373 | 1.822e-06 |
 | quarter disk (`ccq`) | 316 | 0.026004194174 | 0.026001728778 | 2.465e-06 |
@@ -2770,6 +2771,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2175 | 0.011377472373 | 0.011363636364 | 1.384e-05 |
 | square (`csq`) | 2200 | 0.011319476626 | 0.011235955056 | 8.352e-05 |
 | square (`csq`) | 2208 | 0.011277214941 | 0.010752688172 | 5.245e-04 |
+| square (`csq`) | 2232 | 0.011138562909 | 0.010638297872 | 5.003e-04 |
 | square (`csq`) | 2250 | 0.011148675705 | 0.010989010989 | 1.597e-04 |
 | square (`csq`) | 2256 | 0.010972322152 | 0.010526315789 | 4.460e-04 |
 | square (`csq`) | 2263 | 0.011166557335 | 0.011118387979 | 4.817e-05 |
@@ -2781,6 +2783,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2360 | 0.010935807259 | 0.010875180361 | 6.063e-05 |
 | square (`csq`) | 2376 | 0.010825129304 | 0.010807895817 | 1.723e-05 |
 | square (`csq`) | 2400 | 0.010704300611 | 0.010309278351 | 3.950e-04 |
+| square (`csq`) | 2448 | 0.010725083569 | 0.010632545587 | 9.254e-05 |
 | square (`csq`) | 2450 | 0.010555041012 | 0.010101010101 | 4.540e-04 |
 | square (`csq`) | 2493 | 0.010637217553 | 0.010471265034 | 1.660e-04 |
 | square (`csq`) | 2496 | 0.010396645354 | 0.010309278351 | 8.737e-05 |
