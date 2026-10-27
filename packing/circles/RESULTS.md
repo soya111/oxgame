@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-27 20:17 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-10-27 23:01 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3051)
+## Better than the published record (3053)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -628,6 +628,7 @@ no floating point; see the README). Gains below
 | 1 x 0.6 rectangle (`crc_600`) | 181 | 0.030001779173 | 0.030000226678 | 1.552e-06 |
 | 1 x 0.6 rectangle (`crc_600`) | 182 | 0.029754403500 | 0.029752980904 | 1.423e-06 |
 | 1 x 0.6 rectangle (`crc_600`) | 184 | 0.029490741838 | 0.029476593252 | 1.415e-05 |
+| 1 x 0.6 rectangle (`crc_600`) | 188 | 0.029242717069 | 0.029242609854 | 1.072e-07 |
 | 1 x 0.6 rectangle (`crc_600`) | 189 | 0.029172678574 | 0.029140407586 | 3.227e-05 |
 | 1 x 0.6 rectangle (`crc_600`) | 190 | 0.029064628967 | 0.029064406955 | 2.220e-07 |
 | 1 x 0.6 rectangle (`crc_600`) | 193 | 0.028931179364 | 0.028926682865 | 4.496e-06 |
@@ -1182,6 +1183,7 @@ no floating point; see the README). Gains below
 | 1 x 0.2 rectangle (`crc_200`) | 132 | 0.019801165576 | 0.019789101289 | 1.206e-05 |
 | 1 x 0.2 rectangle (`crc_200`) | 136 | 0.019559356184 | 0.019559084400 | 2.718e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 137 | 0.019500853962 | 0.019494770698 | 6.083e-06 |
+| 1 x 0.2 rectangle (`crc_200`) | 141 | 0.019303322216 | 0.019299864779 | 3.457e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 151 | 0.018899535269 | 0.018897984683 | 1.551e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 154 | 0.018808222958 | 0.018807774894 | 4.481e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 158 | 0.018555895861 | 0.018555601980 | 2.939e-07 |
