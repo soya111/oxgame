@@ -33,7 +33,7 @@ Added 2026-10-14 (pages fetched 2026-10-14; `txt/radius.txt` of each table):
 | code | container | last update | N |
 |---|---|---|---|
 | ssp | spheres in the unit ball | 13-Jul-2026 | 1153 sizes (selected N up to 2982989) |
-| scu | spheres in the unit cube [-1/2, 1/2]^3 | 08-Oct-2026 | 1134 sizes (selected N up to 1024192) |
+| scu | spheres in the unit cube [-1/2, 1/2]^3 | 17-Oct-2026 (see below) | 1134 sizes (selected N up to 1024192) |
 | hsp4 | 4-spheres in the unit 4-ball | 06-Jul-2025 | 2-300 |
 | hsp5 | 5-spheres in the unit 5-ball | 01-Aug-2025 | 2-300 |
 | hsp6 | 6-spheres in the unit 6-ball | 31-Jul-2025 | 2-259 |
@@ -51,3 +51,13 @@ Most of their records come from E. Specht's program crc of 1999-2010.
 
 Added 2026-10-15: `coc`, the regular octagon of circumradius 1 (bottom side horizontal), last updated
 23-Sep-2026, N = 1-48 (radii printed with 12 digits); missing from the polygon campaign of 2026-10-11.
+
+Re-fetched 2026-10-28: the tables of the October search (everything above except the twelve regular-polygon
+tables of 2026-10-11/12) were fetched again and compared with the copies kept here. Only `scu` had changed (the
+page is dated 17-Oct-2026): the radius became larger by more than 1e-7 at 104 of its 1134 sizes (more than 1e-5
+at 27, more than 1e-4 at 7, none became smaller), so `scu.txt` is the new table. The other tables (`cci`, `csq`,
+`csc`, `ccq`, `crt`, `crc_100`..`crc_800`, `coc`, `ssp`, `hsp4`..`hsp6`) had identical radii.
+
+Packomania's list of pending requests (08-Oct-2026) shows submissions by other people that are not published
+yet, for example for `csc` about 200 candidates, `ccq` about 700, `crt` about 260, `crc` about 780 and `csq`
+about 810 (a candidate is not necessarily an improvement). The tables here do not contain them.

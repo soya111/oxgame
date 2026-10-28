@@ -112,7 +112,7 @@ def sync(roots, min_gain):
             first = open(f).readline()
             rows.setdefault(code, []).append((n, radius_of(f), rec[n], "polish" if "seed from" in first else "search"))
     lines = ["# Spheres in a ball or cube: results", "",
-             "Updated %s. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`)." %
+             "Updated %s. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README)." %
              datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
              "Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).",
              "Gains below %.0e are not counted. *polish*: local optimization of the published packing only;" % min_gain,
@@ -121,10 +121,17 @@ def sync(roots, min_gain):
         items = sorted(rows.get(code, []))
         if not items:
             continue
-        lines += ["## %s (%d)" % (code, len(items)), "", "| N | r (this search) | r (record) | gain | kind |",
+        ahead = [t for t in items if t[1] > t[2] + min_gain]
+        behind = [t for t in items if t[1] <= t[2] + min_gain]
+        lines += ["## %s (%d)" % (code, len(ahead)), "", "| N | r (this search) | r (record) | gain | kind |",
                   "|---|---|---|---|---|"]
-        lines += ["| %d | %.12f | %.12f | %.3e | %s |" % (n, r, rr, r - rr, k) for n, r, rr, k in items]
+        lines += ["| %d | %.12f | %.12f | %.3e | %s |" % (n, r, rr, r - rr, k) for n, r, rr, k in ahead]
         lines.append("")
+        if behind:
+            lines += ["Matched or passed by a later update of the record table (kept in `spheres/best/%s/`, not counted):" % code,
+                      "", "| N | r (this search) | r (record) | difference | kind |", "|---|---|---|---|---|"]
+            lines += ["| %d | %.12f | %.12f | %.3e | %s |" % (n, r, rr, r - rr, k) for n, r, rr, k in behind]
+            lines.append("")
     if failed:
         lines += ["Failed verification (not copied): %s" % failed]
     os.makedirs(os.path.join(PACK, "spheres"), exist_ok=True)
