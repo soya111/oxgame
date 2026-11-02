@@ -61,3 +61,8 @@ at 27, more than 1e-4 at 7, none became smaller), so `scu.txt` is the new table.
 Packomania's list of pending requests (08-Oct-2026) shows submissions by other people that are not published
 yet, for example for `csc` about 200 candidates, `ccq` about 700, `crt` about 260, `crc` about 780 and `csq`
 about 810 (a candidate is not necessarily an improvement). The tables here do not contain them.
+
+Update 2026-11-02: `tools/fetch_records.py` fetches the tables again (the campaign does it daily) and logs what
+changed in `UPDATES.log`. The hexagon table `chx` had grown by 177 sizes (121-1250) and listed N=4 as
+0.366025403784 instead of 0.375015221341; a packing of the old value verifies here, so the old value is kept
+(the tool never takes over a smaller radius). Entries are in `UPDATES.log` as they are applied.
