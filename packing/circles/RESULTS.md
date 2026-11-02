@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-02 15:21 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-02 18:22 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3161)
+## Better than the published record (3166)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2842,6 +2842,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 3180 | 0.009360266060 | 0.009345794393 | 1.447e-05 |
 | square (`csq`) | 3190 | 0.009307432157 | 0.009009009009 | 2.984e-04 |
 | square (`csq`) | 3240 | 0.009295718595 | 0.009174311927 | 1.214e-04 |
+| square (`csq`) | 3315 | 0.009201573119 | 0.009080944077 | 1.206e-04 |
 | square (`csq`) | 3348 | 0.009178994641 | 0.009174311927 | 4.683e-06 |
 | square (`csq`) | 3400 | 0.008964761587 | 0.008940107827 | 2.465e-05 |
 | square (`csq`) | 3410 | 0.009026192462 | 0.009009009009 | 1.718e-05 |
@@ -2881,11 +2882,14 @@ no floating point; see the README). Gains below
 | square (`csq`) | 4752 | 0.007567736209 | 0.007518796992 | 4.894e-05 |
 | square (`csq`) | 4760 | 0.007628743178 | 0.007299270073 | 3.295e-04 |
 | square (`csq`) | 4810 | 0.007640073994 | 0.007633587786 | 6.486e-06 |
+| square (`csq`) | 4814 | 0.007676485918 | 0.007574218557 | 1.023e-04 |
 | square (`csq`) | 4896 | 0.007395650123 | 0.007299270073 | 9.638e-05 |
 | square (`csq`) | 5016 | 0.007520681966 | 0.007518796992 | 1.885e-06 |
 | square (`csq`) | 5092 | 0.007449266742 | 0.007407407407 | 4.186e-05 |
 | square (`csq`) | 5106 | 0.007403349181 | 0.007194244604 | 2.091e-04 |
+| square (`csq`) | 5225 | 0.007392343686 | 0.007263233374 | 1.291e-04 |
 | square (`csq`) | 5244 | 0.007312829399 | 0.007194244604 | 1.186e-04 |
+| square (`csq`) | 5272 | 0.007320770341 | 0.007147313815 | 1.735e-04 |
 | square (`csq`) | 5396 | 0.007202128027 | 0.006993006993 | 2.091e-04 |
 | square (`csq`) | 5460 | 0.007195596566 | 0.007092198582 | 1.034e-04 |
 | square (`csq`) | 5520 | 0.007194388515 | 0.007194244604 | 1.439e-07 |
@@ -2902,6 +2906,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 84 | 0.085586564405 | 0.085582245062 | 4.319e-06 |
 | 5-gon (`cpt`) | 88 | 0.083960844245 | 0.083957834537 | 3.010e-06 |
 | 5-gon (`cpt`) | 89 | 0.083374567141 | 0.083373984546 | 5.826e-07 |
+| 5-gon (`cpt`) | 93 | 0.081605120742 | 0.081604858730 | 2.620e-07 |
 | 5-gon (`cpt`) | 94 | 0.081226191079 | 0.081226027424 | 1.637e-07 |
 | 5-gon (`cpt`) | 96 | 0.080303164712 | 0.080301040266 | 2.124e-06 |
 | 5-gon (`cpt`) | 107 | 0.076166119342 | 0.076149393401 | 1.673e-05 |
@@ -2988,7 +2993,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 218 | 0.057070327923 | 0.057064761347 | 5.567e-06 |
 | 6-gon (`chx`) | 220 | 0.056829595055 | 0.056826628055 | 2.967e-06 |
 | 6-gon (`chx`) | 221 | 0.056665225961 | 0.056642479514 | 2.275e-05 |
-| 6-gon (`chx`) | 222 | 0.056534414366 | 0.056530826894 | 3.587e-06 |
+| 6-gon (`chx`) | 222 | 0.056534974403 | 0.056530826894 | 4.148e-06 |
 | 6-gon (`chx`) | 228 | 0.055753824838 | 0.055753677119 | 1.477e-07 |
 | 6-gon (`chx`) | 230 | 0.055606493382 | 0.055596869790 | 9.624e-06 |
 | 6-gon (`chx`) | 244 | 0.053985054235 | 0.053918150200 | 6.690e-05 |
