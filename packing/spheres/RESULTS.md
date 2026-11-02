@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-02 03:17 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-02 06:19 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -15,7 +15,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 390 | 0.115132498631 | 0.115129577836 | 2.921e-06 | search |
 | 391 | 0.115020805095 | 0.114998604732 | 2.220e-05 | search |
 
-## scu (93)
+## scu (105)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -112,6 +112,18 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 684 | 0.060271872978 | 0.060227353034 | 4.452e-05 | search |
 | 685 | 0.060271481960 | 0.060191867074 | 7.961e-05 | search |
 | 686 | 0.060203988650 | 0.060191867074 | 1.212e-05 | search |
+| 797 | 0.057357946115 | 0.057356314457 | 1.632e-06 | polish |
+| 798 | 0.057357947641 | 0.057356312274 | 1.635e-06 | polish |
+| 879 | 0.055645563674 | 0.055645056455 | 5.072e-07 | polish |
+| 937 | 0.054794035350 | 0.054056517214 | 7.375e-04 | polish |
+| 938 | 0.054756140734 | 0.054056516557 | 6.996e-04 | polish |
+| 939 | 0.054648937783 | 0.054056515933 | 5.924e-04 | polish |
+| 940 | 0.054565820440 | 0.054056515694 | 5.093e-04 | polish |
+| 941 | 0.054393736367 | 0.054056515335 | 3.372e-04 | polish |
+| 942 | 0.054356194192 | 0.054056515216 | 2.997e-04 | polish |
+| 943 | 0.054341101000 | 0.054056515148 | 2.846e-04 | polish |
+| 944 | 0.054311934602 | 0.054056514851 | 2.554e-04 | polish |
+| 945 | 0.054260273227 | 0.054056514752 | 2.038e-04 | polish |
 
 Matched or passed by a later update of the record table (kept in `spheres/best/scu/`, not counted):
 
