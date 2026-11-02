@@ -1,6 +1,6 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-10-28 00:46 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-02 03:17 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
@@ -2898,8 +2898,8 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 66 | 0.100980848018 | 0.100973952318 | 6.896e-06 |
 | 6-gon (`chx`) | 70 | 0.098955726695 | 0.098953578375 | 2.148e-06 |
 | 6-gon (`chx`) | 83 | 0.091042996938 | 0.091031724997 | 1.127e-05 |
-| 6-gon (`chx`) | 89 | 0.089648876648 | 0.089648390877 | 4.858e-07 |
-| 6-gon (`chx`) | 95 | 0.085402480814 | 0.085401704341 | 7.765e-07 |
+| 6-gon (`chx`) | 89 | 0.089648876648 | 0.089648390939 | 4.857e-07 |
+| 6-gon (`chx`) | 95 | 0.085402480814 | 0.085401704334 | 7.765e-07 |
 | 6-gon (`chx`) | 105 | 0.081394106701 | 0.081386753184 | 7.354e-06 |
 | 6-gon (`chx`) | 112 | 0.078978862791 | 0.078978151950 | 7.108e-07 |
 | 7-gon (`chp`) | 40 | 0.131195176314 | 0.131172331145 | 2.285e-05 |

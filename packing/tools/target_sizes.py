@@ -42,6 +42,8 @@ def main():
 
     def rel(n):
         nb = [m * rec[m] ** args.dim for m in range(n - args.window, n + args.window + 1) if m != n and m in rec]
+        if not nb:
+            return 0.0  # an isolated size has no trend to be compared with
         return n * rec[n] ** args.dim / statistics.median(nb) - 1
 
     sizes = [n for n in range(args.nmin, args.nmax + 1) if n in rec]

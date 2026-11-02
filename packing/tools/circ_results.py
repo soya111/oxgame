@@ -32,7 +32,7 @@ def main():
     ap.add_argument("--root", action="append", required=True)
     ap.add_argument("--min-gain", type=float, default=circ.SIGNIFICANT)
     args = ap.parse_args()
-    better, new, failed = [], {}, []
+    better, behind, new, failed = [], [], {}, []
     for k, code in sorted(circ.CODE.items()):
         rec = circ.records(code)
         dst = os.path.join(PACK, "circles", "best", code)
@@ -64,7 +64,7 @@ def main():
             kk, n, R, pts = circ.read(f)
             r = circ.RC[k] / float(R)
             if n in rec:
-                better.append((k, code, n, r, rec[n]))
+                (better if r > rec[n] + args.min_gain else behind).append((k, code, n, r, rec[n]))
             else:
                 new.setdefault((k, code), []).append((n, r))
     lines = ["# Circles in regular polygons and other containers: results", "",
@@ -77,6 +77,12 @@ def main():
              "| container | N | r (this search) | r (record) | gain |", "|---|---|---|---|---|"]
     for k, code, n, r, rr in sorted(better):
         lines.append("| %s (`%s`) | %d | %.12f | %.12f | %.3e |" % (container(k), code, n, r, rr, r - rr))
+    if behind:
+        lines += ["", "## Matched or passed by a later update of the record table (%d)" % len(behind), "",
+                  "Kept in `circles/best/`, not counted above.", "",
+                  "| container | N | r (this search) | r (record) | difference |", "|---|---|---|---|---|"]
+        for k, code, n, r, rr in sorted(behind):
+            lines.append("| %s (`%s`) | %d | %.12f | %.12f | %.3e |" % (container(k), code, n, r, rr, r - rr))
     lines += ["", "## Sizes beyond the published tables", "", "| container | N | count |", "|---|---|---|"]
     for (k, code), items in sorted(new.items()):
         ns = [n for n, _ in items]
@@ -84,8 +90,8 @@ def main():
     if failed:
         lines += ["", "Failed verification (not copied): %s" % failed]
     open(os.path.join(PACK, "circles", "RESULTS.md"), "w").write("\n".join(lines) + "\n")
-    print("\n".join(lines[:12 + len(better)]))
-    print("new sizes:", sum(len(v) for v in new.values()), "failed:", failed)
+    print("beating the records:", len(better), "matched or passed:", len(behind),
+          "new sizes:", sum(len(v) for v in new.values()), "failed:", failed)
 
 
 if __name__ == "__main__":
