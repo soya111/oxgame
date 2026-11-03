@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-03 13:13 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-03 16:13 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3094)
+## Better than the published record (3099)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1992,7 +1992,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 641 | 0.036675266590 | 0.036673703378 | 1.563e-06 |
 | circle (`cci`) | 643 | 0.036621840820 | 0.036621374413 | 4.664e-07 |
 | circle (`cci`) | 644 | 0.036580210190 | 0.036579580115 | 6.301e-07 |
-| circle (`cci`) | 652 | 0.036366204212 | 0.036365937018 | 2.672e-07 |
+| circle (`cci`) | 652 | 0.036369832767 | 0.036365937018 | 3.896e-06 |
 | circle (`cci`) | 671 | 0.035818322951 | 0.035816425271 | 1.898e-06 |
 | circle (`cci`) | 672 | 0.035798863284 | 0.035788709675 | 1.015e-05 |
 | circle (`cci`) | 673 | 0.035766605120 | 0.035765785734 | 8.194e-07 |
@@ -2606,7 +2606,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 1500 | 0.013589469244 | 0.013157896060 | 4.316e-04 |
 | square (`csq`) | 1518 | 0.013583205689 | 0.013578739829 | 4.466e-06 |
 | square (`csq`) | 1519 | 0.013547794924 | 0.013349503645 | 1.983e-04 |
-| square (`csq`) | 1520 | 0.013458233980 | 0.012996025099 | 4.622e-04 |
+| square (`csq`) | 1520 | 0.013544596671 | 0.012996025099 | 5.486e-04 |
 | square (`csq`) | 1528 | 0.013497662512 | 0.013431915279 | 6.575e-05 |
 | square (`csq`) | 1533 | 0.013545266265 | 0.013545161472 | 1.048e-07 |
 | square (`csq`) | 1540 | 0.013472784209 | 0.013472216554 | 5.677e-07 |
@@ -2637,12 +2637,16 @@ no floating point; see the README). Gains below
 | square (`csq`) | 1716 | 0.012689003699 | 0.012658227848 | 3.078e-05 |
 | square (`csq`) | 1717 | 0.012754687489 | 0.012503115528 | 2.516e-04 |
 | square (`csq`) | 1722 | 0.012605684553 | 0.012048192771 | 5.575e-04 |
+| square (`csq`) | 1725 | 0.012799071431 | 0.012674603838 | 1.245e-04 |
+| square (`csq`) | 1726 | 0.012795921699 | 0.012640361836 | 1.556e-04 |
 | square (`csq`) | 1734 | 0.012735404892 | 0.012728318028 | 7.087e-06 |
+| square (`csq`) | 1738 | 0.012694852639 | 0.012500000000 | 1.949e-04 |
 | square (`csq`) | 1739 | 0.012694806482 | 0.012525738741 | 1.691e-04 |
 | square (`csq`) | 1748 | 0.012688170985 | 0.012630351014 | 5.782e-05 |
 | square (`csq`) | 1752 | 0.012624194694 | 0.012389479626 | 2.347e-04 |
 | square (`csq`) | 1753 | 0.012619045665 | 0.012354369846 | 2.647e-04 |
 | square (`csq`) | 1760 | 0.012536029344 | 0.012345679012 | 1.904e-04 |
+| square (`csq`) | 1763 | 0.012611384604 | 0.012479058591 | 1.323e-04 |
 | square (`csq`) | 1771 | 0.012606669065 | 0.012587675518 | 1.899e-05 |
 | square (`csq`) | 1772 | 0.012594041006 | 0.012554848890 | 3.919e-05 |
 | square (`csq`) | 1776 | 0.012520533865 | 0.012340258371 | 1.803e-04 |
@@ -2672,9 +2676,10 @@ no floating point; see the README). Gains below
 | square (`csq`) | 1905 | 0.012171959613 | 0.012171444742 | 5.149e-07 |
 | square (`csq`) | 1909 | 0.012082824743 | 0.011904761905 | 1.781e-04 |
 | square (`csq`) | 1925 | 0.012054217137 | 0.011853257579 | 2.010e-04 |
-| square (`csq`) | 1932 | 0.011967753591 | 0.011764705882 | 2.030e-04 |
+| square (`csq`) | 1932 | 0.011983511370 | 0.011764705882 | 2.188e-04 |
 | square (`csq`) | 1936 | 0.012053785850 | 0.011938987228 | 1.148e-04 |
 | square (`csq`) | 1937 | 0.012052392313 | 0.011877311540 | 1.751e-04 |
+| square (`csq`) | 1955 | 0.011918188881 | 0.011627906977 | 2.903e-04 |
 | square (`csq`) | 1960 | 0.012008236794 | 0.011898650637 | 1.096e-04 |
 | square (`csq`) | 1964 | 0.011930706630 | 0.011690203770 | 2.405e-04 |
 | square (`csq`) | 1975 | 0.011920037639 | 0.011766910510 | 1.531e-04 |
