@@ -2,3 +2,5 @@
 2026-11-02T03:13Z cpt changed 1, grew>1e-7 0 (max 0.0e+00), new sizes 0
 2026-11-02T03:30Z chx: N=4 restored to the old value 0.375015221341 (the table now says 0.366025403784, lower than a packing that verifies here)
 2026-11-03T04:11Z csc changed 136, grew>1e-7 126 (max 3.8e-05), new sizes 0
+2026-11-04T04:40Z csq changed 758, grew>1e-7 584 (max 8.6e-04), new sizes 47
+2026-11-04T04:40Z csc changed 1, grew>1e-7 1 (max 6.5e-06), new sizes 0

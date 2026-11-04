@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-04 01:40 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-04 04:41 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -18,7 +18,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 488 | 0.107520970180 | 0.107519606294 | 1.364e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (119)
+## scu (128)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -115,8 +115,12 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 684 | 0.060271872978 | 0.060227353034 | 4.452e-05 | search |
 | 685 | 0.060271481960 | 0.060191867074 | 7.961e-05 | search |
 | 686 | 0.060203988650 | 0.060191867074 | 1.212e-05 | search |
+| 727 | 0.059348011197 | 0.058742242383 | 6.058e-04 | search |
 | 733 | 0.058943651436 | 0.058531064607 | 4.126e-04 | search |
+| 737 | 0.058723385908 | 0.058714380102 | 9.006e-06 | search |
 | 739 | 0.058627017921 | 0.058531064606 | 9.595e-05 | search |
+| 743 | 0.058624798243 | 0.058531064606 | 9.373e-05 | search |
+| 787 | 0.057837829949 | 0.057589005447 | 2.488e-04 | search |
 | 788 | 0.057546034273 | 0.057517611218 | 2.842e-05 | search |
 | 791 | 0.057474712574 | 0.057452441610 | 2.227e-05 | search |
 | 792 | 0.057451809219 | 0.057386056319 | 6.575e-05 | search |
@@ -124,6 +128,9 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 797 | 0.057357946115 | 0.057356314457 | 1.632e-06 | polish |
 | 798 | 0.057357947641 | 0.057356312274 | 1.635e-06 | polish |
 | 799 | 0.057357947715 | 0.057356312222 | 1.635e-06 | search |
+| 800 | 0.057357947877 | 0.057356312222 | 1.636e-06 | search |
+| 871 | 0.056051168635 | 0.055949834680 | 1.013e-04 | search |
+| 872 | 0.055835945128 | 0.055800272810 | 3.567e-05 | search |
 | 878 | 0.055681242026 | 0.055663298177 | 1.794e-05 | search |
 | 879 | 0.055645563674 | 0.055645056455 | 5.072e-07 | polish |
 | 883 | 0.055591628879 | 0.055542517155 | 4.911e-05 | search |
@@ -140,7 +147,9 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 945 | 0.054260273227 | 0.054056514752 | 2.038e-04 | polish |
 | 948 | 0.054210959681 | 0.054056513691 | 1.544e-04 | search |
 | 949 | 0.054194387385 | 0.054056513691 | 1.379e-04 | search |
+| 952 | 0.054123043237 | 0.054056513691 | 6.653e-05 | search |
 | 954 | 0.054094486226 | 0.054056513691 | 3.797e-05 | search |
+| 955 | 0.054102360536 | 0.054056513691 | 4.585e-05 | search |
 
 Matched or passed by a later update of the record table (kept in `spheres/best/scu/`, not counted):
 
