@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-04 16:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-04 19:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3045)
+## Better than the published record (3048)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -775,6 +775,7 @@ no floating point; see the README). Gains below
 | 1 x 0.5 rectangle (`crc_500`) | 146 | 0.030146478287 | 0.030118710794 | 2.777e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 147 | 0.030039700476 | 0.029996034415 | 4.367e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 148 | 0.029952850608 | 0.029939498172 | 1.335e-05 |
+| 1 x 0.5 rectangle (`crc_500`) | 149 | 0.029919229040 | 0.029919015690 | 2.134e-07 |
 | 1 x 0.5 rectangle (`crc_500`) | 150 | 0.029756053921 | 0.029755549335 | 5.046e-07 |
 | 1 x 0.5 rectangle (`crc_500`) | 151 | 0.029621941699 | 0.029583427717 | 3.851e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 152 | 0.029542694892 | 0.029531729633 | 1.097e-05 |
@@ -2029,11 +2030,11 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 709 | 0.034877369301 | 0.034856369909 | 2.100e-05 |
 | circle (`cci`) | 711 | 0.034811707970 | 0.034804990515 | 6.717e-06 |
 | circle (`cci`) | 717 | 0.034706078149 | 0.034701916741 | 4.161e-06 |
-| circle (`cci`) | 722 | 0.034602575654 | 0.034599297295 | 3.278e-06 |
-| circle (`cci`) | 723 | 0.034593101703 | 0.034591698494 | 1.403e-06 |
+| circle (`cci`) | 722 | 0.034605398663 | 0.034599297295 | 6.101e-06 |
+| circle (`cci`) | 723 | 0.034601022026 | 0.034591698494 | 9.324e-06 |
 | circle (`cci`) | 724 | 0.034572914195 | 0.034571961582 | 9.526e-07 |
 | circle (`cci`) | 725 | 0.034541831308 | 0.034535381762 | 6.450e-06 |
-| circle (`cci`) | 726 | 0.034527253097 | 0.034522884059 | 4.369e-06 |
+| circle (`cci`) | 726 | 0.034531406342 | 0.034522884059 | 8.522e-06 |
 | circle (`cci`) | 728 | 0.034475598178 | 0.034468345078 | 7.253e-06 |
 | circle (`cci`) | 729 | 0.034450930957 | 0.034448834377 | 2.097e-06 |
 | circle (`cci`) | 732 | 0.034384437154 | 0.034381824254 | 2.613e-06 |
@@ -2480,6 +2481,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 2425 | 0.019042316824 | 0.019018486575 | 2.383e-05 |
 | circle (`cci`) | 2426 | 0.019042184289 | 0.019041473840 | 7.104e-07 |
 | circle (`cci`) | 2432 | 0.019010449594 | 0.019008555039 | 1.895e-06 |
+| circle (`cci`) | 2433 | 0.019006981095 | 0.018982500483 | 2.448e-05 |
 | circle (`cci`) | 2440 | 0.018985046130 | 0.018983156649 | 1.889e-06 |
 | circle (`cci`) | 2444 | 0.018954513324 | 0.018939456300 | 1.506e-05 |
 | circle (`cci`) | 2445 | 0.018954465873 | 0.018931241469 | 2.322e-05 |
@@ -2488,13 +2490,14 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 2460 | 0.018901010946 | 0.018897633171 | 3.378e-06 |
 | circle (`cci`) | 2512 | 0.018728479514 | 0.018724394524 | 4.085e-06 |
 | circle (`cci`) | 2513 | 0.018727637555 | 0.018724994837 | 2.643e-06 |
-| circle (`cci`) | 2514 | 0.018722794004 | 0.018721961800 | 8.322e-07 |
+| circle (`cci`) | 2514 | 0.018724611126 | 0.018721961800 | 2.649e-06 |
 | circle (`cci`) | 2517 | 0.018716848585 | 0.018716737272 | 1.113e-07 |
 | circle (`cci`) | 2534 | 0.018634249119 | 0.018631668458 | 2.581e-06 |
 | circle (`cci`) | 2535 | 0.018632452248 | 0.018630681441 | 1.771e-06 |
 | circle (`cci`) | 2538 | 0.018620971336 | 0.018620857828 | 1.135e-07 |
 | circle (`cci`) | 2543 | 0.018608020374 | 0.018607536403 | 4.840e-07 |
 | circle (`cci`) | 2554 | 0.018567985000 | 0.018565766237 | 2.219e-06 |
+| circle (`cci`) | 2574 | 0.018477665712 | 0.018470090682 | 7.575e-06 |
 | circle (`cci`) | 2577 | 0.018454540995 | 0.018453425301 | 1.116e-06 |
 | circle (`cci`) | 2578 | 0.018453991341 | 0.018452450826 | 1.541e-06 |
 | circle (`cci`) | 2587 | 0.018434929146 | 0.018434797276 | 1.319e-07 |
