@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-03 22:14 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-04 01:14 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3110)
+## Better than the published record (3114)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2280,11 +2280,13 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1194 | 0.027006408376 | 0.026999463839 | 6.945e-06 |
 | circle (`cci`) | 1204 | 0.026890695783 | 0.026890559384 | 1.364e-07 |
 | circle (`cci`) | 1206 | 0.026862705775 | 0.026858650477 | 4.055e-06 |
+| circle (`cci`) | 1207 | 0.026852942867 | 0.026850313301 | 2.630e-06 |
 | circle (`cci`) | 1208 | 0.026838538920 | 0.026837684314 | 8.546e-07 |
 | circle (`cci`) | 1209 | 0.026832024818 | 0.026824258844 | 7.766e-06 |
 | circle (`cci`) | 1211 | 0.026809292206 | 0.026799619637 | 9.673e-06 |
 | circle (`cci`) | 1213 | 0.026794961116 | 0.026777085141 | 1.788e-05 |
 | circle (`cci`) | 1214 | 0.026760093886 | 0.026757157624 | 2.936e-06 |
+| circle (`cci`) | 1217 | 0.026738438732 | 0.026735539619 | 2.899e-06 |
 | circle (`cci`) | 1219 | 0.026715676158 | 0.026710033541 | 5.643e-06 |
 | circle (`cci`) | 1220 | 0.026706668979 | 0.026705370405 | 1.299e-06 |
 | circle (`cci`) | 1227 | 0.026633964762 | 0.026629710544 | 4.254e-06 |
@@ -2299,12 +2301,14 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1248 | 0.026431237030 | 0.026400839083 | 3.040e-05 |
 | circle (`cci`) | 1250 | 0.026413831774 | 0.026369545935 | 4.429e-05 |
 | circle (`cci`) | 1251 | 0.026395411473 | 0.026360074685 | 3.534e-05 |
+| circle (`cci`) | 1252 | 0.026391912135 | 0.026347286654 | 4.463e-05 |
 | circle (`cci`) | 1254 | 0.026345846245 | 0.026323808907 | 2.204e-05 |
 | circle (`cci`) | 1256 | 0.026329356939 | 0.026307055039 | 2.230e-05 |
 | circle (`cci`) | 1258 | 0.026297312612 | 0.026288825195 | 8.487e-06 |
 | circle (`cci`) | 1262 | 0.026298956313 | 0.026250687513 | 4.827e-05 |
 | circle (`cci`) | 1268 | 0.026189645004 | 0.026188945941 | 6.991e-07 |
 | circle (`cci`) | 1269 | 0.026194511099 | 0.026180217659 | 1.429e-05 |
+| circle (`cci`) | 1270 | 0.026193760403 | 0.026174363407 | 1.940e-05 |
 | circle (`cci`) | 1275 | 0.026131702245 | 0.026128238183 | 3.464e-06 |
 | circle (`cci`) | 1276 | 0.026128191377 | 0.026122184725 | 6.007e-06 |
 | circle (`cci`) | 1284 | 0.026058037526 | 0.026038653959 | 1.938e-05 |
