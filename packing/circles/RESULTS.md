@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-05 00:06 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-05 03:06 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3059)
+## Better than the published record (3066)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1201,6 +1201,7 @@ no floating point; see the README). Gains below
 | 1 x 0.2 rectangle (`crc_200`) | 151 | 0.018899535269 | 0.018897984683 | 1.551e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 154 | 0.018808222958 | 0.018807774894 | 4.481e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 158 | 0.018555895861 | 0.018555601980 | 2.939e-07 |
+| 1 x 0.2 rectangle (`crc_200`) | 159 | 0.018529819112 | 0.018529472434 | 3.467e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 160 | 0.018382556051 | 0.018376963610 | 5.592e-06 |
 | 1 x 0.2 rectangle (`crc_200`) | 161 | 0.018270855749 | 0.018270631498 | 2.243e-07 |
 | 1 x 0.2 rectangle (`crc_200`) | 164 | 0.018020174130 | 0.018016918470 | 3.256e-06 |
@@ -2413,7 +2414,9 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1622 | 0.023252404401 | 0.023251917572 | 4.868e-07 |
 | circle (`cci`) | 1628 | 0.023199589349 | 0.023195714623 | 3.875e-06 |
 | circle (`cci`) | 1630 | 0.023191383207 | 0.023190563268 | 8.199e-07 |
+| circle (`cci`) | 1635 | 0.023148642086 | 0.023146672666 | 1.969e-06 |
 | circle (`cci`) | 1652 | 0.023005285587 | 0.023004598575 | 6.870e-07 |
+| circle (`cci`) | 1655 | 0.022985720009 | 0.022984273462 | 1.447e-06 |
 | circle (`cci`) | 1660 | 0.022954720676 | 0.022951555897 | 3.165e-06 |
 | circle (`cci`) | 1661 | 0.022946007789 | 0.022944096648 | 1.911e-06 |
 | circle (`cci`) | 1668 | 0.022905542394 | 0.022905121448 | 4.209e-07 |
@@ -2422,13 +2425,16 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1685 | 0.022797354196 | 0.022786057702 | 1.130e-05 |
 | circle (`cci`) | 1686 | 0.022789417241 | 0.022781491291 | 7.926e-06 |
 | circle (`cci`) | 1687 | 0.022779185455 | 0.022778953716 | 2.317e-07 |
+| circle (`cci`) | 1696 | 0.022726447682 | 0.022717880296 | 8.567e-06 |
 | circle (`cci`) | 1698 | 0.022708348501 | 0.022706540888 | 1.808e-06 |
 | circle (`cci`) | 1704 | 0.022670654734 | 0.022662837002 | 7.818e-06 |
 | circle (`cci`) | 1709 | 0.022632434560 | 0.022630118398 | 2.316e-06 |
+| circle (`cci`) | 1716 | 0.022584955699 | 0.022582218485 | 2.737e-06 |
 | circle (`cci`) | 1718 | 0.022573793310 | 0.022570747801 | 3.046e-06 |
 | circle (`cci`) | 1725 | 0.022531596145 | 0.022530181034 | 1.415e-06 |
 | circle (`cci`) | 1726 | 0.022525810728 | 0.022523642545 | 2.168e-06 |
 | circle (`cci`) | 1734 | 0.022488969267 | 0.022483958815 | 5.010e-06 |
+| circle (`cci`) | 1742 | 0.022450926304 | 0.022450672663 | 2.536e-07 |
 | circle (`cci`) | 1758 | 0.022358526069 | 0.022351201857 | 7.324e-06 |
 | circle (`cci`) | 1773 | 0.022233112332 | 0.022231640842 | 1.471e-06 |
 | circle (`cci`) | 1779 | 0.022190022487 | 0.022189294565 | 7.279e-07 |
@@ -2438,6 +2444,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1797 | 0.022073756111 | 0.022070784736 | 2.971e-06 |
 | circle (`cci`) | 1798 | 0.022073491163 | 0.022063905841 | 9.585e-06 |
 | circle (`cci`) | 1799 | 0.022068860903 | 0.022058470827 | 1.039e-05 |
+| circle (`cci`) | 1853 | 0.021745807046 | 0.021738294756 | 7.512e-06 |
 | circle (`cci`) | 1863 | 0.021699605759 | 0.021698828741 | 7.770e-07 |
 | circle (`cci`) | 1914 | 0.021438723662 | 0.021438621668 | 1.020e-07 |
 | circle (`cci`) | 1925 | 0.021353371256 | 0.021351065905 | 2.305e-06 |
