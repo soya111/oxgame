@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-05 06:33 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-05 09:33 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3075)
+## Better than the published record (3080)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1943,6 +1943,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 202 | 0.045722546591 | 0.045706988397 | 1.556e-05 |
 | half disk (`csc`) | 204 | 0.045510218153 | 0.045507844992 | 2.373e-06 |
 | half disk (`csc`) | 205 | 0.045429165950 | 0.045415032203 | 1.413e-05 |
+| half disk (`csc`) | 213 | 0.044500965406 | 0.044491745944 | 9.219e-06 |
 | half disk (`csc`) | 224 | 0.043503380514 | 0.043492935805 | 1.044e-05 |
 | half disk (`csc`) | 227 | 0.043206416962 | 0.043179081778 | 2.734e-05 |
 | half disk (`csc`) | 242 | 0.041815862578 | 0.041813281271 | 2.581e-06 |
@@ -2387,6 +2388,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1484 | 0.024285090868 | 0.024284948358 | 1.425e-07 |
 | circle (`cci`) | 1486 | 0.024268996701 | 0.024265281071 | 3.716e-06 |
 | circle (`cci`) | 1494 | 0.024203078873 | 0.024200999105 | 2.080e-06 |
+| circle (`cci`) | 1501 | 0.024142160462 | 0.024133032205 | 9.128e-06 |
 | circle (`cci`) | 1502 | 0.024127263604 | 0.024125180456 | 2.083e-06 |
 | circle (`cci`) | 1510 | 0.024059189891 | 0.024046725098 | 1.246e-05 |
 | circle (`cci`) | 1511 | 0.024039213430 | 0.024032258841 | 6.955e-06 |
@@ -2396,6 +2398,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1524 | 0.023944487336 | 0.023941058128 | 3.429e-06 |
 | circle (`cci`) | 1525 | 0.023939267095 | 0.023932755316 | 6.512e-06 |
 | circle (`cci`) | 1526 | 0.023927820785 | 0.023923225657 | 4.595e-06 |
+| circle (`cci`) | 1527 | 0.023924637741 | 0.023920816402 | 3.821e-06 |
 | circle (`cci`) | 1532 | 0.023889639900 | 0.023885014679 | 4.625e-06 |
 | circle (`cci`) | 1538 | 0.023842622861 | 0.023836442318 | 6.181e-06 |
 | circle (`cci`) | 1543 | 0.023799359278 | 0.023798508683 | 8.506e-07 |
@@ -2405,12 +2408,14 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1550 | 0.023755215662 | 0.023749596835 | 5.619e-06 |
 | circle (`cci`) | 1562 | 0.023664839187 | 0.023663080595 | 1.759e-06 |
 | circle (`cci`) | 1568 | 0.023618815684 | 0.023617085261 | 1.730e-06 |
+| circle (`cci`) | 1573 | 0.023575352517 | 0.023568823967 | 6.529e-06 |
 | circle (`cci`) | 1577 | 0.023542743915 | 0.023535690285 | 7.054e-06 |
 | circle (`cci`) | 1578 | 0.023525035730 | 0.023521514687 | 3.521e-06 |
 | circle (`cci`) | 1580 | 0.023515040677 | 0.023507296769 | 7.744e-06 |
+| circle (`cci`) | 1584 | 0.023486503526 | 0.023481966357 | 4.537e-06 |
 | circle (`cci`) | 1587 | 0.023465647595 | 0.023457398679 | 8.249e-06 |
 | circle (`cci`) | 1588 | 0.023465546959 | 0.023446805293 | 1.874e-05 |
-| circle (`cci`) | 1590 | 0.023458274554 | 0.023458137252 | 1.373e-07 |
+| circle (`cci`) | 1590 | 0.023459134956 | 0.023458137252 | 9.977e-07 |
 | circle (`cci`) | 1591 | 0.023455023724 | 0.023454844738 | 1.790e-07 |
 | circle (`cci`) | 1603 | 0.023377080438 | 0.023373627458 | 3.453e-06 |
 | circle (`cci`) | 1604 | 0.023365610980 | 0.023363687603 | 1.923e-06 |
@@ -3085,7 +3090,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (201)
+## Matched or passed by a later update of the record table (200)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3165,7 +3170,6 @@ Kept in `circles/best/`, not counted above.
 | half disk (`csc`) | 210 | 0.044750350046 | 0.044765975643 | -1.563e-05 |
 | half disk (`csc`) | 211 | 0.044634125662 | 0.044634262277 | -1.366e-07 |
 | half disk (`csc`) | 212 | 0.044578211837 | 0.044591921870 | -1.371e-05 |
-| half disk (`csc`) | 213 | 0.044491535044 | 0.044491745944 | -2.109e-07 |
 | half disk (`csc`) | 214 | 0.044377260371 | 0.044377577473 | -3.171e-07 |
 | half disk (`csc`) | 215 | 0.044298715735 | 0.044299582984 | -8.672e-07 |
 | half disk (`csc`) | 216 | 0.044206811864 | 0.044207100798 | -2.889e-07 |
