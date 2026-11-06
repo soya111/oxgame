@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-05 21:34 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-06 00:23 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3105)
+## Better than the published record (3109)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -154,6 +154,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 249 | 0.029504581063 | 0.029477290781 | 2.729e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 250 | 0.029389932333 | 0.029362241655 | 2.769e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 251 | 0.029352559517 | 0.029326103640 | 2.646e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 252 | 0.029284795541 | 0.029266222132 | 1.857e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 253 | 0.029213965229 | 0.029212805652 | 1.160e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 256 | 0.029083024530 | 0.029074821795 | 8.203e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 257 | 0.029037764052 | 0.029036701890 | 1.062e-06 |
@@ -193,6 +194,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 303 | 0.026963919068 | 0.026959408141 | 4.511e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 304 | 0.026955125315 | 0.026954790216 | 3.351e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 305 | 0.026952251985 | 0.026951916124 | 3.359e-07 |
+| 1 x 0.8 rectangle (`crc_800`) | 307 | 0.026756749255 | 0.026747113627 | 9.636e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 308 | 0.026658091630 | 0.026652247963 | 5.844e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 309 | 0.026624840110 | 0.026621401881 | 3.438e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 310 | 0.026577591726 | 0.026572922822 | 4.669e-06 |
@@ -212,6 +214,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 326 | 0.025907024255 | 0.025906580146 | 4.441e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 327 | 0.025878706711 | 0.025878156767 | 5.499e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 328 | 0.025857729165 | 0.025857628123 | 1.010e-07 |
+| 1 x 0.8 rectangle (`crc_800`) | 331 | 0.025722808835 | 0.025722538046 | 2.708e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 333 | 0.025663718935 | 0.025658863199 | 4.856e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 334 | 0.025610336885 | 0.025598009079 | 1.233e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 335 | 0.025579501730 | 0.025574584424 | 4.917e-06 |
@@ -228,6 +231,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 350 | 0.025072129741 | 0.025061625676 | 1.050e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 351 | 0.025063191415 | 0.025045751604 | 1.744e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 352 | 0.025015654326 | 0.025004953762 | 1.070e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 353 | 0.024958691435 | 0.024957060313 | 1.631e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 354 | 0.024956288135 | 0.024955679678 | 6.085e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 359 | 0.024685731512 | 0.024634713192 | 5.102e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 360 | 0.024632488965 | 0.024630259554 | 2.229e-06 |
