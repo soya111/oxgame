@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-07 02:47 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-07 05:48 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2903)
+## Better than the published record (2905)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -273,10 +273,11 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 405 | 0.023246313432 | 0.023245345069 | 9.684e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 406 | 0.023233330886 | 0.023232681282 | 6.496e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 408 | 0.023208130027 | 0.023200767069 | 7.363e-06 |
-| 1 x 0.8 rectangle (`crc_800`) | 409 | 0.023166952960 | 0.023166295061 | 6.579e-07 |
+| 1 x 0.8 rectangle (`crc_800`) | 409 | 0.023166998996 | 0.023166295061 | 7.039e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 410 | 0.023133689489 | 0.023131426655 | 2.263e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 411 | 0.023104285405 | 0.023104154286 | 1.311e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 412 | 0.023090834466 | 0.023084996066 | 5.838e-06 |
+| 1 x 0.8 rectangle (`crc_800`) | 413 | 0.023078261266 | 0.023077306638 | 9.546e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 414 | 0.023060091715 | 0.023058206566 | 1.885e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 415 | 0.023042274209 | 0.023039084104 | 3.190e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 416 | 0.023033282913 | 0.023024148941 | 9.134e-06 |
@@ -1960,6 +1961,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 598 | 0.019031511765 | 0.019027181398 | 4.330e-06 |
 | quarter disk (`ccq`) | 599 | 0.019019494435 | 0.019018384780 | 1.110e-06 |
 | quarter disk (`ccq`) | 600 | 0.019000647371 | 0.018995948824 | 4.699e-06 |
+| half disk (`csc`) | 147 | 0.053166442083 | 0.053143142112 | 2.330e-05 |
 | half disk (`csc`) | 150 | 0.052740711719 | 0.052737623345 | 3.088e-06 |
 | half disk (`csc`) | 157 | 0.051673818381 | 0.051672460347 | 1.358e-06 |
 | half disk (`csc`) | 158 | 0.051506923376 | 0.051499572293 | 7.351e-06 |
@@ -2913,7 +2915,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (422)
+## Matched or passed by a later update of the record table (421)
 
 Kept in `circles/best/`, not counted above.
 
@@ -2954,7 +2956,6 @@ Kept in `circles/best/`, not counted above.
 | half disk (`csc`) | 142 | 0.054238008530 | 0.054238008531 | -7.747e-13 |
 | half disk (`csc`) | 143 | 0.054012190243 | 0.054012195372 | -5.129e-09 |
 | half disk (`csc`) | 144 | 0.053794541711 | 0.053796252907 | -1.711e-06 |
-| half disk (`csc`) | 147 | 0.053140900497 | 0.053143142112 | -2.242e-06 |
 | half disk (`csc`) | 149 | 0.052837635658 | 0.052837985140 | -3.495e-07 |
 | half disk (`csc`) | 151 | 0.052573904186 | 0.052576168992 | -2.265e-06 |
 | half disk (`csc`) | 155 | 0.051956212287 | 0.051956218238 | -5.951e-09 |
