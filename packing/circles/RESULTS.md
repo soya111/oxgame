@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-07 05:48 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-07 06:28 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2905)
+## Better than the published record (2906)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1985,6 +1985,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 213 | 0.044500965406 | 0.044491745944 | 9.219e-06 |
 | half disk (`csc`) | 224 | 0.043503380514 | 0.043492935805 | 1.044e-05 |
 | half disk (`csc`) | 227 | 0.043206416962 | 0.043179081778 | 2.734e-05 |
+| half disk (`csc`) | 233 | 0.042698775630 | 0.042698088345 | 6.873e-07 |
 | half disk (`csc`) | 242 | 0.041815862578 | 0.041813281271 | 2.581e-06 |
 | half disk (`csc`) | 243 | 0.041724126919 | 0.041706268765 | 1.786e-05 |
 | half disk (`csc`) | 244 | 0.041661760800 | 0.041642290630 | 1.947e-05 |
@@ -2915,7 +2916,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (421)
+## Matched or passed by a later update of the record table (420)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3009,7 +3010,6 @@ Kept in `circles/best/`, not counted above.
 | half disk (`csc`) | 228 | 0.043125156994 | 0.043125161815 | -4.821e-09 |
 | half disk (`csc`) | 229 | 0.043024852512 | 0.043025102366 | -2.499e-07 |
 | half disk (`csc`) | 231 | 0.042871646436 | 0.042871898191 | -2.518e-07 |
-| half disk (`csc`) | 233 | 0.042698108590 | 0.042698088345 | 2.024e-08 |
 | half disk (`csc`) | 234 | 0.042584754847 | 0.042585982849 | -1.228e-06 |
 | half disk (`csc`) | 236 | 0.042381750564 | 0.042382251695 | -5.011e-07 |
 | half disk (`csc`) | 237 | 0.042277039066 | 0.042277695149 | -6.561e-07 |
