@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-08 05:43 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-08 08:43 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2942)
+## Better than the published record (2946)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2739,6 +2739,8 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 105 | 0.081394106701 | 0.081386753184 | 7.354e-06 |
 | 6-gon (`chx`) | 112 | 0.078978862791 | 0.078978151950 | 7.108e-07 |
 | 6-gon (`chx`) | 121 | 0.076320108935 | 0.076268538995 | 5.157e-05 |
+| 6-gon (`chx`) | 130 | 0.073242498473 | 0.073232863480 | 9.635e-06 |
+| 6-gon (`chx`) | 131 | 0.073021707597 | 0.073018872826 | 2.835e-06 |
 | 6-gon (`chx`) | 134 | 0.072089116334 | 0.072088309236 | 8.071e-07 |
 | 6-gon (`chx`) | 137 | 0.071450862968 | 0.071443436917 | 7.426e-06 |
 | 6-gon (`chx`) | 138 | 0.071370251278 | 0.071369724497 | 5.268e-07 |
@@ -2748,6 +2750,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 162 | 0.066235247681 | 0.066217136572 | 1.811e-05 |
 | 6-gon (`chx`) | 163 | 0.066157816658 | 0.066117343788 | 4.047e-05 |
 | 6-gon (`chx`) | 165 | 0.065997782686 | 0.065997468039 | 3.146e-07 |
+| 6-gon (`chx`) | 166 | 0.065987735695 | 0.065986331857 | 1.404e-06 |
 | 6-gon (`chx`) | 170 | 0.064410683284 | 0.064401395784 | 9.287e-06 |
 | 6-gon (`chx`) | 171 | 0.064141226672 | 0.064138905060 | 2.322e-06 |
 | 6-gon (`chx`) | 173 | 0.063877062993 | 0.063836161905 | 4.090e-05 |
@@ -2763,6 +2766,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 222 | 0.056534974403 | 0.056530826894 | 4.148e-06 |
 | 6-gon (`chx`) | 228 | 0.055753824838 | 0.055753677119 | 1.477e-07 |
 | 6-gon (`chx`) | 230 | 0.055606493382 | 0.055596869790 | 9.624e-06 |
+| 6-gon (`chx`) | 239 | 0.054683592725 | 0.054680261361 | 3.331e-06 |
 | 6-gon (`chx`) | 244 | 0.053985054235 | 0.053918150200 | 6.690e-05 |
 | 6-gon (`chx`) | 257 | 0.052724136347 | 0.052701043917 | 2.309e-05 |
 | 6-gon (`chx`) | 262 | 0.052364519787 | 0.052347910519 | 1.661e-05 |
@@ -2774,7 +2778,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 275 | 0.051027218519 | 0.051009126898 | 1.809e-05 |
 | 6-gon (`chx`) | 277 | 0.050788584658 | 0.050787008596 | 1.576e-06 |
 | 6-gon (`chx`) | 278 | 0.050743248654 | 0.050740467216 | 2.781e-06 |
-| 6-gon (`chx`) | 297 | 0.049252787333 | 0.049251661964 | 1.125e-06 |
+| 6-gon (`chx`) | 297 | 0.049252902344 | 0.049251661964 | 1.240e-06 |
 | 7-gon (`chp`) | 40 | 0.131195176314 | 0.131172331145 | 2.285e-05 |
 | 7-gon (`chp`) | 44 | 0.125772088503 | 0.125733507990 | 3.858e-05 |
 | 7-gon (`chp`) | 45 | 0.124817291182 | 0.124809399321 | 7.892e-06 |
