@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-09 08:45 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-09 11:45 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -21,7 +21,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (81)
+## scu (83)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -48,6 +48,8 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 328 | 0.075820058066 | 0.075757981444 | 6.208e-05 | search |
 | 332 | 0.075639695260 | 0.075486148645 | 1.535e-04 | search |
 | 369 | 0.073696644477 | 0.073582149338 | 1.145e-04 | search |
+| 372 | 0.073187218176 | 0.073115159320 | 7.206e-05 | search |
+| 373 | 0.073076976200 | 0.072965502667 | 1.115e-04 | search |
 | 377 | 0.072769583882 | 0.072767854017 | 1.730e-06 | search |
 | 378 | 0.072693830557 | 0.072646850928 | 4.698e-05 | search |
 | 396 | 0.072068746472 | 0.071947948061 | 1.208e-04 | search |
@@ -123,8 +125,6 @@ Matched or passed by a later update of the record table (kept in `spheres/best/s
 | 330 | 0.075670169241 | 0.075672713176 | -2.544e-06 | search |
 | 334 | 0.075287516370 | 0.075366728703 | -7.921e-05 | search |
 | 366 | 0.073866554559 | 0.074072371972 | -2.058e-04 | search |
-| 372 | 0.073072237228 | 0.073115159320 | -4.292e-05 | search |
-| 373 | 0.072922342554 | 0.072965502667 | -4.316e-05 | search |
 | 374 | 0.072899410179 | 0.072937647558 | -3.824e-05 | search |
 | 375 | 0.072875913069 | 0.072884350359 | -8.437e-06 | search |
 | 376 | 0.072797474952 | 0.072813797738 | -1.632e-05 | search |
