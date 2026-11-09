@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-09 14:45 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-09 17:45 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2956)
+## Better than the published record (2962)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2072,10 +2072,10 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 604 | 0.037734274863 | 0.037721886690 | 1.239e-05 |
 | circle (`cci`) | 626 | 0.037048513234 | 0.037048326320 | 1.869e-07 |
 | circle (`cci`) | 627 | 0.037036523598 | 0.037036254678 | 2.689e-07 |
-| circle (`cci`) | 628 | 0.037017901281 | 0.037017509497 | 3.918e-07 |
+| circle (`cci`) | 628 | 0.037020158579 | 0.037017509497 | 2.649e-06 |
 | circle (`cci`) | 629 | 0.036998325144 | 0.036996175309 | 2.150e-06 |
 | circle (`cci`) | 633 | 0.036908548817 | 0.036908218872 | 3.299e-07 |
-| circle (`cci`) | 634 | 0.036885184155 | 0.036885018813 | 1.653e-07 |
+| circle (`cci`) | 634 | 0.036891883110 | 0.036885018813 | 6.864e-06 |
 | circle (`cci`) | 635 | 0.036845091570 | 0.036844123630 | 9.679e-07 |
 | circle (`cci`) | 638 | 0.036756590381 | 0.036755246354 | 1.344e-06 |
 | circle (`cci`) | 641 | 0.036675266590 | 0.036673703378 | 1.563e-06 |
@@ -2639,11 +2639,17 @@ no floating point; see the README). Gains below
 | square (`csq`) | 714 | 0.019779721964 | 0.019779483810 | 2.382e-07 |
 | square (`csq`) | 720 | 0.019654216208 | 0.019654025040 | 1.912e-07 |
 | square (`csq`) | 726 | 0.019582589360 | 0.019559354725 | 2.323e-05 |
+| square (`csq`) | 733 | 0.019440286503 | 0.019436464692 | 3.822e-06 |
+| square (`csq`) | 741 | 0.019359612736 | 0.019352306786 | 7.306e-06 |
+| square (`csq`) | 757 | 0.019191703088 | 0.019188509470 | 3.194e-06 |
+| square (`csq`) | 762 | 0.019171989776 | 0.019171452171 | 5.376e-07 |
 | square (`csq`) | 873 | 0.017899041239 | 0.017894308251 | 4.733e-06 |
+| square (`csq`) | 892 | 0.017673200756 | 0.017661426690 | 1.177e-05 |
 | square (`csq`) | 902 | 0.017556426911 | 0.017553591574 | 2.835e-06 |
 | square (`csq`) | 909 | 0.017490406478 | 0.017479212434 | 1.119e-05 |
 | square (`csq`) | 943 | 0.017143771656 | 0.017131793410 | 1.198e-05 |
 | square (`csq`) | 946 | 0.017115012728 | 0.017110455084 | 4.558e-06 |
+| square (`csq`) | 963 | 0.017011471826 | 0.017011137599 | 3.342e-07 |
 | square (`csq`) | 974 | 0.016947286386 | 0.016946125487 | 1.161e-06 |
 | square (`csq`) | 1020 | 0.016539211655 | 0.016534210173 | 5.001e-06 |
 | square (`csq`) | 1055 | 0.016230490814 | 0.016229568159 | 9.227e-07 |
