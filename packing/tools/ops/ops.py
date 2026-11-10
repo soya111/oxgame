@@ -2,8 +2,8 @@
 """Bookkeeping of the long campaign that has to survive a lost scratchpad ($SP).
 
   python3 ops.py init      # rebuild $SP/week, $SP/only_base, $SP/only and $SP/ccamp from the repository
-  python3 ops.py refresh   # rewrite $SP/only/CODE.txt: the sizes of $SP/only_base/CODE.txt for which circles/best or
-                           # spheres/best does not hold a packing above the current Packomania table by more than 1e-7
+  python3 ops.py refresh   # recompute the sizes per code (current tables), the visit lists $SP/only/CODE.txt (sizes where
+                           # circles/best or spheres/best is not above the table by more than 1e-7) and the jobs
 
 The visit lists keep the campaign on the sizes where a record can still be beaten. The best packings found so far
 live in the repository (circles/best, spheres/best), so `init` copies them back as the starting points of the next
@@ -90,16 +90,23 @@ def write_if_missing(path, text):
 
 
 def refresh():
-    total = 0
+    """Recompute the universe (table sizes, so new table sizes join automatically), the visit lists and the jobs."""
+    total, jobs = 0, []
     for code in CODES:
-        base = os.path.join(SP, "only_base", code + ".txt")
-        if not os.path.exists(base):
-            continue
-        todo = sorted({int(x) for x in open(base).read().split()} - beaten(code))
+        sizes = sorted(universe(code))
+        with open(os.path.join(SP, "only_base", code + ".txt"), "w") as f:
+            f.write("".join("%d\n" % n for n in sizes))
+        gone = beaten(code)
+        todo = [n for n in sizes if n not in gone]
         with open(os.path.join(SP, "only", code + ".txt"), "w") as f:
             f.write("".join("%d\n" % n for n in todo))
         total += len(todo)
-    print("refresh: %d sizes to visit" % total)
+        jobs += jobs_for(code, sizes)
+    tmp = os.path.join(W, "jobs.txt.tmp")
+    with open(tmp, "w") as f:
+        f.write(",".join(jobs) + "\n")
+    os.replace(tmp, os.path.join(W, "jobs.txt"))
+    print("refresh: %d sizes to visit, %d jobs" % (total, len(jobs)))
 
 
 def init():
@@ -107,11 +114,8 @@ def init():
         os.makedirs(os.path.join(SP, d), exist_ok=True)
     write_if_missing(os.path.join(W, "until.txt"), "2026-12-02T00:20\n")
     write_if_missing(os.path.join(W, "trailer.txt"), TRAILER)
-    jobs, restored = [], 0
+    restored = 0
     for code in CODES:
-        sizes = sorted(universe(code))
-        with open(os.path.join(SP, "only_base", code + ".txt"), "w") as f:
-            f.write("".join("%d\n" % n for n in sizes))
         dst = os.path.join(SP, "ccamp", code)
         os.makedirs(dst, exist_ok=True)
         for f in glob.glob(os.path.join(best_dir(code), "*.txt")):
@@ -119,9 +123,7 @@ def init():
             if not os.path.exists(t):
                 shutil.copyfile(f, t)
                 restored += 1
-        jobs += jobs_for(code, sizes)
-    write_if_missing(os.path.join(W, "jobs.txt"), ",".join(jobs) + "\n")
-    print("init: %d jobs, %d best packings restored" % (len(jobs), restored))
+    print("init: %d best packings restored" % restored)
     refresh()
 
 
