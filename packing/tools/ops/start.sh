@@ -5,6 +5,8 @@ SP=${SP:-/tmp/claude-0/-home-user-oxgame/4a497322-6915-5b7d-b930-62ce754faa84/sc
 REPO=$(cd "$(dirname "$0")/../.." && pwd)
 W=$SP/week
 mkdir -p "$W"
+exec 8>"$W/start.lock"
+flock -w 120 8 || exit 0  # one at a time: two keep-alive loops and autosync all call this
 [ -f "$W/until.txt" ] && [ -f "$W/jobs.txt" ] || python3 "$REPO/tools/ops/ops.py" init
 UNTIL=$(cat "$W/until.txt")
 if [[ "$(date -u +%Y-%m-%dT%H:%M)" > "$UNTIL" ]]; then echo "past $UNTIL: nothing to start"; exit 0; fi
@@ -16,10 +18,10 @@ if [[ "$(date -u +%Y-%m-%dT%H:%M)" > "$UNTIL" ]]; then echo "past $UNTIL: nothin
 ) 9>"$W/build.lock"
 if ! pgrep -f "campaign.py --root $SP/ccamp" >/dev/null; then
   nohup python3 "$REPO/tools/campaign.py" --root "$SP/ccamp" --workers 4 --slice 900 --until "$UNTIL" \
-    --jobs-file "$W/jobs.txt" --only-dir "$SP/only" --seeds "$SP/camp_seeds" >> "$SP/ccamp/driver.log" 2>&1 &
+    --jobs-file "$W/jobs.txt" --only-dir "$SP/only" --seeds "$SP/camp_seeds" >> "$SP/ccamp/driver.log" 2>&1 8>&- &
   echo "driver started"
 fi
 if ! pgrep -f "ops/autosync.sh" >/dev/null; then
-  nohup bash "$REPO/tools/ops/autosync.sh" >> "$W/autosync.log" 2>&1 &
+  nohup bash "$REPO/tools/ops/autosync.sh" >> "$W/autosync.log" 2>&1 8>&- &
   echo "autosync started"
 fi
