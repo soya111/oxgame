@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-10 12:26 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-10 18:19 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2978)
+## Better than the published record (2980)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -224,6 +224,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 334 | 0.025610336885 | 0.025598009079 | 1.233e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 335 | 0.025579501730 | 0.025574584424 | 4.917e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 336 | 0.025566351243 | 0.025555377488 | 1.097e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 337 | 0.025543882174 | 0.025533047238 | 1.083e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 339 | 0.025509493285 | 0.025508358819 | 1.134e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 340 | 0.025498065022 | 0.025497754142 | 3.109e-07 |
 | 1 x 0.8 rectangle (`crc_800`) | 343 | 0.025353617249 | 0.025287740234 | 6.588e-05 |
@@ -238,6 +239,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 352 | 0.025015654326 | 0.025004953762 | 1.070e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 353 | 0.024958691435 | 0.024957060313 | 1.631e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 354 | 0.024956288135 | 0.024955679678 | 6.085e-07 |
+| 1 x 0.8 rectangle (`crc_800`) | 358 | 0.024757238091 | 0.024750070462 | 7.168e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 359 | 0.024685731512 | 0.024634713192 | 5.102e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 360 | 0.024632488965 | 0.024630259554 | 2.229e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 361 | 0.024594711811 | 0.024589269734 | 5.442e-06 |
