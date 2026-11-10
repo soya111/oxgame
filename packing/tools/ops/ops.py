@@ -12,6 +12,7 @@ sweeps. Search state for sizes that are still below their record exists only in 
 import glob
 import os
 import shutil
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -26,8 +27,16 @@ GAIN = 1e-7
 K = {v: k for k, v in circ.CODE.items()}
 CODES = sorted(K) + list(sr.CODES)
 EDGES = [2, 61, 151, 301, 401, 501, 601, 701, 1001, 1201, 1401, 1601, 1801, 2001, 2501, 10 ** 9]
-TRAILER = ("Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\n"
-           "Claude-Session: https://claude.ai/code/session_01LZdfBEuf8nMzJCwQFxoWy3\n")
+
+
+def trailer():
+    """The attribution lines of the newest commit that carries them (so their text is not repeated in this file)."""
+    out = subprocess.run(["git", "-C", PACK, "log", "-100", "--format=%(trailers:only,unfold)%x00"],
+                         capture_output=True, text=True).stdout
+    for block in out.split("\0"):
+        if "Claude-Session:" in block:
+            return block.strip() + "\n"
+    return ""
 
 
 def best_dir(code):
@@ -113,7 +122,7 @@ def init():
     for d in ("week", "ccamp", "only", "only_base", "camp_seeds"):
         os.makedirs(os.path.join(SP, d), exist_ok=True)
     write_if_missing(os.path.join(W, "until.txt"), "2026-12-02T00:20\n")
-    write_if_missing(os.path.join(W, "trailer.txt"), TRAILER)
+    write_if_missing(os.path.join(W, "trailer.txt"), trailer())
     restored = 0
     for code in CODES:
         dst = os.path.join(SP, "ccamp", code)
