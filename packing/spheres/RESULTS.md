@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-10 18:19 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-10 21:19 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -21,7 +21,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (100)
+## scu (106)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -62,6 +62,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 377 | 0.072769583882 | 0.072767854017 | 1.730e-06 | search |
 | 378 | 0.072693830557 | 0.072646850928 | 4.698e-05 | search |
 | 380 | 0.072626483519 | 0.072625936768 | 5.468e-07 | polish |
+| 388 | 0.072542303550 | 0.072542024035 | 2.795e-07 | search |
 | 396 | 0.072068746472 | 0.071947948061 | 1.208e-04 | search |
 | 397 | 0.071945816340 | 0.071945543126 | 2.732e-07 | search |
 | 398 | 0.071945476489 | 0.071945107222 | 3.693e-07 | search |
@@ -95,11 +96,16 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 575 | 0.063815079998 | 0.063813814348 | 1.266e-06 | search |
 | 601 | 0.063136080589 | 0.062799543350 | 3.365e-04 | search |
 | 602 | 0.062906716619 | 0.062855670603 | 5.105e-05 | search |
+| 603 | 0.062818870862 | 0.062818749738 | 1.211e-07 | polish |
+| 606 | 0.062699229411 | 0.062698471422 | 7.580e-07 | polish |
+| 613 | 0.062266724112 | 0.062266274645 | 4.495e-07 | polish |
 | 616 | 0.062108009891 | 0.062048876516 | 5.913e-05 | search |
+| 617 | 0.062071907853 | 0.062070724335 | 1.184e-06 | polish |
 | 667 | 0.061252110718 | 0.060647131088 | 6.050e-04 | search |
 | 668 | 0.060926661780 | 0.060667193291 | 2.595e-04 | search |
 | 674 | 0.060529763987 | 0.060519058948 | 1.071e-05 | search |
 | 682 | 0.060375405776 | 0.060313168969 | 6.224e-05 | search |
+| 683 | 0.060319133045 | 0.060314960621 | 4.172e-06 | polish |
 | 684 | 0.060271872978 | 0.060227353034 | 4.452e-05 | search |
 | 685 | 0.060271481960 | 0.060258935957 | 1.255e-05 | search |
 | 727 | 0.059348011197 | 0.058821869381 | 5.261e-04 | search |
@@ -167,7 +173,6 @@ Matched or passed by a later update of the record table (kept in `spheres/best/s
 | 573 | 0.063835762475 | 0.063863825761 | -2.806e-05 | search |
 | 614 | 0.062213221764 | 0.062254017535 | -4.080e-05 | search |
 | 615 | 0.062131021126 | 0.062184070311 | -5.305e-05 | search |
-| 617 | 0.062048325896 | 0.062070724335 | -2.240e-05 | search |
 | 618 | 0.061969354853 | 0.062031519214 | -6.216e-05 | search |
 | 669 | 0.060605950592 | 0.060646560309 | -4.061e-05 | search |
 | 670 | 0.060592236192 | 0.060646315503 | -5.408e-05 | search |
