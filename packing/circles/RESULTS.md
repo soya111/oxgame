@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-11 17:24 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 20:25 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3106)
+## Better than the published record (3116)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -77,6 +77,7 @@ no floating point; see the README). Gains below
 | 1 x 0.8 rectangle (`crc_800`) | 139 | 0.039064936463 | 0.039040925852 | 2.401e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 140 | 0.038900482849 | 0.038896233581 | 4.249e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 141 | 0.038755673300 | 0.038722749966 | 3.292e-05 |
+| 1 x 0.8 rectangle (`crc_800`) | 142 | 0.038671406223 | 0.038669902703 | 1.504e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 144 | 0.038507674474 | 0.038504503351 | 3.171e-06 |
 | 1 x 0.8 rectangle (`crc_800`) | 145 | 0.038384417322 | 0.038311596794 | 7.282e-05 |
 | 1 x 0.8 rectangle (`crc_800`) | 146 | 0.038289501812 | 0.038233225970 | 5.628e-05 |
@@ -2817,6 +2818,15 @@ no floating point; see the README). Gains below
 | square (`csq`) | 8184 | 0.005902534648 | 0.005892849581 | 9.685e-06 |
 | square (`csq`) | 8189 | 0.005901942722 | 0.005891277552 | 1.067e-05 |
 | square (`csq`) | 8200 | 0.005895052081 | 0.005891907638 | 3.144e-06 |
+| square (`csq`) | 8367 | 0.005835366459 | 0.005830085230 | 5.281e-06 |
+| square (`csq`) | 8373 | 0.005835314050 | 0.005831152956 | 4.161e-06 |
+| square (`csq`) | 8379 | 0.005835301270 | 0.005829532199 | 5.769e-06 |
+| square (`csq`) | 8500 | 0.005787796515 | 0.005785832237 | 1.964e-06 |
+| square (`csq`) | 8517 | 0.005779741240 | 0.005777876213 | 1.865e-06 |
+| square (`csq`) | 8518 | 0.005778369899 | 0.005777379946 | 9.900e-07 |
+| square (`csq`) | 8534 | 0.005778369476 | 0.005777379946 | 9.895e-07 |
+| square (`csq`) | 8551 | 0.005770509553 | 0.005770386113 | 1.234e-07 |
+| square (`csq`) | 8788 | 0.005691528776 | 0.005691028686 | 5.001e-07 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
