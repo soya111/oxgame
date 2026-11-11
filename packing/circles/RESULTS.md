@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-10 21:19 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 00:16 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2998)
+## Better than the published record (3016)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -328,6 +328,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 117 | 0.039966716959 | 0.039964438557 | 2.278e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 118 | 0.039891257623 | 0.039891003952 | 2.537e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 119 | 0.039859981988 | 0.039859129485 | 8.525e-07 |
+| 1 x 0.7 rectangle (`crc_700`) | 121 | 0.039294892680 | 0.039286482743 | 8.410e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 123 | 0.038921394105 | 0.038919064375 | 2.330e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 124 | 0.038740092382 | 0.038725198680 | 1.489e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 125 | 0.038666694420 | 0.038637048725 | 2.965e-05 |
@@ -2708,6 +2709,23 @@ no floating point; see the README). Gains below
 | square (`csq`) | 3663 | 0.008798237017 | 0.008779460010 | 1.878e-05 |
 | square (`csq`) | 3719 | 0.008738955309 | 0.008738743223 | 2.121e-07 |
 | square (`csq`) | 3730 | 0.008723939889 | 0.008723455117 | 4.848e-07 |
+| square (`csq`) | 3786 | 0.008645371409 | 0.008643299036 | 2.072e-06 |
+| square (`csq`) | 3819 | 0.008623224902 | 0.008622609486 | 6.154e-07 |
+| square (`csq`) | 3910 | 0.008509807295 | 0.008509329309 | 4.780e-07 |
+| square (`csq`) | 4037 | 0.008381682049 | 0.008380641922 | 1.040e-06 |
+| square (`csq`) | 4130 | 0.008290158231 | 0.008274805154 | 1.535e-05 |
+| square (`csq`) | 4176 | 0.008246417865 | 0.008238974553 | 7.443e-06 |
+| square (`csq`) | 4191 | 0.008238860939 | 0.008238610715 | 2.502e-07 |
+| square (`csq`) | 4392 | 0.008034378649 | 0.008034266590 | 1.121e-07 |
+| square (`csq`) | 4564 | 0.007892585769 | 0.007879779248 | 1.281e-05 |
+| square (`csq`) | 4625 | 0.007826043879 | 0.007825193660 | 8.502e-07 |
+| square (`csq`) | 4626 | 0.007835317445 | 0.007817375148 | 1.794e-05 |
+| square (`csq`) | 4662 | 0.007809148144 | 0.007808616719 | 5.314e-07 |
+| square (`csq`) | 4674 | 0.007796191561 | 0.007793159576 | 3.032e-06 |
+| square (`csq`) | 4675 | 0.007793357834 | 0.007792922681 | 4.352e-07 |
+| square (`csq`) | 4680 | 0.007793357468 | 0.007792922681 | 4.348e-07 |
+| square (`csq`) | 4700 | 0.007780807575 | 0.007780600729 | 2.068e-07 |
+| square (`csq`) | 4763 | 0.007716624942 | 0.007714969655 | 1.655e-06 |
 | square (`csq`) | 5018 | 0.007512411819 | 0.007510818770 | 1.593e-06 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
@@ -3008,7 +3026,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (415)
+## Matched or passed by a later update of the record table (414)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3402,7 +3420,6 @@ Kept in `circles/best/`, not counted above.
 | square (`csq`) | 4582 | 0.007820623169 | 0.007876112872 | -5.549e-05 |
 | square (`csq`) | 4608 | 0.007820784116 | 0.007839891289 | -1.911e-05 |
 | square (`csq`) | 4642 | 0.007807685199 | 0.007811355187 | -3.670e-06 |
-| square (`csq`) | 4680 | 0.007752125689 | 0.007792922681 | -4.080e-05 |
 | square (`csq`) | 4690 | 0.007696543935 | 0.007792964792 | -9.642e-05 |
 | square (`csq`) | 4719 | 0.007731171772 | 0.007758253891 | -2.708e-05 |
 | square (`csq`) | 4736 | 0.007752724747 | 0.007752725095 | -3.482e-10 |
