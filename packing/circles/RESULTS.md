@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-11 05:18 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 08:19 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3041)
+## Better than the published record (3064)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2752,6 +2752,29 @@ no floating point; see the README). Gains below
 | square (`csq`) | 5852 | 0.006968760594 | 0.006968346785 | 4.138e-07 |
 | square (`csq`) | 5892 | 0.006955996398 | 0.006955847207 | 1.492e-07 |
 | square (`csq`) | 5936 | 0.006925513445 | 0.006925080926 | 4.325e-07 |
+| square (`csq`) | 6007 | 0.006881869743 | 0.006872537360 | 9.332e-06 |
+| square (`csq`) | 6020 | 0.006876653060 | 0.006870003198 | 6.650e-06 |
+| square (`csq`) | 6027 | 0.006874119514 | 0.006870003198 | 4.116e-06 |
+| square (`csq`) | 6028 | 0.006873810415 | 0.006870003198 | 3.807e-06 |
+| square (`csq`) | 6029 | 0.006873807614 | 0.006869999971 | 3.808e-06 |
+| square (`csq`) | 6035 | 0.006870287967 | 0.006869916312 | 3.717e-07 |
+| square (`csq`) | 6040 | 0.006870287967 | 0.006869916312 | 3.717e-07 |
+| square (`csq`) | 6120 | 0.006810129512 | 0.006809831850 | 2.977e-07 |
+| square (`csq`) | 6132 | 0.006804308197 | 0.006804018646 | 2.896e-07 |
+| square (`csq`) | 6164 | 0.006791875398 | 0.006788478884 | 3.397e-06 |
+| square (`csq`) | 6165 | 0.006792084439 | 0.006790062547 | 2.022e-06 |
+| square (`csq`) | 6292 | 0.006718340190 | 0.006715914452 | 2.426e-06 |
+| square (`csq`) | 6293 | 0.006718340176 | 0.006715914452 | 2.426e-06 |
+| square (`csq`) | 6321 | 0.006715892232 | 0.006715271620 | 6.206e-07 |
+| square (`csq`) | 6322 | 0.006712910093 | 0.006706721786 | 6.188e-06 |
+| square (`csq`) | 6407 | 0.006668739310 | 0.006667585697 | 1.154e-06 |
+| square (`csq`) | 6438 | 0.006647126683 | 0.006646553911 | 5.728e-07 |
+| square (`csq`) | 6440 | 0.006645134851 | 0.006635653637 | 9.481e-06 |
+| square (`csq`) | 6461 | 0.006637523885 | 0.006635416728 | 2.107e-06 |
+| square (`csq`) | 6468 | 0.006635704364 | 0.006635574164 | 1.302e-07 |
+| square (`csq`) | 6482 | 0.006635396309 | 0.006635087327 | 3.090e-07 |
+| square (`csq`) | 6486 | 0.006622897675 | 0.006622793515 | 1.042e-07 |
+| square (`csq`) | 6487 | 0.006622818511 | 0.006622666398 | 1.521e-07 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
@@ -3476,7 +3499,7 @@ Kept in `circles/best/`, not counted above.
 | container | N | count |
 |---|---|---|
 | 7-gon (`chp`) | 49-100 | 52 |
-| 8-gon (`coc`) | 49-99 | 42 |
+| 8-gon (`coc`) | 49-100 | 52 |
 | 9-gon (`cno`) | 49-100 | 52 |
 | 10-gon (`cdc`) | 49-100 | 52 |
 | 11-gon (`chd`) | 49-100 | 52 |
