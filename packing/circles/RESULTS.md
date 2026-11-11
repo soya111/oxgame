@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-11 02:17 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 05:18 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3025)
+## Better than the published record (3041)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2736,6 +2736,22 @@ no floating point; see the README). Gains below
 | square (`csq`) | 5064 | 0.007496499536 | 0.007492449733 | 4.050e-06 |
 | square (`csq`) | 5069 | 0.007492514688 | 0.007492272067 | 2.426e-07 |
 | square (`csq`) | 5070 | 0.007492523645 | 0.007492272067 | 2.516e-07 |
+| square (`csq`) | 5188 | 0.007399974381 | 0.007396728777 | 3.246e-06 |
+| square (`csq`) | 5293 | 0.007323975729 | 0.007322926279 | 1.049e-06 |
+| square (`csq`) | 5333 | 0.007308942270 | 0.007308824079 | 1.182e-07 |
+| square (`csq`) | 5440 | 0.007228317215 | 0.007227633700 | 6.835e-07 |
+| square (`csq`) | 5453 | 0.007222626625 | 0.007214284274 | 8.342e-06 |
+| square (`csq`) | 5481 | 0.007206160839 | 0.007203637219 | 2.524e-06 |
+| square (`csq`) | 5494 | 0.007195870003 | 0.007195702120 | 1.679e-07 |
+| square (`csq`) | 5549 | 0.007148776411 | 0.007148277170 | 4.992e-07 |
+| square (`csq`) | 5560 | 0.007147734380 | 0.007144705850 | 3.029e-06 |
+| square (`csq`) | 5589 | 0.007135253325 | 0.007134687500 | 5.658e-07 |
+| square (`csq`) | 5610 | 0.007125431163 | 0.007121794637 | 3.637e-06 |
+| square (`csq`) | 5631 | 0.007111971642 | 0.007102169544 | 9.802e-06 |
+| square (`csq`) | 5699 | 0.007066294377 | 0.007057239856 | 9.055e-06 |
+| square (`csq`) | 5852 | 0.006968760594 | 0.006968346785 | 4.138e-07 |
+| square (`csq`) | 5892 | 0.006955996398 | 0.006955847207 | 1.492e-07 |
+| square (`csq`) | 5936 | 0.006925513445 | 0.006925080926 | 4.325e-07 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
