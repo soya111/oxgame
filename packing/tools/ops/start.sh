@@ -20,6 +20,9 @@ if ! pgrep -f "campaign.py --root $SP/ccamp" >/dev/null; then
   nohup python3 "$REPO/tools/campaign.py" --root "$SP/ccamp" --workers 4 --slice 900 --until "$UNTIL" \
     --jobs-file "$W/jobs.txt" --only-dir "$SP/only" --seeds "$SP/camp_seeds" >> "$SP/ccamp/driver.log" 2>&1 8>&- &
   echo "driver started"
+  last=$(find "$SP/ccamp" -type f ! -newermt "$(uptime -s)" -printf '%TY-%Tm-%TdT%TH:%TM:%.2TS\n' 2>/dev/null | sort | tail -1)
+  echo "$(date -u +%FT%TZ) driver started; boot $(uptime -s | tr ' ' T); last result before boot ${last:-none}" \
+    >> "$REPO/EXTENSION_2026-11_restarts.log"
 fi
 if ! pgrep -f "ops/autosync.sh" >/dev/null; then
   nohup bash "$REPO/tools/ops/autosync.sh" >> "$W/autosync.log" 2>&1 8>&- &
