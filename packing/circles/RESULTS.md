@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-11 14:23 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 17:24 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3098)
+## Better than the published record (3106)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2809,6 +2809,14 @@ no floating point; see the README). Gains below
 | square (`csq`) | 7674 | 0.006088304485 | 0.006085836669 | 2.468e-06 |
 | square (`csq`) | 7695 | 0.006084894196 | 0.006084548472 | 3.457e-07 |
 | square (`csq`) | 7712 | 0.006080782008 | 0.006075716016 | 5.066e-06 |
+| square (`csq`) | 7824 | 0.006030401870 | 0.006028367584 | 2.034e-06 |
+| square (`csq`) | 7889 | 0.006012101402 | 0.006010140694 | 1.961e-06 |
+| square (`csq`) | 7921 | 0.006002849588 | 0.006002632873 | 2.167e-07 |
+| square (`csq`) | 8003 | 0.005964821359 | 0.005963315628 | 1.506e-06 |
+| square (`csq`) | 8101 | 0.005933239920 | 0.005932285508 | 9.544e-07 |
+| square (`csq`) | 8184 | 0.005902534648 | 0.005892849581 | 9.685e-06 |
+| square (`csq`) | 8189 | 0.005901942722 | 0.005891277552 | 1.067e-05 |
+| square (`csq`) | 8200 | 0.005895052081 | 0.005891907638 | 3.144e-06 |
 | 5-gon (`cpt`) | 47 | 0.113735133895 | 0.113728619203 | 6.515e-06 |
 | 5-gon (`cpt`) | 76 | 0.089885660328 | 0.089885244874 | 4.155e-07 |
 | 5-gon (`cpt`) | 78 | 0.088754043608 | 0.088753888691 | 1.549e-07 |
