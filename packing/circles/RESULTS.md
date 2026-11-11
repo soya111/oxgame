@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-11 00:16 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-11 01:11 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3016)
+## Better than the published record (3017)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2670,6 +2670,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 1606 | 0.013224891590 | 0.013204832227 | 2.006e-05 |
 | square (`csq`) | 1607 | 0.013224908978 | 0.013224073481 | 8.355e-07 |
 | square (`csq`) | 1620 | 0.013166611087 | 0.013163538747 | 3.072e-06 |
+| square (`csq`) | 1644 | 0.013103232646 | 0.013102492773 | 7.399e-07 |
 | square (`csq`) | 1651 | 0.013075936270 | 0.013065216465 | 1.072e-05 |
 | square (`csq`) | 1665 | 0.013002720209 | 0.012997632785 | 5.087e-06 |
 | square (`csq`) | 1688 | 0.012899762497 | 0.012897993404 | 1.769e-06 |
@@ -3026,7 +3027,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (414)
+## Matched or passed by a later update of the record table (413)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3255,7 +3256,6 @@ Kept in `circles/best/`, not counted above.
 | square (`csq`) | 1617 | 0.013103314317 | 0.013177685630 | -7.437e-05 |
 | square (`csq`) | 1633 | 0.013081345464 | 0.013120283537 | -3.894e-05 |
 | square (`csq`) | 1638 | 0.012990834045 | 0.013112330900 | -1.215e-04 |
-| square (`csq`) | 1644 | 0.013097057399 | 0.013102492773 | -5.435e-06 |
 | square (`csq`) | 1659 | 0.012939995274 | 0.013008240236 | -6.824e-05 |
 | square (`csq`) | 1672 | 0.012990466621 | 0.012996532585 | -6.066e-06 |
 | square (`csq`) | 1679 | 0.012909141837 | 0.012923349942 | -1.421e-05 |
@@ -3452,7 +3452,7 @@ Kept in `circles/best/`, not counted above.
 | container | N | count |
 |---|---|---|
 | 7-gon (`chp`) | 49-100 | 52 |
-| 8-gon (`coc`) | 62-99 | 30 |
+| 8-gon (`coc`) | 49-99 | 42 |
 | 9-gon (`cno`) | 49-100 | 52 |
 | 10-gon (`cdc`) | 49-100 | 52 |
 | 11-gon (`chd`) | 49-100 | 52 |

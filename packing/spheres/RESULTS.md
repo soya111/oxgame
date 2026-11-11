@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-11 00:16 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-11 01:11 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -21,7 +21,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (106)
+## scu (108)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -70,8 +70,10 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 424 | 0.070150244284 | 0.070146066270 | 4.178e-06 | search |
 | 425 | 0.070145906124 | 0.070145247117 | 6.590e-07 | search |
 | 446 | 0.069413915693 | 0.069283715726 | 1.302e-04 | search |
+| 447 | 0.069165781983 | 0.069165552515 | 2.295e-07 | polish |
 | 449 | 0.068788509887 | 0.068757559218 | 3.095e-05 | search |
 | 452 | 0.068524773820 | 0.068514733158 | 1.004e-05 | search |
+| 454 | 0.068486558341 | 0.068485838454 | 7.199e-07 | polish |
 | 455 | 0.068236483394 | 0.068202662104 | 3.382e-05 | search |
 | 457 | 0.068058096007 | 0.068045164275 | 1.293e-05 | search |
 | 458 | 0.068002143620 | 0.067901135447 | 1.010e-04 | search |
@@ -158,7 +160,6 @@ Matched or passed by a later update of the record table (kept in `spheres/best/s
 | 421 | 0.070166646624 | 0.070181558433 | -1.491e-05 | search |
 | 422 | 0.070156800523 | 0.070166630030 | -9.830e-06 | search |
 | 423 | 0.070159924985 | 0.070161824168 | -1.899e-06 | search |
-| 447 | 0.069099052541 | 0.069165552515 | -6.650e-05 | search |
 | 450 | 0.068599155601 | 0.068656115698 | -5.696e-05 | search |
 | 456 | 0.068161647965 | 0.068175596188 | -1.395e-05 | search |
 | 505 | 0.065942002372 | 0.065970964549 | -2.896e-05 | search |
