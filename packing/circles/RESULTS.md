@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-12 20:31 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-12 23:31 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3165)
+## Better than the published record (3171)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -306,6 +306,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 70 | 0.050739655849 | 0.050726199216 | 1.346e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 73 | 0.050016779326 | 0.050007651343 | 9.128e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 75 | 0.049701207444 | 0.049700465673 | 7.418e-07 |
+| 1 x 0.7 rectangle (`crc_700`) | 77 | 0.048974478916 | 0.048974373534 | 1.054e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 78 | 0.048447242912 | 0.048446874110 | 3.688e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 81 | 0.047383518287 | 0.047361148031 | 2.237e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 86 | 0.045908301438 | 0.045906287016 | 2.014e-06 |
@@ -476,8 +477,10 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 308 | 0.025036566759 | 0.025020480591 | 1.609e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 309 | 0.025022372128 | 0.025009592783 | 1.278e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 310 | 0.025012332780 | 0.025000108518 | 1.222e-05 |
+| 1 x 0.7 rectangle (`crc_700`) | 311 | 0.025000157831 | 0.025000012963 | 1.449e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 314 | 0.024731546563 | 0.024709312520 | 2.223e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 315 | 0.024655405948 | 0.024654723094 | 6.829e-07 |
+| 1 x 0.7 rectangle (`crc_700`) | 316 | 0.024610817334 | 0.024609832601 | 9.847e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 317 | 0.024560613263 | 0.024551334190 | 9.279e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 318 | 0.024529170728 | 0.024523853476 | 5.317e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 319 | 0.024506206130 | 0.024497468496 | 8.738e-06 |
@@ -523,10 +526,12 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 368 | 0.022770286160 | 0.022738614897 | 3.167e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 370 | 0.022719765186 | 0.022698489079 | 2.128e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 371 | 0.022668236461 | 0.022664578349 | 3.658e-06 |
+| 1 x 0.7 rectangle (`crc_700`) | 372 | 0.022660361422 | 0.022659857569 | 5.039e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 373 | 0.022647013329 | 0.022646912490 | 1.008e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 374 | 0.022637234495 | 0.022636229213 | 1.005e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 376 | 0.022575002968 | 0.022565664524 | 9.338e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 377 | 0.022550936823 | 0.022541468200 | 9.469e-06 |
+| 1 x 0.7 rectangle (`crc_700`) | 378 | 0.022535179972 | 0.022529892710 | 5.287e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 379 | 0.022499863931 | 0.022490863285 | 9.001e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 380 | 0.022477717779 | 0.022477385189 | 3.326e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 381 | 0.022448272513 | 0.022444635198 | 3.637e-06 |
@@ -2034,6 +2039,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 245 | 0.041560611084 | 0.041559513036 | 1.098e-06 |
 | half disk (`csc`) | 246 | 0.041461332855 | 0.041455420917 | 5.912e-06 |
 | half disk (`csc`) | 249 | 0.041232827039 | 0.041224268194 | 8.559e-06 |
+| half disk (`csc`) | 250 | 0.041162484785 | 0.041136501979 | 2.598e-05 |
 | circle (`cci`) | 405 | 0.045830451222 | 0.045822028729 | 8.422e-06 |
 | circle (`cci`) | 406 | 0.045800941393 | 0.045783039382 | 1.790e-05 |
 | circle (`cci`) | 407 | 0.045744081160 | 0.045742186073 | 1.895e-06 |
@@ -3175,7 +3181,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (410)
+## Matched or passed by a later update of the record table (409)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3276,7 +3282,6 @@ Kept in `circles/best/`, not counted above.
 | half disk (`csc`) | 240 | 0.042003774708 | 0.042004038909 | -2.642e-07 |
 | half disk (`csc`) | 241 | 0.041913259854 | 0.041916380178 | -3.120e-06 |
 | half disk (`csc`) | 247 | 0.041376313068 | 0.041376315302 | -2.234e-09 |
-| half disk (`csc`) | 250 | 0.041127864348 | 0.041136501979 | -8.638e-06 |
 | square (`csq`) | 452 | 0.024687545569 | 0.024695411394 | -7.866e-06 |
 | square (`csq`) | 464 | 0.024299854928 | 0.024299923225 | -6.830e-08 |
 | square (`csq`) | 501 | 0.023428964469 | 0.023446330452 | -1.737e-05 |
