@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-12 11:30 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-12 14:30 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3153)
+## Better than the published record (3155)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2894,6 +2894,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 143 | 0.066182176673 | 0.066176694705 | 5.482e-06 |
 | 5-gon (`cpt`) | 146 | 0.065569879451 | 0.065569457672 | 4.218e-07 |
 | 5-gon (`cpt`) | 148 | 0.065149407841 | 0.065149259364 | 1.485e-07 |
+| 5-gon (`cpt`) | 150 | 0.064731394946 | 0.064730870089 | 5.249e-07 |
 | 5-gon (`cpt`) | 151 | 0.064486608495 | 0.064486188449 | 4.200e-07 |
 | 5-gon (`cpt`) | 152 | 0.064305394969 | 0.064303447765 | 1.947e-06 |
 | 5-gon (`cpt`) | 153 | 0.064107338828 | 0.064104138705 | 3.200e-06 |
@@ -2907,6 +2908,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 168 | 0.061199588895 | 0.061197868747 | 1.720e-06 |
 | 5-gon (`cpt`) | 169 | 0.061046814101 | 0.061039784632 | 7.029e-06 |
 | 5-gon (`cpt`) | 170 | 0.060870995993 | 0.060870040510 | 9.555e-07 |
+| 5-gon (`cpt`) | 171 | 0.060715894676 | 0.060703446559 | 1.245e-05 |
 | 5-gon (`cpt`) | 172 | 0.060537709983 | 0.060508367506 | 2.934e-05 |
 | 5-gon (`cpt`) | 173 | 0.060357506574 | 0.060356303309 | 1.203e-06 |
 | 5-gon (`cpt`) | 174 | 0.060209697585 | 0.060201479446 | 8.218e-06 |
