@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-12 14:30 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-12 17:31 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3155)
+## Better than the published record (3158)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2664,12 +2664,14 @@ no floating point; see the README). Gains below
 | square (`csq`) | 873 | 0.017899041239 | 0.017894308251 | 4.733e-06 |
 | square (`csq`) | 892 | 0.017673200756 | 0.017661426690 | 1.177e-05 |
 | square (`csq`) | 902 | 0.017556426911 | 0.017553591574 | 2.835e-06 |
+| square (`csq`) | 904 | 0.017541776820 | 0.017540941173 | 8.356e-07 |
 | square (`csq`) | 909 | 0.017490406478 | 0.017479212434 | 1.119e-05 |
 | square (`csq`) | 943 | 0.017143771656 | 0.017131793410 | 1.198e-05 |
 | square (`csq`) | 946 | 0.017115012728 | 0.017110455084 | 4.558e-06 |
 | square (`csq`) | 947 | 0.017132524338 | 0.017104188523 | 2.834e-05 |
 | square (`csq`) | 963 | 0.017011471826 | 0.017011137599 | 3.342e-07 |
 | square (`csq`) | 974 | 0.016947286386 | 0.016946125487 | 1.161e-06 |
+| square (`csq`) | 987 | 0.016811769310 | 0.016736947097 | 7.482e-05 |
 | square (`csq`) | 1020 | 0.016539211655 | 0.016534210173 | 5.001e-06 |
 | square (`csq`) | 1055 | 0.016230490814 | 0.016229568159 | 9.227e-07 |
 | square (`csq`) | 1056 | 0.016220470532 | 0.016207176912 | 1.329e-05 |
@@ -2869,6 +2871,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 84 | 0.085586564405 | 0.085582245062 | 4.319e-06 |
 | 5-gon (`cpt`) | 88 | 0.083960844245 | 0.083957834537 | 3.010e-06 |
 | 5-gon (`cpt`) | 89 | 0.083374567141 | 0.083373984546 | 5.826e-07 |
+| 5-gon (`cpt`) | 91 | 0.082486780652 | 0.082486675079 | 1.056e-07 |
 | 5-gon (`cpt`) | 93 | 0.081605120742 | 0.081604858730 | 2.620e-07 |
 | 5-gon (`cpt`) | 94 | 0.081226191079 | 0.081226027424 | 1.637e-07 |
 | 5-gon (`cpt`) | 95 | 0.080767931409 | 0.080767780940 | 1.505e-07 |
