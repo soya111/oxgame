@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-12 05:30 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-12 08:30 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3151)
+## Better than the published record (3153)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -905,6 +905,7 @@ no floating point; see the README). Gains below
 | 1 x 0.5 rectangle (`crc_500`) | 289 | 0.021868463214 | 0.021866843179 | 1.620e-06 |
 | 1 x 0.5 rectangle (`crc_500`) | 291 | 0.021777623008 | 0.021776541571 | 1.081e-06 |
 | 1 x 0.5 rectangle (`crc_500`) | 292 | 0.021758597865 | 0.021758449031 | 1.488e-07 |
+| 1 x 0.5 rectangle (`crc_500`) | 293 | 0.021750220737 | 0.021749636546 | 5.842e-07 |
 | 1 x 0.5 rectangle (`crc_500`) | 294 | 0.021588905385 | 0.021583863206 | 5.042e-06 |
 | 1 x 0.5 rectangle (`crc_500`) | 295 | 0.021521770865 | 0.021507617365 | 1.415e-05 |
 | 1 x 0.5 rectangle (`crc_500`) | 296 | 0.021473685118 | 0.021465834659 | 7.850e-06 |
@@ -2666,6 +2667,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 909 | 0.017490406478 | 0.017479212434 | 1.119e-05 |
 | square (`csq`) | 943 | 0.017143771656 | 0.017131793410 | 1.198e-05 |
 | square (`csq`) | 946 | 0.017115012728 | 0.017110455084 | 4.558e-06 |
+| square (`csq`) | 947 | 0.017132524338 | 0.017104188523 | 2.834e-05 |
 | square (`csq`) | 963 | 0.017011471826 | 0.017011137599 | 3.342e-07 |
 | square (`csq`) | 974 | 0.016947286386 | 0.016946125487 | 1.161e-06 |
 | square (`csq`) | 1020 | 0.016539211655 | 0.016534210173 | 5.001e-06 |
@@ -3161,7 +3163,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (411)
+## Matched or passed by a later update of the record table (410)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3317,7 +3319,6 @@ Kept in `circles/best/`, not counted above.
 | square (`csq`) | 929 | 0.017325231928 | 0.017325455321 | -2.234e-07 |
 | square (`csq`) | 935 | 0.017257684898 | 0.017286165273 | -2.848e-05 |
 | square (`csq`) | 936 | 0.017259284888 | 0.017283202469 | -2.392e-05 |
-| square (`csq`) | 947 | 0.017104007973 | 0.017104188523 | -1.805e-07 |
 | square (`csq`) | 950 | 0.017069272785 | 0.017115691071 | -4.642e-05 |
 | square (`csq`) | 951 | 0.017089940454 | 0.017111471877 | -2.153e-05 |
 | square (`csq`) | 956 | 0.017068315247 | 0.017073950582 | -5.635e-06 |
