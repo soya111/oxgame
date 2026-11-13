@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-13 15:22 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-13 18:22 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3182)
+## Better than the published record (3184)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2028,6 +2028,7 @@ no floating point; see the README). Gains below
 | half disk (`csc`) | 193 | 0.046730147238 | 0.046686972938 | 4.317e-05 |
 | half disk (`csc`) | 194 | 0.046606671676 | 0.046573598892 | 3.307e-05 |
 | half disk (`csc`) | 195 | 0.046476517269 | 0.046465086193 | 1.143e-05 |
+| half disk (`csc`) | 197 | 0.046242728790 | 0.046242546254 | 1.825e-07 |
 | half disk (`csc`) | 198 | 0.046116031925 | 0.046111764901 | 4.267e-06 |
 | half disk (`csc`) | 202 | 0.045722546591 | 0.045706988397 | 1.556e-05 |
 | half disk (`csc`) | 204 | 0.045510218153 | 0.045507844992 | 2.373e-06 |
@@ -2396,6 +2397,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 1151 | 0.027471886603 | 0.027469657275 | 2.229e-06 |
 | circle (`cci`) | 1152 | 0.027492840870 | 0.027460458111 | 3.238e-05 |
 | circle (`cci`) | 1155 | 0.027430264527 | 0.027422687325 | 7.577e-06 |
+| circle (`cci`) | 1157 | 0.027411981352 | 0.027402869427 | 9.112e-06 |
 | circle (`cci`) | 1158 | 0.027411551265 | 0.027388967805 | 2.258e-05 |
 | circle (`cci`) | 1160 | 0.027385797040 | 0.027366289770 | 1.951e-05 |
 | circle (`cci`) | 1161 | 0.027369367843 | 0.027359282409 | 1.009e-05 |
@@ -3192,7 +3194,7 @@ no floating point; see the README). Gains below
 | 16-gon (`cxd`) | 200 | 0.063775960722 | 0.063775074264 | 8.865e-07 |
 | 17-gon (`ced`) | 48 | 0.126891578911 | 0.126879617374 | 1.196e-05 |
 
-## Matched or passed by a later update of the record table (409)
+## Matched or passed by a later update of the record table (408)
 
 Kept in `circles/best/`, not counted above.
 
@@ -3258,7 +3260,6 @@ Kept in `circles/best/`, not counted above.
 | half disk (`csc`) | 190 | 0.047147982573 | 0.047148208182 | -2.256e-07 |
 | half disk (`csc`) | 191 | 0.047013927873 | 0.047013966799 | -3.893e-08 |
 | half disk (`csc`) | 196 | 0.046361973997 | 0.046362600032 | -6.260e-07 |
-| half disk (`csc`) | 197 | 0.046235296694 | 0.046242546254 | -7.250e-06 |
 | half disk (`csc`) | 199 | 0.046025481722 | 0.046027249151 | -1.767e-06 |
 | half disk (`csc`) | 200 | 0.045930168962 | 0.045932141143 | -1.972e-06 |
 | half disk (`csc`) | 201 | 0.045812667594 | 0.045812669537 | -1.943e-09 |
