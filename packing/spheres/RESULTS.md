@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-13 21:22 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-14 00:23 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -21,7 +21,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (112)
+## scu (113)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -123,6 +123,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 791 | 0.057474712574 | 0.057452445105 | 2.227e-05 | search |
 | 792 | 0.057451809219 | 0.057398665958 | 5.314e-05 | search |
 | 795 | 0.057362809568 | 0.057357949583 | 4.860e-06 | search |
+| 803 | 0.057055282081 | 0.057043094102 | 1.219e-05 | search |
 | 805 | 0.057033602207 | 0.057032736253 | 8.660e-07 | polish |
 | 806 | 0.057013595176 | 0.056998279608 | 1.532e-05 | search |
 | 871 | 0.056051168635 | 0.055949877331 | 1.013e-04 | search |
@@ -276,7 +277,7 @@ Matched or passed by a later update of the record table (kept in `spheres/best/h
 | 62 | 0.310013198023 | 0.310010194385 | 3.004e-06 | search |
 | 63 | 0.309282252093 | 0.309268262711 | 1.399e-05 | search |
 
-## hsp6 (9)
+## hsp6 (10)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -288,5 +289,6 @@ Matched or passed by a later update of the record table (kept in `spheres/best/h
 | 51 | 0.342670192722 | 0.342658894533 | 1.130e-05 | search |
 | 52 | 0.342302068596 | 0.342226488112 | 7.558e-05 | search |
 | 53 | 0.342116277915 | 0.342114480758 | 1.797e-06 | search |
+| 57 | 0.337750317485 | 0.337744471879 | 5.846e-06 | search |
 | 59 | 0.336419423850 | 0.336378938564 | 4.049e-05 | search |
 
