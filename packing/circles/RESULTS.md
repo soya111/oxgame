@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-14 00:23 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-14 01:31 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3187)
+## Better than the published record (3189)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1056,6 +1056,7 @@ no floating point; see the README). Gains below
 | 1 x 0.4 rectangle (`crc_400`) | 248 | 0.020970624346 | 0.020970178451 | 4.459e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 249 | 0.020922846472 | 0.020901175533 | 2.167e-05 |
 | 1 x 0.4 rectangle (`crc_400`) | 250 | 0.020885900879 | 0.020884147931 | 1.753e-06 |
+| 1 x 0.4 rectangle (`crc_400`) | 251 | 0.020870861165 | 0.020870654390 | 2.068e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 252 | 0.020862264157 | 0.020854775154 | 7.489e-06 |
 | 1 x 0.4 rectangle (`crc_400`) | 254 | 0.020792882122 | 0.020792120349 | 7.618e-07 |
 | 1 x 0.4 rectangle (`crc_400`) | 256 | 0.020754573339 | 0.020752969323 | 1.604e-06 |
@@ -2945,6 +2946,7 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 176 | 0.059851415047 | 0.059846499713 | 4.915e-06 |
 | 5-gon (`cpt`) | 177 | 0.059675347313 | 0.059661881434 | 1.347e-05 |
 | 5-gon (`cpt`) | 178 | 0.059507314971 | 0.059505580185 | 1.735e-06 |
+| 5-gon (`cpt`) | 179 | 0.059361918445 | 0.059361397555 | 5.209e-07 |
 | 5-gon (`cpt`) | 180 | 0.059217949565 | 0.059217781153 | 1.684e-07 |
 | 5-gon (`cpt`) | 181 | 0.059103663016 | 0.059099157200 | 4.506e-06 |
 | 5-gon (`cpt`) | 182 | 0.058912349450 | 0.058908887350 | 3.462e-06 |
