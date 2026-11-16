@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-16 08:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-16 11:42 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3226)
+## Better than the published record (3229)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2091,8 +2091,10 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 512 | 0.040869177113 | 0.040866764409 | 2.413e-06 |
 | circle (`cci`) | 516 | 0.040735827076 | 0.040723511685 | 1.232e-05 |
 | circle (`cci`) | 521 | 0.040545690266 | 0.040518336750 | 2.735e-05 |
+| circle (`cci`) | 522 | 0.040510863497 | 0.040495757616 | 1.511e-05 |
 | circle (`cci`) | 524 | 0.040429964829 | 0.040428066761 | 1.898e-06 |
 | circle (`cci`) | 525 | 0.040405936179 | 0.040404296082 | 1.640e-06 |
+| circle (`cci`) | 528 | 0.040334242877 | 0.040332669133 | 1.574e-06 |
 | circle (`cci`) | 531 | 0.040212384905 | 0.040207596707 | 4.788e-06 |
 | circle (`cci`) | 536 | 0.040010349614 | 0.040005363170 | 4.986e-06 |
 | circle (`cci`) | 548 | 0.039533917271 | 0.039533765655 | 1.516e-07 |
@@ -2112,6 +2114,7 @@ no floating point; see the README). Gains below
 | circle (`cci`) | 587 | 0.038225494411 | 0.038220907160 | 4.587e-06 |
 | circle (`cci`) | 588 | 0.038201961787 | 0.038192988850 | 8.973e-06 |
 | circle (`cci`) | 589 | 0.038175908017 | 0.038169340684 | 6.567e-06 |
+| circle (`cci`) | 592 | 0.038097566693 | 0.038095210632 | 2.356e-06 |
 | circle (`cci`) | 594 | 0.038034423429 | 0.038030975455 | 3.448e-06 |
 | circle (`cci`) | 603 | 0.037750799930 | 0.037747140179 | 3.660e-06 |
 | circle (`cci`) | 604 | 0.037734274863 | 0.037721886690 | 1.239e-05 |
