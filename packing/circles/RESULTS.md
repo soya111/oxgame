@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-17 11:02 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-17 14:02 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3244)
+## Better than the published record (3246)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1432,6 +1432,7 @@ no floating point; see the README). Gains below
 | right triangle (`crt`) | 150 | 0.029530963254 | 0.029530381065 | 5.822e-07 |
 | right triangle (`crt`) | 151 | 0.029415950559 | 0.029413401175 | 2.549e-06 |
 | right triangle (`crt`) | 152 | 0.029352363348 | 0.029338442723 | 1.392e-05 |
+| right triangle (`crt`) | 153 | 0.029248351149 | 0.029247865957 | 4.852e-07 |
 | right triangle (`crt`) | 155 | 0.029065520033 | 0.029064617490 | 9.025e-07 |
 | right triangle (`crt`) | 156 | 0.028967336215 | 0.028967184576 | 1.516e-07 |
 | right triangle (`crt`) | 157 | 0.028891748570 | 0.028889885197 | 1.863e-06 |
@@ -3036,6 +3037,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 135 | 0.071790710814 | 0.071776085354 | 1.463e-05 |
 | 6-gon (`chx`) | 137 | 0.071450862968 | 0.071443436917 | 7.426e-06 |
 | 6-gon (`chx`) | 138 | 0.071370251278 | 0.071369724497 | 5.268e-07 |
+| 6-gon (`chx`) | 141 | 0.070382875306 | 0.070381238620 | 1.637e-06 |
 | 6-gon (`chx`) | 142 | 0.070176197677 | 0.070171606414 | 4.591e-06 |
 | 6-gon (`chx`) | 143 | 0.070122385809 | 0.070119145437 | 3.240e-06 |
 | 6-gon (`chx`) | 145 | 0.069895463929 | 0.069894227172 | 1.237e-06 |
