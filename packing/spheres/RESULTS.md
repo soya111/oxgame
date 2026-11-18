@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-18 16:39 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-18 19:39 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -21,17 +21,19 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (127)
+## scu (130)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
 | 150 | 0.096785145431 | 0.096773128712 | 1.202e-05 | search |
 | 151 | 0.096558259983 | 0.096537083462 | 2.118e-05 | search |
 | 201 | 0.088571364151 | 0.088560451341 | 1.091e-05 | search |
+| 202 | 0.088431327834 | 0.088421369699 | 9.958e-06 | search |
 | 204 | 0.088071659175 | 0.088071103541 | 5.556e-07 | polish |
 | 206 | 0.087829751249 | 0.087644842398 | 1.849e-04 | search |
 | 207 | 0.087661451946 | 0.087581768196 | 7.968e-05 | search |
 | 208 | 0.087562049656 | 0.087540277098 | 2.177e-05 | search |
+| 209 | 0.087513096682 | 0.087503844979 | 9.252e-06 | search |
 | 221 | 0.086448554917 | 0.086206896552 | 2.417e-04 | search |
 | 224 | 0.085576648362 | 0.085556708956 | 1.994e-05 | search |
 | 225 | 0.085378178101 | 0.085354363636 | 2.381e-05 | search |
@@ -50,6 +52,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 291 | 0.079041006473 | 0.078989089361 | 5.192e-05 | search |
 | 292 | 0.078894296057 | 0.078885616325 | 8.680e-06 | search |
 | 295 | 0.078512809941 | 0.078505505487 | 7.304e-06 | polish |
+| 298 | 0.078253517985 | 0.078251189947 | 2.328e-06 | search |
 | 300 | 0.078101106412 | 0.077973429717 | 1.277e-04 | search |
 | 301 | 0.077979094611 | 0.077976106152 | 2.988e-06 | polish |
 | 302 | 0.077948814192 | 0.077948392224 | 4.220e-07 | polish |
