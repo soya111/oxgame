@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-20 12:27 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-20 15:27 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (3235)
+## Better than the published record (3237)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -420,6 +420,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 236 | 0.028562393668 | 0.028560860268 | 1.533e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 237 | 0.028557820927 | 0.028557716424 | 1.045e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 239 | 0.028273579889 | 0.028261091571 | 1.249e-05 |
+| 1 x 0.7 rectangle (`crc_700`) | 241 | 0.028109176110 | 0.028109017079 | 1.590e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 242 | 0.028023195840 | 0.028015874676 | 7.321e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 243 | 0.027961219847 | 0.027942060177 | 1.916e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 244 | 0.027930157982 | 0.027916022465 | 1.414e-05 |
@@ -2802,6 +2803,7 @@ no floating point; see the README). Gains below
 | square (`csq`) | 2076 | 0.011645356633 | 0.011644707774 | 6.489e-07 |
 | square (`csq`) | 2159 | 0.011406655148 | 0.011404735798 | 1.919e-06 |
 | square (`csq`) | 2220 | 0.011290987223 | 0.011272520680 | 1.847e-05 |
+| square (`csq`) | 2262 | 0.011166621049 | 0.011150503482 | 1.612e-05 |
 | square (`csq`) | 2263 | 0.011166557335 | 0.011148854151 | 1.770e-05 |
 | square (`csq`) | 2310 | 0.011080645833 | 0.011080535946 | 1.099e-07 |
 | square (`csq`) | 2403 | 0.010864616427 | 0.010864297503 | 3.189e-07 |
