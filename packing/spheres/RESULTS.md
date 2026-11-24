@@ -1,6 +1,6 @@
 # Spheres in a ball or cube: results
 
-Updated 2026-11-24 06:26 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
+Updated 2026-11-24 09:27 UTC. Records: Packomania's ssp, scu and hsp4-hsp6 tables (`circles/records/`, fetch dates in its README).
 Every packing listed is proven valid by `tools/sphere_results.py` (exact rational arithmetic).
 Gains below 1e-07 are not counted. *polish*: local optimization of the published packing only;
 *search*: an arrangement found by the search.
@@ -22,7 +22,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 586 | 0.101083389555 | 0.101080252287 | 3.137e-06 | search |
 | 965 | 0.085961827090 | 0.085959637651 | 2.189e-06 | polish |
 
-## scu (143)
+## scu (148)
 
 | N | r (this search) | r (record) | gain | kind |
 |---|---|---|---|---|
@@ -112,6 +112,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 511 | 0.065892852717 | 0.065892564564 | 2.882e-07 | search |
 | 515 | 0.065873634607 | 0.065868028727 | 5.606e-06 | search |
 | 517 | 0.065860271236 | 0.065860034553 | 2.367e-07 | search |
+| 520 | 0.065855637388 | 0.065853699254 | 1.938e-06 | search |
 | 539 | 0.065326449912 | 0.065307667610 | 1.878e-05 | search |
 | 551 | 0.064970810142 | 0.064848646558 | 1.222e-04 | search |
 | 555 | 0.064366864624 | 0.064269785995 | 9.708e-05 | search |
@@ -141,6 +142,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 684 | 0.060271872978 | 0.060227353034 | 4.452e-05 | search |
 | 685 | 0.060271481960 | 0.060258935957 | 1.255e-05 | search |
 | 727 | 0.059348011197 | 0.058821869381 | 5.261e-04 | search |
+| 729 | 0.058827524009 | 0.058821869381 | 5.655e-06 | search |
 | 733 | 0.058943651436 | 0.058821869381 | 1.218e-04 | search |
 | 736 | 0.058775683678 | 0.058751193545 | 2.449e-05 | search |
 | 737 | 0.058723385908 | 0.058714380102 | 9.006e-06 | search |
@@ -155,6 +157,8 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 804 | 0.057039762485 | 0.057031365161 | 8.397e-06 | search |
 | 805 | 0.057033602207 | 0.057032736253 | 8.660e-07 | polish |
 | 806 | 0.057013595176 | 0.056998279608 | 1.532e-05 | search |
+| 813 | 0.056960021460 | 0.056959450362 | 5.711e-07 | search |
+| 865 | 0.056401967782 | 0.056157206365 | 2.448e-04 | search |
 | 871 | 0.056051168635 | 0.055949877331 | 1.013e-04 | search |
 | 872 | 0.055835945128 | 0.055800272810 | 3.567e-05 | search |
 | 877 | 0.055746162712 | 0.055688699744 | 5.746e-05 | search |
@@ -168,6 +172,7 @@ Gains below 1e-07 are not counted. *polish*: local optimization of the published
 | 940 | 0.054565820440 | 0.054393412942 | 1.724e-04 | polish |
 | 941 | 0.054393736367 | 0.054390502036 | 3.234e-06 | polish |
 | 949 | 0.054250538605 | 0.054226942700 | 2.360e-05 | search |
+| 964 | 0.054133590374 | 0.054130226857 | 3.364e-06 | search |
 | 975 | 0.054067097953 | 0.054058573263 | 8.525e-06 | search |
 
 Matched or passed by a later update of the record table (kept in `spheres/best/scu/`, not counted):
