@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-25 13:41 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-25 16:41 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2960)
+## Better than the published record (2961)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -2787,6 +2787,7 @@ no floating point; see the README). Gains below
 | 6-gon (`chx`) | 275 | 0.051027218519 | 0.051009126898 | 1.809e-05 |
 | 6-gon (`chx`) | 277 | 0.050788584658 | 0.050787008596 | 1.576e-06 |
 | 6-gon (`chx`) | 278 | 0.050743248654 | 0.050740467216 | 2.781e-06 |
+| 6-gon (`chx`) | 282 | 0.050267155250 | 0.050260905545 | 6.250e-06 |
 | 6-gon (`chx`) | 285 | 0.050069993814 | 0.050063794978 | 6.199e-06 |
 | 6-gon (`chx`) | 286 | 0.050013459668 | 0.050009281447 | 4.178e-06 |
 | 6-gon (`chx`) | 297 | 0.049252902344 | 0.049251661964 | 1.240e-06 |
