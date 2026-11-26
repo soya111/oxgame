@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-26 10:44 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-26 13:45 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2964)
+## Better than the published record (2968)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -367,6 +367,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 162 | 0.034009203809 | 0.033926742206 | 8.246e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 163 | 0.033859175453 | 0.033827232055 | 3.194e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 164 | 0.033771191840 | 0.033760957333 | 1.023e-05 |
+| 1 x 0.7 rectangle (`crc_700`) | 165 | 0.033712030071 | 0.033697316187 | 1.471e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 167 | 0.033610066348 | 0.033605330945 | 4.735e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 169 | 0.033425254093 | 0.033424655209 | 5.989e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 170 | 0.033382388826 | 0.033381979966 | 4.089e-07 |
@@ -470,6 +471,7 @@ no floating point; see the README). Gains below
 | 1 x 0.7 rectangle (`crc_700`) | 292 | 0.025512051496 | 0.025511021210 | 1.030e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 294 | 0.025434250052 | 0.025433967184 | 2.829e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 295 | 0.025397541552 | 0.025383463718 | 1.408e-05 |
+| 1 x 0.7 rectangle (`crc_700`) | 296 | 0.025380826540 | 0.025374385974 | 6.441e-06 |
 | 1 x 0.7 rectangle (`crc_700`) | 298 | 0.025305304995 | 0.025304544133 | 7.609e-07 |
 | 1 x 0.7 rectangle (`crc_700`) | 299 | 0.025264109047 | 0.025249989843 | 1.412e-05 |
 | 1 x 0.7 rectangle (`crc_700`) | 300 | 0.025233179236 | 0.025230936528 | 2.243e-06 |
@@ -2699,7 +2701,9 @@ no floating point; see the README). Gains below
 | 5-gon (`cpt`) | 158 | 0.063129349669 | 0.063128021010 | 1.329e-06 |
 | 5-gon (`cpt`) | 160 | 0.062743631070 | 0.062737965620 | 5.665e-06 |
 | 5-gon (`cpt`) | 164 | 0.061964898725 | 0.061963172335 | 1.726e-06 |
+| 5-gon (`cpt`) | 165 | 0.061769542233 | 0.061769355491 | 1.867e-07 |
 | 5-gon (`cpt`) | 166 | 0.061568082157 | 0.061559614133 | 8.468e-06 |
+| 5-gon (`cpt`) | 167 | 0.061377450818 | 0.061377202938 | 2.479e-07 |
 | 5-gon (`cpt`) | 168 | 0.061199588895 | 0.061197868747 | 1.720e-06 |
 | 5-gon (`cpt`) | 169 | 0.061046814101 | 0.061039784632 | 7.029e-06 |
 | 5-gon (`cpt`) | 170 | 0.060870995993 | 0.060870040510 | 9.555e-07 |
