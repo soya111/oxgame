@@ -1,11 +1,11 @@
 # Circles in regular polygons and other containers: results
 
-Updated 2026-11-26 01:43 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
+Updated 2026-11-26 04:43 UTC. Records are the Packomania tables in `records/` (see records/README.md for dates).
 Every packing listed here is proven valid by `tools/exact_verify.py` (exact rational arithmetic,
 no floating point; see the README). Gains below
 1e-07 (what re-polishing a published packing can give) are not counted.
 
-## Better than the published record (2962)
+## Better than the published record (2963)
 
 | container | N | r (this search) | r (record) | gain |
 |---|---|---|---|---|
@@ -1694,6 +1694,7 @@ no floating point; see the README). Gains below
 | quarter disk (`ccq`) | 229 | 0.030390859565 | 0.030389743945 | 1.116e-06 |
 | quarter disk (`ccq`) | 230 | 0.030341610479 | 0.030327668614 | 1.394e-05 |
 | quarter disk (`ccq`) | 231 | 0.030265744558 | 0.030262707641 | 3.037e-06 |
+| quarter disk (`ccq`) | 232 | 0.030186436769 | 0.030185107209 | 1.330e-06 |
 | quarter disk (`ccq`) | 233 | 0.030133106224 | 0.030132018393 | 1.088e-06 |
 | quarter disk (`ccq`) | 234 | 0.030074825699 | 0.030072291535 | 2.534e-06 |
 | quarter disk (`ccq`) | 235 | 0.030013730083 | 0.030013466413 | 2.637e-07 |
